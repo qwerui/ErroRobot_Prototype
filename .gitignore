@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 #VSCode
 .vscode/
+
+#TestCode
+[Aa]ssets/[Tt]estFolder/*

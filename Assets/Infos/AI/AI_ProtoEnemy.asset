@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1355274321795911807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f114955651cc41449bed3461b531d6b1, type: 3}
+  m_Name: RootNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: a04cc36177938c44ea139985b394afca
+  postion: {x: 311, y: 48}
+  blackboard: {fileID: 0}
+  description: 
+  child: {fileID: -802345862656846842}
+--- !u!114 &-802345862656846842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd089a9299414db49b8e2314920f6709, type: 3}
+  m_Name: SelectorNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 2cc805dc6c7ff3e469b10619523ec564
+  postion: {x: 297, y: 281}
+  blackboard: {fileID: 0}
+  description: 
+  children: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9d341e522b3541409b1815cb8e26f9a, type: 3}
+  m_Name: AI_ProtoEnemy
+  m_EditorClassIdentifier: 
+  rootNode: {fileID: -1355274321795911807}
+  treeState: 0
+  repeat: 0
+  nodes:
+  - {fileID: -1355274321795911807}
+  - {fileID: -802345862656846842}
+  blackboard: {fileID: 0}
