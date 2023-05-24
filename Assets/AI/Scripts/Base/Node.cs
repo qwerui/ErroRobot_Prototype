@@ -21,6 +21,7 @@ namespace AI.BehaviorTree
         [HideInInspector] public string guid;
         [HideInInspector] public Vector2 postion;
         [HideInInspector] public Blackboard blackboard;
+        [HideInInspector] public GameObject self;
         [TextArea] public string description;
 
         public State Update()

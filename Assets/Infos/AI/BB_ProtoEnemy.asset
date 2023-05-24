@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63995b85a83a71a45b2f481b3e939536, type: 3}
-  m_Name: TestBlackboard
+  m_Script: {fileID: 11500000, guid: 45cd6541025863f4dad55100de67190b, type: 3}
+  m_Name: BB_ProtoEnemy
   m_EditorClassIdentifier: 
-  temp1: 0
-  temp2: 0
-  temp3: {x: 0, y: 0}

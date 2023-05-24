@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using AI.BehaviorTree;
 
 namespace Enemy
 {
@@ -11,31 +12,36 @@ namespace Enemy
         float speed;
         [SerializeField]
         float hp;
+        [SerializeField]
+        float armor;
 
         NavMeshAgent agent;
+        protected BehaviorTreeRunner treeRunner;
 
         protected virtual void Awake() 
         {
             TryGetComponent<NavMeshAgent>(out agent);
+            TryGetComponent<BehaviorTreeRunner>(out treeRunner);
             agent.speed = speed;
         }
 
         protected virtual void Start()
         {
-            if(agent.destination != null)
+
+        }
+
+        public void Damaged(float damage)
+        {
+            hp -= damage;
+            if(hp <= 0)
             {
-                agent.Move(Vector3.zero);
+                OnDead();
             }
         }
 
-        public void SetDestination(Vector3 target)
+        void OnDead()
         {
-            agent.SetDestination(target);
-        }
-
-        public void Damaged()
-        {
-
+            Destroy(gameObject);
         }
     }
 }

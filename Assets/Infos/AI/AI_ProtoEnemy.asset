@@ -15,29 +15,11 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: a04cc36177938c44ea139985b394afca
-  postion: {x: 311, y: 48}
-  blackboard: {fileID: 0}
+  postion: {x: 314, y: 46}
+  blackboard: {fileID: 11400000, guid: e7fa3f9546d943f48ab04d4a9fa1a52e, type: 2}
+  self: {fileID: 0}
   description: 
-  child: {fileID: -802345862656846842}
---- !u!114 &-802345862656846842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd089a9299414db49b8e2314920f6709, type: 3}
-  m_Name: SelectorNode
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 2cc805dc6c7ff3e469b10619523ec564
-  postion: {x: 297, y: 281}
-  blackboard: {fileID: 0}
-  description: 
-  children: []
+  child: {fileID: 586377325103684548}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,5 +37,26 @@ MonoBehaviour:
   repeat: 0
   nodes:
   - {fileID: -1355274321795911807}
-  - {fileID: -802345862656846842}
-  blackboard: {fileID: 0}
+  - {fileID: 586377325103684548}
+  blackboard: {fileID: 11400000, guid: e7fa3f9546d943f48ab04d4a9fa1a52e, type: 2}
+  self: {fileID: 0}
+--- !u!114 &586377325103684548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a311b7e810fbb47a736cc6aafe8f54, type: 3}
+  m_Name: MoveToObject
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 6affad7cc26b1964ab14a688293f04b9
+  postion: {x: 312, y: 275}
+  blackboard: {fileID: 11400000, guid: e7fa3f9546d943f48ab04d4a9fa1a52e, type: 2}
+  self: {fileID: 0}
+  description: 
+  acceptanceRadius: 50

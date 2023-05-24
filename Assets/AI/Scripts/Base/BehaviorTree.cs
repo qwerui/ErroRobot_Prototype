@@ -15,6 +15,7 @@ namespace AI.BehaviorTree
         public bool repeat = false;
         public List<Node> nodes = new List<Node>();
         public Blackboard blackboard;
+        [HideInInspector] public GameObject self;
 
         public Node.State Update()
         {
@@ -166,14 +167,16 @@ namespace AI.BehaviorTree
             BehaviorTree tree = Instantiate(this);
             tree.rootNode = tree.rootNode.Clone();
             tree.nodes = new List<Node>();
+            tree.blackboard = blackboard.Clone();
             Traverse(tree.rootNode, n => tree.nodes.Add(n));
             return tree;
         }
 
-        public void Bind()
+        public void Bind(GameObject self)
         {
             Traverse(rootNode, node => {
                 node.blackboard = blackboard;
+                node.self = self;
             });
         }
     }

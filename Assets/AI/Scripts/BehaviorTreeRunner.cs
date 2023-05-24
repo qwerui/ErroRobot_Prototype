@@ -7,15 +7,23 @@ public class BehaviorTreeRunner : MonoBehaviour
 {
     public BehaviorTree tree;
 
-    void Start()
+    bool isRunning = false;
+
+    public void Awake()
     {
         tree = tree.Clone();
-        tree.Bind();
+        tree.Bind(gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
-        tree.Update();
+        if(isRunning)
+        {
+            tree.Update();
+        }
     }
+
+    public void RunTree() => isRunning = true;
+    public void StopTree() => isRunning = false;
 }
