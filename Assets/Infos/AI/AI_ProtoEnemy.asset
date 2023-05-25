@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1355274321795911807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f114955651cc41449bed3461b531d6b1, type: 3}
+  m_Name: RootNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: a04cc36177938c44ea139985b394afca
+  postion: {x: 314, y: 46}
+  blackboard: {fileID: 11400000, guid: e7fa3f9546d943f48ab04d4a9fa1a52e, type: 2}
+  self: {fileID: 0}
+  description: 
+  child: {fileID: 586377325103684548}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9d341e522b3541409b1815cb8e26f9a, type: 3}
+  m_Name: AI_ProtoEnemy
+  m_EditorClassIdentifier: 
+  rootNode: {fileID: -1355274321795911807}
+  treeState: 0
+  repeat: 0
+  nodes:
+  - {fileID: -1355274321795911807}
+  - {fileID: 586377325103684548}
+  blackboard: {fileID: 11400000, guid: e7fa3f9546d943f48ab04d4a9fa1a52e, type: 2}
+  self: {fileID: 0}
+--- !u!114 &586377325103684548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a311b7e810fbb47a736cc6aafe8f54, type: 3}
+  m_Name: MoveToObject
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 6affad7cc26b1964ab14a688293f04b9
+  postion: {x: 312, y: 275}
+  blackboard: {fileID: 11400000, guid: e7fa3f9546d943f48ab04d4a9fa1a52e, type: 2}
+  self: {fileID: 0}
+  description: 
+  acceptanceRadius: 50
