@@ -17,7 +17,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //컨트롤러 종류에 따른 스크립트
     IControllerPlatform controllerPlatform;
+    //컨트롤러는 스택으로 관리
+    //Top이 현재 사용중인 컨트롤러
     Stack<IControllerBase> controllerStack = new Stack<IControllerBase>();
 
     public static void Init()
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        //키보드 입력 시 키보드 컨트롤러로 전환
         if(!(controllerPlatform is KeyboardController) && Input.anyKeyDown)
         {
             controllerPlatform = new KeyboardController();
