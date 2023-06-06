@@ -13,6 +13,9 @@ namespace StartMenu
         private void Awake() 
         {
             menuIndex = 0;
+            var controller = ControllerFactory.CreateController<StartMenuController>();
+            controller.startMenuManager = this;
+            PlayerController.instance.AddController(controller);
         }
 
         void Start()
@@ -28,8 +31,7 @@ namespace StartMenu
         {
             menuOptionList[menuIndex].Deselect();
             
-            //임시코드
-            menuIndex += direction < 0 ? -1 : 1;
+            menuIndex += direction < 0 ? 1 : -1;
 
             menuIndex = Mathf.Clamp(menuIndex, 0, menuOptionList.Count-1);
             menuOptionList[menuIndex].Select();

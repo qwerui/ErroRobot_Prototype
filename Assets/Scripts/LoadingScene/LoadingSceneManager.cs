@@ -9,6 +9,8 @@ public class LoadingSceneManager : MonoBehaviour
 
     void Start()
     {
+        PlayerController.instance.ClearController();
+        System.GC.Collect(); //로딩 중에 GC 호출
         StartCoroutine(LoadSceneAsync());
     }
 

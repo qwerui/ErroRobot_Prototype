@@ -17,6 +17,7 @@ namespace Enemy
 
         NavMeshAgent agent;
         protected BehaviorTreeRunner treeRunner;
+        public GameObject target;
 
         protected virtual void Awake() 
         {
