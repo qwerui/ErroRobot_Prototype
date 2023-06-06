@@ -10,6 +10,7 @@ namespace Enemy
         [SerializeField] int height;
 
         public EnemyBase TempEnemy;
+        public GameObject targetPostion; //임시 위치
 
         List<EnemyBase> nextEnemyList;
 
@@ -21,7 +22,7 @@ namespace Enemy
         private void Start() 
         {
             //웨이브 종료 시 적 리스트를 초기화하기 때문에 호출
-            OnWaveEnd();    
+            OnWaveEnd();
         }
 
         ///<summary>
@@ -42,8 +43,10 @@ namespace Enemy
                 //instantiate
                 spawnPosition = transform.position;
                 spawnPosition.x = transform.position.x + Random.Range(-width, width);
+                spawnPosition.y = 10; //임시 좌표
                 spawnPosition.z = transform.position.z + Random.Range(-height, height);
-                Instantiate<EnemyBase>(nextEnemyList[index++], spawnPosition, Quaternion.identity);
+                var spawned = Instantiate<EnemyBase>(nextEnemyList[index++], spawnPosition, Quaternion.identity);
+                spawned.target = targetPostion;
                 yield return delayTime;
             }
         }
@@ -57,6 +60,11 @@ namespace Enemy
         public void OnWaveEnd()
         {
             nextEnemyList.Clear();
+            //임시 생성
+            for(int i=0;i<10;i++)
+            {
+                nextEnemyList.Add(TempEnemy);
+            }
         }
 
         //생성 범위 표시

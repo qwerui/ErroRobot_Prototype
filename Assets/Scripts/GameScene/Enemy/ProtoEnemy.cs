@@ -6,8 +6,6 @@ namespace Enemy
 {
     public class ProtoEnemy : EnemyBase
     {
-        public GameObject target;
-
         protected override void Start()
         {
             base.Start();
