@@ -15,6 +15,8 @@ namespace Enemy
         [SerializeField]
         float armor;
 
+        GameObject phaseManager;
+
         NavMeshAgent agent;
         protected BehaviorTreeRunner treeRunner;
         public GameObject target;
@@ -24,6 +26,9 @@ namespace Enemy
             TryGetComponent<NavMeshAgent>(out agent);
             TryGetComponent<BehaviorTreeRunner>(out treeRunner);
             agent.speed = speed;
+
+            phaseManager = GameObject.Find("PhaseManager");
+            phaseManager.GetComponent<PhaseManager>().remainEnemy += 1;
         }
 
         protected virtual void Start()
@@ -43,6 +48,7 @@ namespace Enemy
         void OnDead()
         {
             Destroy(gameObject);
+            phaseManager.GetComponent<PhaseManager>().remainEnemy -= 1;
         }
     }
 }
