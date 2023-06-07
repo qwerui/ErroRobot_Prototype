@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DefenceController : IControllerBase
 {
-    public Weapon weapon;
 
     public void OnNavigate(Vector2 direction, InputEvent inputEvent)
     {
@@ -15,7 +14,7 @@ public class DefenceController : IControllerBase
     {
         if(inputEvent == InputEvent.Pressed)
         {
-            weapon?.OnFire();
+
         }
     }
 }
