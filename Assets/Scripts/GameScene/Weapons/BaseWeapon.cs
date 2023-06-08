@@ -6,31 +6,31 @@ using UnityEngine;
 public class BaseWeapon : MonoBehaviour
 {
 
-    // ¸ğµç ¹«±âµéÀÇ ºÎ¸ğ Å¬·¡½º°¡ µË´Ï´Ù.
+    // ëª¨ë“  ë¬´ê¸°ë“¤ì˜ ë¶€ëª¨ í´ë˜ìŠ¤ê°€ ë©ë‹ˆë‹¤.
 
-    public string name; // ÀÌ¸§
-    public float accuracy; // Á¤È®µµ, ³·À» ¼ö·Ï Á¤È®ÇÔ
-    public float bulletSpeed; // Åº¼Ó, ³ôÀ» ¼ö·Ï ºü¸§
-    public float fireDelay; // ¿¬»ç ¼Óµµ, ³·À» ¼ö·Ï ºü¸§
-    public float reloadDelay; // ÀåÀü ½Ã°£
+    public string name; // ì´ë¦„
+    public float accuracy; // ì •í™•ë„, ë‚®ì„ ìˆ˜ë¡ ì •í™•í•¨
+    public float bulletSpeed; // íƒ„ì†, ë†’ì„ ìˆ˜ë¡ ë¹ ë¦„
+    public float fireDelay; // ì—°ì‚¬ ì†ë„, ë‚®ì„ ìˆ˜ë¡ ë¹ ë¦„
+    public float reloadDelay; // ì¥ì „ ì‹œê°„
 
-    public int damage; // ´ë¹ÌÁö
-    public int maxBulletCount; // ÀåÀü ½Ã ÃÑ¾Ë °³¼ö
-    public int nowBulletCount; // ÇöÀç ÃÑ¾Ë °³¼ö
+    public int damage; // ëŒ€ë¯¸ì§€
+    public int maxBulletCount; // ì¥ì „ ì‹œ ì´ì•Œ ê°œìˆ˜
+    public int nowBulletCount; // í˜„ì¬ ì´ì•Œ ê°œìˆ˜
 
-    public float reboundHorizontalAmount; // ÁÂ¿ì·Î Æ¢´Â ¹İµ¿
-    public float reboundVerticalAmount; // À§·Î Æ¢´Â ¹İµ¿
+    public float reboundHorizontalAmount; // ì¢Œìš°ë¡œ íŠ€ëŠ” ë°˜ë™
+    public float reboundVerticalAmount; // ìœ„ë¡œ íŠ€ëŠ” ë°˜ë™
 
-    public ParticleSystem fireParticle; // ÃÑ ÆÄÆ¼Å¬
-    public AudioClip fireSound; // ÃÑ °İ¹ß ¼Ò¸®
+    public ParticleSystem fireParticle; // ì´ íŒŒí‹°í´
+    public AudioClip fireSound; // ì´ ê²©ë°œ ì†Œë¦¬
 
-    public BaseBullet bullet; // ÃÑ¾Ë Å¬·¡½º
+    public BaseBullet bullet; // ì´ì•Œ í´ë˜ìŠ¤
 
-    // TODO : Àû¿ë ½Ã ¾Ö´Ï¸ÅÀÌ¼ÇÀº?
+    // TODO : ì ìš© ì‹œ ì• ë‹ˆë§¤ì´ì…˜ì€?
 
 
-    // ±âº»ÀûÀÎ ¹ß»ç ·ÎÁ÷. ´ëºÎºĞÀÇ ¹«±â°¡ ÀÌ ·ÎÁ÷À» »ç¿ë
-    // ±ËÀûÀÌ ÈÖ´Â ÃÑ... µî Æ¯¼öÇÑ ±â¹ÍÀÌ ÀÖ´Â ¹«±â´Â ÇØ´ç ·ÎÁ÷À» »ç¿ëÇÏÁö ¾ÊÀ» ¿¹Á¤
+    // ê¸°ë³¸ì ì¸ ë°œì‚¬ ë¡œì§. ëŒ€ë¶€ë¶„ì˜ ë¬´ê¸°ê°€ ì´ ë¡œì§ì„ ì‚¬ìš©
+    // ê¶¤ì ì´ íœ˜ëŠ” ì´... ë“± íŠ¹ìˆ˜í•œ ê¸°ë¯¹ì´ ìˆëŠ” ë¬´ê¸°ëŠ” í•´ë‹¹ ë¡œì§ì„ ì‚¬ìš©í•˜ì§€ ì•Šì„ ì˜ˆì •
     public void Shoot(Transform firePos)
     {
         GameObject bullet = Instantiate(this.bullet.bulletPrefab, firePos.transform.position, firePos.transform.rotation);
@@ -39,12 +39,12 @@ public class BaseWeapon : MonoBehaviour
     }
 
 
-    // ±âº»ÀûÀÎ ÃÑ¾Ë ÇÇ°İ ·ÎÁ÷. ´ëºÎºĞÀÇ ¹«±â°¡ ÀÌ ·ÎÁ÷À» »ç¿ë
-    // ´ë¹ÌÁö ¾øÀÌ Æø¹ß¸¸ ÀÏÀ¸Å°´Â ÃÑ¾Ë... µî Æ¯¼öÇÑ ±â¹ÍÀÌ ÀÖ´Â ¹«±â´Â ÇØ´ç ·ÎÁ÷À» »ç¿ëÇÏÁö ¾ÊÀ» ¿¹Á¤
+    // ê¸°ë³¸ì ì¸ ì´ì•Œ í”¼ê²© ë¡œì§. ëŒ€ë¶€ë¶„ì˜ ë¬´ê¸°ê°€ ì´ ë¡œì§ì„ ì‚¬ìš©
+    // ëŒ€ë¯¸ì§€ ì—†ì´ í­ë°œë§Œ ì¼ìœ¼í‚¤ëŠ” ì´ì•Œ... ë“± íŠ¹ìˆ˜í•œ ê¸°ë¯¹ì´ ìˆëŠ” ë¬´ê¸°ëŠ” í•´ë‹¹ ë¡œì§ì„ ì‚¬ìš©í•˜ì§€ ì•Šì„ ì˜ˆì •
     public void OnHit(GameObject target)
     {
 
-        // Àû Ã¼·Â °¨¼Ò
+        // ì  ì²´ë ¥ ê°ì†Œ
         if(target.tag == "Enemy")
         {
             target.GetComponent<EnemyBase>().Damaged(damage);

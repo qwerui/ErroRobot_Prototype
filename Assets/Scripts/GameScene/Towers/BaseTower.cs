@@ -7,30 +7,30 @@ public class BaseTower : MonoBehaviour
 {
 
     /*
-     * TODO : Æ÷Å¾ÀÇ ¼ºÁúÀ» ÀçÁ¤ÀÇÇÒ ÇÊ¿ä°¡ ÀÖÀ½
-     * ¹«±â ÀÚµ¿¹ß»ç¶ó¸é => ±»ÀÌ BaseTower / BaseWeapon ±¸ºĞ ÇÊ¿ä ¾øÀÌ BaseWeapon ÇÏ³ª·Î ÅüÄ¥ ¼ö ÀÖÁö ¾Ê³ª?
+     * TODO : í¬íƒ‘ì˜ ì„±ì§ˆì„ ì¬ì •ì˜í•  í•„ìš”ê°€ ìˆìŒ
+     * ë¬´ê¸° ìë™ë°œì‚¬ë¼ë©´ => êµ³ì´ BaseTower / BaseWeapon êµ¬ë¶„ í•„ìš” ì—†ì´ BaseWeapon í•˜ë‚˜ë¡œ í‰ì¹  ìˆ˜ ìˆì§€ ì•Šë‚˜?
      */
 
-    [SerializeField] public string towerName; // ÀÌ¸§
-    [SerializeField] public float range; // Æ÷Å¾ »çÁ¤°Å¸®
+    [SerializeField] public string towerName; // ì´ë¦„
+    [SerializeField] public float range; // í¬íƒ‘ ì‚¬ì •ê±°ë¦¬
 
-    [SerializeField] public int damage; // ´ë¹ÌÁö
-    [SerializeField] public float accuracy; // Á¤È®µµ
-    [SerializeField] public float fireDelay; // ¿¬»ç¼Óµµ
+    [SerializeField] public int damage; // ëŒ€ë¯¸ì§€
+    [SerializeField] public float accuracy; // ì •í™•ë„
+    [SerializeField] public float fireDelay; // ì—°ì‚¬ì†ë„
 
-    [SerializeField] public LayerMask layerMask; // Å¸°Ù ÁöÁ¤ ·¹ÀÌ¾î ¸¶½ºÅ© (Àû¸¸ ÁöÁ¤)
+    [SerializeField] public LayerMask layerMask; // íƒ€ê²Ÿ ì§€ì • ë ˆì´ì–´ ë§ˆìŠ¤í¬ (ì ë§Œ ì§€ì •)
 
 
-    private float nowFireDelay; // °İ¹ß °è»ê¿ë ÇöÀç °İ¹ß ÈÄ µô·¹ÀÌ(0µÇ¸é ¹ß»ç)
-    private RaycastHit hitInfo; // ¸ÂÀº ´ë»ó Á¤º¸
+    private float nowFireDelay; // ê²©ë°œ ê³„ì‚°ìš© í˜„ì¬ ê²©ë°œ í›„ ë”œë ˆì´(0ë˜ë©´ ë°œì‚¬)
+    private RaycastHit hitInfo; // ë§ì€ ëŒ€ìƒ ì •ë³´
 
-    private bool isFindTarget = false; // Å¸°Ù ¹ß°ß ½Ã True·Î µÊ
-    private bool isAttack = false; // °ø°İ Áß...
+    private bool isFindTarget = false; // íƒ€ê²Ÿ ë°œê²¬ ì‹œ Trueë¡œ ë¨
+    private bool isAttack = false; // ê³µê²© ì¤‘...
 
-    [SerializeField] private Transform tf_TopGun; // Æ÷½Å
-    private Transform tf_Target; // ÇöÀç ¼³Á¤µÈ Å¸°ÙÀÇ Æ®·£½ºÆû
+    [SerializeField] private Transform tf_TopGun; // í¬ì‹ 
+    private Transform tf_Target; // í˜„ì¬ ì„¤ì •ëœ íƒ€ê²Ÿì˜ íŠ¸ëœìŠ¤í¼
 
-    [SerializeField] private float viewAngle; // ½Ã¾ß°¢
+    [SerializeField] private float viewAngle; // ì‹œì•¼ê°
 
     void Start()
     {
@@ -59,14 +59,14 @@ public class BaseTower : MonoBehaviour
                 Vector3 _direction = (target.transform.position - tf_TopGun.position).normalized;
                 float _angle = Vector3.Angle(_direction, tf_TopGun.forward);
 
-                // TODO : transform¿¡ ¼³Á¤µÈ ½Ã¾ß°¢°ú ÀÌ°Ô ¹«½¼ ¿¬°üÀÎÁö ¾Ë¾Æº¼°Í
+                // TODO : transformì— ì„¤ì •ëœ ì‹œì•¼ê°ê³¼ ì´ê²Œ ë¬´ìŠ¨ ì—°ê´€ì¸ì§€ ì•Œì•„ë³¼ê²ƒ
                 if (_angle < viewAngle * 0.5f)
                 {
                     tf_Target = target.transform;
                     isFindTarget = true;
 
-                    if (_angle < 5f) // °¢µµ Â÷ÀÌ ¾È³ª¸é
-                        isAttack = true; // °ø°İ ½ÃÀÛ
+                    if (_angle < 5f) // ê°ë„ ì°¨ì´ ì•ˆë‚˜ë©´
+                        isAttack = true; // ê³µê²© ì‹œì‘
                     else
                         isAttack = false;
 
@@ -75,7 +75,7 @@ public class BaseTower : MonoBehaviour
             }
         }
         
-        // Àû ¸øÃ£À¸¸é ¸®¼Â
+        // ì  ëª»ì°¾ìœ¼ë©´ ë¦¬ì…‹
         tf_Target = null;
         isAttack = false;
         isFindTarget = false;
@@ -111,7 +111,7 @@ public class BaseTower : MonoBehaviour
 
                     if (hitInfo.transform.tag == "Enemy")
                     {
-                        Debug.Log("¸ÂÀ½! " + hitInfo.transform.name);
+                        Debug.Log("ë§ìŒ! " + hitInfo.transform.name);
                         hitInfo.transform.GetComponent<EnemyBase>().Damaged(damage);
                     }
                 }

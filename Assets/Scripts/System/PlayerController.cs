@@ -59,6 +59,17 @@ public class PlayerController : MonoBehaviour
         controllerStack.Push(controller);
     }
 
+    public void DeleteController(IControllerBase controller)
+    {
+        if(controllerStack.Count > 0)
+        {
+            if(controllerStack.Peek() == controller)
+            {
+                controllerStack.Pop();
+            }
+        }
+    }
+
     public void ClearController()
     {
         controllerStack.Clear();

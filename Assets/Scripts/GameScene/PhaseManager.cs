@@ -9,56 +9,70 @@ public class PhaseManager : MonoBehaviour
     public bool isDefense = false;
     public int remainEnemy = 0;
 
+    public delegate void WaveStartDelegate();
+    public delegate void WaveEndDelegate();
+
+    public WaveStartDelegate OnWaveStart;
+    public WaveEndDelegate OnWaveEnd;
 
     [SerializeField] private GameObject go_defenseUI;
 
     void Start()
     {
-        // ½ÃÀÛÀº ¹æ¾î ¸ğµå
+        // ì‹œì‘ì€ ê±´ì„¤ ëª¨ë“œ
         isDefense = false;
     }
 
-    void Update()
+    public void UpdateRemainEnemy()
     {
-        /*Debug.Log("ÇöÀç »óÅÂ : " + isDefense);
-        Debug.Log("Àû »óÅÂ : " + remainEnemy);*/
-        if (isDefense)
+        remainEnemy--;
+        if(remainEnemy <= 0)
         {
-            if(remainEnemy == 0)
-            {
-                SetBuild();
-                Debug.Log("¹æ¾î Á¾·á");
-            }
-        }
-        else
-        {
-            // TODO : Á¶ÀÌ½ºÆ½À¸·Î Á¶ÀıÇÏ°Ô Ä¿¼­·Î ¿Å±â±â
-            if (Input.GetKey(KeyCode.E))
-            {
-                SetDefense();
-                Debug.Log("°Ç¼³ Á¾·á");
-            }
+            OnWaveEnd.Invoke();
         }
     }
 
+    // void Update()
+    // {
+    //     /*Debug.Log("í˜„ì¬ ìƒíƒœ : " + isDefense);
+    //     Debug.Log("ì  ìƒíƒœ : " + remainEnemy);*/
+    //     if (isDefense)
+    //     {
+    //         if(remainEnemy == 0)
+    //         {
+    //             SetBuild();
+    //             Debug.Log("ë°©ì–´ ì¢…ë£Œ");
+    //         }
+    //     }
+    //     else
+    //     {
+    //         // TODO : ì¡°ì´ìŠ¤í‹±ìœ¼ë¡œ ì¡°ì ˆí•˜ê²Œ ì»¤ì„œë¡œ ì˜®ê¸°ê¸°
+    //         if (Input.GetKey(KeyCode.E))
+    //         {
+    //             SetDefense();
+    //             Debug.Log("ê±´ì„¤ ì¢…ë£Œ");
+    //         }
+    //     }
+    // }
 
-    // ¿şÀÌºê ½ÃÀÛ
+
+    // ì›¨ì´ë¸Œ ì‹œì‘
     void SetDefense()
     {
-        GetComponent<EnemyManager>().OnWaveStart();
+        //GetComponent<EnemyManager>().OnWaveStart();
 
-        // °Ç¼³ ¸ğµå Àü¿ë UI ºñÈ°¼ºÈ­
-        go_defenseUI.SetActive(false);
+        // ê±´ì„¤ ëª¨ë“œ ì „ìš© UI ë¹„í™œì„±í™”
+        //go_defenseUI.SetActive(false);
     }
 
-    // °Ç¼³ ¸ğµå
+    // ê±´1ì„¤ ëª¨ë“œ
     void SetBuild()
     {
-        GetComponent<EnemyManager>().OnWaveEnd();
+        //GetComponent<EnemyManager>().OnWaveEnd();
 
-        // °Ç¼³ ¸ğµå Àü¿ë UI È°¼ºÈ­
-        go_defenseUI.SetActive(true);
+        // ê±´ì„¤ ëª¨ë“œ ì „ìš© UI í™œì„±í™”
+        //go_defenseUI.SetActive(true);
 
-        // TODO : UI Ä¿¼­ Á¶Á¤
+        // TODO : UI ì»¤ì„œ ì¡°ì •
     }
 }

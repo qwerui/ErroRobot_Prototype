@@ -13,9 +13,6 @@ namespace StartMenu
         private void Awake() 
         {
             menuIndex = 0;
-            var controller = ControllerFactory.CreateController<StartMenuController>();
-            controller.startMenuManager = this;
-            PlayerController.instance.AddController(controller);
         }
 
         void Start()

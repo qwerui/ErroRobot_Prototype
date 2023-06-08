@@ -6,33 +6,33 @@ public class WeaponController : MonoBehaviour
 
 {
 
-    // ÇöÀç ¼±ÅÃµÈ ¹«±â
+    // í˜„ì¬ ì„ íƒëœ ë¬´ê¸°
     [SerializeField]
     private BaseWeapon currentWeapon;
 
-    // Ä«¸Ş¶ó
+    // ì¹´ë©”ë¼
     [SerializeField]
     private Camera cam;
 
-    // °İ¹ß À§Ä¡
+    // ê²©ë°œ ìœ„ì¹˜
     [SerializeField]
     private Transform firePos;
 
-    // ÇöÀç °İ¹ß Ä«¿îÆ®. 0ÀÌ µÇ¸é °İ¹ß °¡´É
+    // í˜„ì¬ ê²©ë°œ ì¹´ìš´íŠ¸. 0ì´ ë˜ë©´ ê²©ë°œ ê°€ëŠ¥
     private float currentFireDelay;
 
-    // ÀåÀü »óÅÂ, true¸é ÇöÀç ÀåÀü Áß
+    // ì¥ì „ ìƒíƒœ, trueë©´ í˜„ì¬ ì¥ì „ ì¤‘
     private bool isReloading = false;
 
 
 
-    // ÃÑ¾Ë Ãæµ¹ Á¤º¸
+    // ì´ì•Œ ì¶©ëŒ ì •ë³´
     private RaycastHit hitInfo;
 
     
 
 
-    // ¿Àµğ¿À
+    // ì˜¤ë””ì˜¤
     private AudioSource audioSource;
 
     void Start()
@@ -43,87 +43,83 @@ public class WeaponController : MonoBehaviour
     void Update()
     {
         calculateFireDelay();
-        checkFire();
+        //checkFire();
         checkReload();
     }
 
-    // ÃÑ °İ¹ß ½Ã°£ °è»ê
+    // ì´ ê²©ë°œ ì‹œê°„ ê³„ì‚°
     private void calculateFireDelay()
     {
         if (currentFireDelay > 0)
             currentFireDelay -= Time.deltaTime;
     }
 
-    // °İ¹ß ¹öÆ° ´­·ÈÀ» ¶§ Ã³¸®.
-    private void checkFire()
+    // ê²©ë°œ ë²„íŠ¼ ëˆŒë ¸ì„ ë•Œ ì²˜ë¦¬.
+    public void checkFire()
     {
-        if(Input.GetKey(KeyCode.Q) || Input.GetMouseButton(0))
+        if (!isReloading)
         {
-
-            if (!isReloading)
+            if (currentWeapon.nowBulletCount <= 0)
             {
-                if(currentWeapon.nowBulletCount <= 0)
-                {
-                    StartCoroutine(ReloadCoroutine());
-                } 
-                else if(currentFireDelay <= 0)
-                {
-                    Fire();
-                }
+                StartCoroutine(ReloadCoroutine());
+            }
+            else if (currentFireDelay <= 0)
+            {
+                Fire();
             }
         }
     }
 
 
-    // °İ¹ß ½Ç½Ã!
+    // ê²©ë°œ ì‹¤ì‹œ!
     public void Fire()
     {
 
-        Debug.Log("°İ¹ß!");
+        Debug.Log("ê²©ë°œ!");
 
         currentFireDelay = currentWeapon.fireDelay;
         currentWeapon.nowBulletCount -= 1;
 
-        // TODO : ÃÑ¾Ë ¹ß»ç (ÆÄÆ¼Å¬, »ç¿îµå)
+        // TODO : ì´ì•Œ ë°œì‚¬ (íŒŒí‹°í´, ì‚¬ìš´ë“œ)
         currentWeapon.Shoot(cam.transform);
 
-        // ÃÑ±â ¹İµ¿ ÄÚ·çÆ¾
+        // ì´ê¸° ë°˜ë™ ì½”ë£¨í‹´
         /*StopAllCoroutines();
         StartCoroutine(ReboundCoroutine());*/
     }
 
 
-    // ÀåÀü Ã¼Å© (RÅ°)
+    // ì¥ì „ ì²´í¬ (Rí‚¤)
     private void checkReload()
     {
-        // RÅ°¸¦ ´©¸£°í, ÀåÀü ÁßÀÌ ¾Æ´Ò °ÍÀÌ¸ç, ÇöÀç ÃÑ¾Ë ¼ö°¡ ÃÖ´ë ÀåÅº ¼öº¸´Ù ÀûÀ» ¶§
+        // Rí‚¤ë¥¼ ëˆ„ë¥´ê³ , ì¥ì „ ì¤‘ì´ ì•„ë‹ ê²ƒì´ë©°, í˜„ì¬ ì´ì•Œ ìˆ˜ê°€ ìµœëŒ€ ì¥íƒ„ ìˆ˜ë³´ë‹¤ ì ì„ ë•Œ
         if(Input.GetKeyDown(KeyCode.R) && !isReloading && currentWeapon.nowBulletCount < currentWeapon.maxBulletCount)
         {
-            Debug.Log("ÀåÀü ½ÃÀÛ...");
+            Debug.Log("ì¥ì „ ì‹œì‘...");
             StartCoroutine(ReloadCoroutine());
         }
     }
 
-    // ÀåÀü ÇÁ·Î¼¼½º
+    // ì¥ì „ í”„ë¡œì„¸ìŠ¤
     IEnumerator ReloadCoroutine()
     {
         isReloading = true;
-        // TODO : ¹«±â ÀåÀü ¾Ö´Ï¸ÅÀÌ¼Ç Àç»ı
+        // TODO : ë¬´ê¸° ì¥ì „ ì• ë‹ˆë§¤ì´ì…˜ ì¬ìƒ
 
-        // TOOD : yield °³³ä È®½ÇÈ÷ Àâ±â
-        // ÀåÀü ½Ã°£ µ¿¾È ´ë±â
+        // TOOD : yield ê°œë… í™•ì‹¤íˆ ì¡ê¸°
+        // ì¥ì „ ì‹œê°„ ë™ì•ˆ ëŒ€ê¸°
         yield return new WaitForSeconds(currentWeapon.reloadDelay);
 
         currentWeapon.nowBulletCount = currentWeapon.maxBulletCount;
         isReloading = false;
-        Debug.Log("ÀåÀü ¿Ï·á");
+        Debug.Log("ì¥ì „ ì™„ë£Œ");
     }
 
 
-    // ¹İµ¿ ÇÁ·Î¼¼½º
+    // ë°˜ë™ í”„ë¡œì„¸ìŠ¤
     IEnumerator ReboundCoroutine()
     {
-        // TODO : ¹İµ¿ ÇÁ·Î¼¼½º
+        // TODO : ë°˜ë™ í”„ë¡œì„¸ìŠ¤
         yield return null;
     }
 
