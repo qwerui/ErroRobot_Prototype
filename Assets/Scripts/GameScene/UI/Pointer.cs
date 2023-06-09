@@ -23,6 +23,8 @@ public class Pointer : MonoBehaviour
     Vector2 inputDirection;
     Vector2 currentPosition;
 
+    RaycastResult nullRaycastResult = new RaycastResult();
+
     void ShowPointer() => gameObject.SetActive(true);
     void HidePointer() => gameObject.SetActive(false);
 
@@ -61,6 +63,7 @@ public class Pointer : MonoBehaviour
 
         if(results.Count <= 0)
         {
+            pointerEventData.pointerCurrentRaycast = nullRaycastResult;
             currentTrigger?.OnPointerExit(pointerEventData);
             currentTrigger=null;
             return;
@@ -70,6 +73,7 @@ public class Pointer : MonoBehaviour
         
         if(hitTrigger != currentTrigger)
         {
+            pointerEventData.pointerCurrentRaycast = results[0];
             currentTrigger?.OnPointerExit(pointerEventData);
             currentTrigger = hitTrigger;
             currentTrigger?.OnPointerEnter(pointerEventData);

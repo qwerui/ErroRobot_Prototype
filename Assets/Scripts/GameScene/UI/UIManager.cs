@@ -6,9 +6,10 @@ public class UIManager : MonoBehaviour
 {
     public PhaseManager phaseManager;
 
-    public GameObject BuildUI;
-    public GameObject Aim;
-    public GameObject Reward;
+    public GameObject buildUI;
+    public GameObject aim;
+    public GameObject reward;
+    public GameObject gameoverPanel;
 
     private void Start() 
     {
@@ -18,14 +19,19 @@ public class UIManager : MonoBehaviour
 
     public void OnWaveStart()
     {
-        BuildUI.SetActive(false);
-        Aim.SetActive(true);
+        buildUI.SetActive(false);
+        aim.SetActive(true);
     }
 
     public void OnWaveEnd()
     {
-        BuildUI.SetActive(true);
-        Aim.SetActive(false);
-        Reward.SetActive(true);
+        buildUI.SetActive(true);
+        aim.SetActive(false);
+        reward.SetActive(true);
+    }
+
+    public void OnGameover()
+    {
+        gameoverPanel.SetActive(true);
     }
 }

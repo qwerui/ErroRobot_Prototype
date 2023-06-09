@@ -24,6 +24,6 @@ public class TowerSlot : MonoBehaviour
 
     public void OnPointerExit(BaseEventData eventData)
     {
-
+        
     }
 }
