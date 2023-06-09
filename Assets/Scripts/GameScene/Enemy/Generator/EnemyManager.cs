@@ -13,6 +13,7 @@ namespace Enemy
         public GameObject targetPostion; //임시 위치
 
         List<EnemyBase> nextEnemyList;
+        PhaseManager phaseManager;
 
         private void Awake()
         {
@@ -21,6 +22,10 @@ namespace Enemy
 
         private void Start() 
         {
+            phaseManager = GameObject.FindObjectOfType<PhaseManager>();
+            phaseManager.OnWaveStart += OnWaveStart;
+            phaseManager.OnWaveEnd += OnWaveEnd;
+
             //웨이브 종료 시 적 리스트를 초기화하기 때문에 호출
             OnWaveEnd();
         }
@@ -42,9 +47,9 @@ namespace Enemy
             {
                 //instantiate
                 spawnPosition = transform.position;
-                spawnPosition.x = transform.position.x + Random.Range(-width, width);
-                spawnPosition.y = 10; //임시 좌표
-                spawnPosition.z = transform.position.z + Random.Range(-height, height);
+                spawnPosition.x = transform.localPosition.x + Random.Range(-0.05f, 0.05f);
+                spawnPosition.z = transform.localPosition.z + Random.Range(-0.4f, 0.4f);
+                spawnPosition = transform.parent.TransformPoint(spawnPosition);
                 var spawned = Instantiate<EnemyBase>(nextEnemyList[index++], spawnPosition, Quaternion.identity);
                 spawned.target = targetPostion;
                 yield return delayTime;
@@ -65,6 +70,8 @@ namespace Enemy
             {
                 nextEnemyList.Add(TempEnemy);
             }
+
+            phaseManager.remainEnemy += nextEnemyList.Count;
         }
 
         //생성 범위 표시

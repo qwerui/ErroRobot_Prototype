@@ -4,26 +4,32 @@ using UnityEngine;
 
 public class KeyboardController : IControllerPlatform
 {
+    Dictionary<KeyCode, Vector2> navigateDict = new Dictionary<KeyCode, Vector2>();
+    Vector2 NaviVector = Vector2.zero;
+    
+    public KeyboardController()
+    {
+        navigateDict.Add(KeyCode.UpArrow, Vector2.up);
+        navigateDict.Add(KeyCode.DownArrow, Vector2.down);
+        navigateDict.Add(KeyCode.RightArrow, Vector2.right);
+        navigateDict.Add(KeyCode.LeftArrow, Vector2.left);
+    }
+
     public void Execute(IControllerBase controller)
     {
 #region OnPressed
-
-        if(Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            controller.OnNavigate(Vector2.up, InputEvent.Pressed);
+        bool isNavigate = false;
+        foreach(KeyCode key in navigateDict.Keys)
+        {    
+            if(Input.GetKeyDown(key))
+            {
+                isNavigate = true;
+                NaviVector += navigateDict[key];
+            }
         }
-        else if(Input.GetKeyDown(KeyCode.DownArrow))
+        if(isNavigate)
         {
-            controller.OnNavigate(Vector2.down, InputEvent.Pressed);
-        }
-
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            controller.OnNavigate(Vector2.left, InputEvent.Pressed);
-        }
-        else if(Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            controller.OnNavigate(Vector2.right, InputEvent.Pressed);
+            controller.OnNavigate(NaviVector, InputEvent.Pressed);
         }
 
         if(Input.GetKeyDown(KeyCode.Space))
@@ -34,22 +40,18 @@ public class KeyboardController : IControllerPlatform
 #endregion
 #region OnReleased
 
-        if(Input.GetKeyUp(KeyCode.UpArrow))
-        {
-            controller.OnNavigate(Vector2.up, InputEvent.Released);
+        isNavigate = false;
+        foreach(KeyCode key in navigateDict.Keys)
+        {    
+            if(Input.GetKeyUp(key))
+            {
+                isNavigate = true;
+                NaviVector -= navigateDict[key];
+            }
         }
-        else if(Input.GetKeyUp(KeyCode.DownArrow))
+        if(isNavigate)
         {
-            controller.OnNavigate(Vector2.down, InputEvent.Released);
-        }
-
-        if(Input.GetKeyUp(KeyCode.LeftArrow))
-        {
-            controller.OnNavigate(Vector2.left, InputEvent.Released);
-        }
-        else if(Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            controller.OnNavigate(Vector2.right, InputEvent.Released);
+            controller.OnNavigate(NaviVector, InputEvent.Released);
         }
 
         if(Input.GetKeyUp(KeyCode.Space))

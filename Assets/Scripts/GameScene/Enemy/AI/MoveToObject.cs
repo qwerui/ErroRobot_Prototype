@@ -17,8 +17,9 @@ public class MoveToObject : ActionNode
         self.TryGetComponent<NavMeshAgent>(out agent);
         target = blackboard.Get<GameObject>("target");
         destination = target.transform.localPosition;
-        destination.z += Random.Range(-0.3f, 0.3f);
+        destination.z += Random.Range(-200f, 200f);
         destination = target.transform.parent.TransformPoint(destination);
+        agent.SetDestination(destination);
     }
 
     protected override void OnStop()
@@ -32,12 +33,12 @@ public class MoveToObject : ActionNode
         {
             return State.Failure;
         }
-        
-        agent.SetDestination(destination);
+
         agent.Move(Vector3.zero);
         
-        if(agent.pathStatus == NavMeshPathStatus.PathComplete)
+        if(agent.remainingDistance <= acceptanceRadius)
         {
+            agent.isStopped = true;
             return State.Success;
         }
         else
