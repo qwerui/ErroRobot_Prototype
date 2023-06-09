@@ -1691,6 +1691,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1444043866}
     m_Modifications:
     - target: {fileID: 6759915810939542690, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
+      propertyPath: name
+      value: TestWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 6759915810939542690, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
       propertyPath: bullet
       value: 
       objectReference: {fileID: 4956516880718611162, guid: 72fa8cb182cbe2e4e9a67f7467add412, type: 3}
@@ -4378,7 +4382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e633a564be1ff9145b34d4dcebdac24f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerName: 
+  towerName: ProtoTower
   range: 100
   damage: 10
   accuracy: 0.1
