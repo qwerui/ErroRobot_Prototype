@@ -45,13 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\uD14C\uC2A4\uD2B8 \uAE30\uBCF8 \uBB34\uAE30"
-  accuracy: 0.1
-  bulletSpeed: 500
+  accuracy: 0.02
+  bulletSpeed: 1000
   fireDelay: 0.5
   reloadDelay: 1
   damage: 20
   maxBulletCount: 30
-  nowBulletCount: 11
+  nowBulletCount: 23
   reboundHorizontalAmount: 0.1
   reboundVerticalAmount: 0.1
   fireParticle: {fileID: 0}

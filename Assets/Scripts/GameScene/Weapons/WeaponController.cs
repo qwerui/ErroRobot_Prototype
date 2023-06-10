@@ -74,14 +74,20 @@ public class WeaponController : MonoBehaviour
     // 격발 실시!
     public void Fire()
     {
-
-        Debug.Log("격발!");
-
         currentFireDelay = currentWeapon.fireDelay;
         currentWeapon.nowBulletCount -= 1;
 
+
+        Vector3 firePos = cam.transform.position;
+        Vector3 temp = new Vector3(0, 0.5f, 0);
+
+        Debug.Log("위치 : " + cam.transform.position);
+        Debug.Log("수정 : " + (cam.transform.position - temp));
+
         // TODO : 총알 발사 (파티클, 사운드)
-        currentWeapon.Shoot(cam.transform);
+        // currentWeapon.Shoot(firePos - temp, cam.transform.forward.normalized - temp);
+        currentWeapon.Shoot(firePos - temp, cam.transform.forward.normalized);
+
 
         // 총기 반동 코루틴
         /*StopAllCoroutines();

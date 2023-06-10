@@ -31,11 +31,14 @@ public class BaseWeapon : MonoBehaviour
 
     // 기본적인 발사 로직. 대부분의 무기가 이 로직을 사용
     // 궤적이 휘는 총... 등 특수한 기믹이 있는 무기는 해당 로직을 사용하지 않을 예정
-    public void Shoot(Transform firePos)
+    public void Shoot(Vector3 firePos, Vector3 _direction)
     {
-        GameObject bullet = Instantiate(this.bullet.bulletPrefab, firePos.transform.position, firePos.transform.rotation);
+        
+        GameObject bullet = Instantiate(this.bullet.bulletPrefab, firePos, Quaternion.Euler(new Vector3(0, 0, 0)));
         bullet.GetComponent<BaseBullet>().parent = this;
-        bullet.GetComponent<Rigidbody>().AddForce(firePos.transform.forward * bulletSpeed, ForceMode.Impulse);
+        // 명중률 보정
+        Vector3 acc_value = new Vector3(Random.Range(-1f, 1f) * accuracy, Random.Range(-1, 1f) * accuracy, 0f);
+        bullet.GetComponent<Rigidbody>().AddForce((_direction + acc_value) * bulletSpeed, ForceMode.Impulse);
     }
 
 

@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     public float mouseSpeed = 4.0f;
 
     // 키보드 카메라 움직이는 속도
-    public float keyboardSpeed = 0.1f;
+    public float keyboardSpeed = 0.05f;
 
     Vector2 moveDirection;
 
