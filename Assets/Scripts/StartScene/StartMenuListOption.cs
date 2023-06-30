@@ -6,8 +6,12 @@ using UnityEngine.EventSystems;
 
 namespace StartMenu
 {
-    //메인 메뉴의 리스트 요소 객체 
-
+    ///<summary>
+    ///시작 메뉴 리스트 요소 객체
+    ///</summary>
+    ///<remarks>
+    ///필요 오버라이딩 함수 : void Execute()
+    ///</remarks>
     public class StartMenuListOption : MonoBehaviour
     {
         new Transform transform;

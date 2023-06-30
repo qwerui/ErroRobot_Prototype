@@ -16,9 +16,7 @@ public class MoveToObject : ActionNode
     {
         self.TryGetComponent<NavMeshAgent>(out agent);
         target = blackboard.Get<GameObject>("target");
-        destination = target.transform.localPosition;
-        destination.z += Random.Range(-200f, 200f);
-        destination = target.transform.parent.TransformPoint(destination);
+        destination = target.transform.position;
         agent.SetDestination(destination);
     }
 

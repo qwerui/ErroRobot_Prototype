@@ -8,7 +8,7 @@ public class StartMenuController : MonoBehaviour, IControllerBase
 
     private void OnEnable() 
     {
-        PlayerController.instance.AddController(this);    
+        PlayerController.instance.AddController(this);
     }
     
     private void OnDisable() 
@@ -18,7 +18,10 @@ public class StartMenuController : MonoBehaviour, IControllerBase
 
     public void OnNavigate(Vector2 direction, InputEvent inputEvent)
     {
-        startMenuManager?.SelectOption(direction.y);
+        if(inputEvent == InputEvent.Pressed)
+        {
+            startMenuManager?.SelectOption(direction.y);
+        }
     }
 
     public void OnSubmit(InputEvent inputEvent)
