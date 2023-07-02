@@ -16,7 +16,16 @@ public class MoveToObject : ActionNode
     {
         self.TryGetComponent<NavMeshAgent>(out agent);
         target = blackboard.Get<GameObject>("target");
-        destination = target.transform.position;
+        var collider = target.GetComponent<Collider>();
+        if(collider != null)
+        {
+            destination = collider.ClosestPoint(self.transform.position);
+        }
+        else
+        {
+            destination = target.transform.position;
+        }
+        
         agent.SetDestination(destination);
     }
 
@@ -34,7 +43,7 @@ public class MoveToObject : ActionNode
 
         agent.Move(Vector3.zero);
         
-        if(agent.remainingDistance <= acceptanceRadius)
+        if(agent.remainingDistance <= acceptanceRadius && agent.pathPending == false)
         {
             agent.isStopped = true;
             return State.Success;

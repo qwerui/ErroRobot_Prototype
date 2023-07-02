@@ -1,0 +1,55 @@
+﻿{
+    "stage": [
+        {
+            "wave": 1,
+            "enemyList": [
+                {
+                    "id": 10,
+                    "count": 10
+                },
+                {
+                    "id": 10,
+                    "count": 10
+                },
+                {
+                    "id": 10,
+                    "count": 10
+                }
+            ]
+        },
+        {
+            "wave": 1,
+            "enemyList": [
+                {
+                    "id": 10,
+                    "count": 10
+                },
+                {
+                    "id": 10,
+                    "count": 10
+                },
+                {
+                    "id": 10,
+                    "count": 10
+                }
+            ]
+        },
+        {
+            "wave": 1,
+            "enemyList": [
+                {
+                    "id": 10,
+                    "count": 10
+                },
+                {
+                    "id": 10,
+                    "count": 10
+                },
+                {
+                    "id": 10,
+                    "count": 10
+                }
+            ]
+        }
+    ]
+}
