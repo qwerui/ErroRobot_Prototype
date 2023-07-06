@@ -26,6 +26,9 @@ public class StartMenuController : MonoBehaviour, IControllerBase
 
     public void OnSubmit(InputEvent inputEvent)
     {
-        startMenuManager?.Execute();
+        if(inputEvent == InputEvent.Pressed)
+        {
+            startMenuManager?.Execute();
+        }
     }
 }

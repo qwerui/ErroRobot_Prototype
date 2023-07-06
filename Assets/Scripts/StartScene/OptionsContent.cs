@@ -18,20 +18,33 @@ namespace StartMenu
         public void Activate() => backgroundImage.enabled = true;
         public void Deactivate() => backgroundImage.enabled = false;
         
+        protected virtual void Awake() 
+        {
+            backgroundImage = GetComponent<Image>();    
+        }
+
+        ///<summary>
+        ///옵션 창 초기화. 주로 상태에 대해 초기화함
+        ///</summary>
+        public virtual void Init()
+        {
+            //예시: 적용 하지 않은 인덱스를 원상복귀
+        }
+
         ///<summary>
         ///옵션 창 실행
         ///</summary>
         public virtual void Execute()
         {
-            //반드시 override
+            //override
         }
 
         ///<summary>
         ///옵션 창 실행 (화살표 키)
         ///</summary>
-        public virtual void Execute(Vector2 direction)
+        public virtual void Execute(float direction)
         {
-            //반드시 override
+            //override
         }
     }
 }

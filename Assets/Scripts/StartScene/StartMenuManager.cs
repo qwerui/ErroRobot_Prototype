@@ -26,6 +26,8 @@ namespace StartMenu
 
         public void SelectOption(float direction)
         {
+            if(direction < Mathf.Epsilon && direction > -Mathf.Epsilon)
+                return;
             menuOptionList[menuIndex].Deselect();
             
             menuIndex += direction < 0 ? 1 : -1;
