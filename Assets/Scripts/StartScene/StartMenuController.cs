@@ -31,4 +31,9 @@ public class StartMenuController : MonoBehaviour, IControllerBase
             startMenuManager?.Execute();
         }
     }
+
+    public void OnCancel(InputEvent inputEvent)
+    {
+        throw new System.NotImplementedException();
+    }
 }

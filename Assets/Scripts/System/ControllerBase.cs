@@ -6,6 +6,7 @@ public interface IControllerBase
 {
     void OnSubmit(InputEvent inputEvent);
     void OnNavigate(Vector2 direction, InputEvent inputEvent);
+    void OnCancel(InputEvent inputEvent);
 }
 
 public enum InputEvent

@@ -16,4 +16,11 @@ public class GameManager
             return _instance;
         }
     }
+
+    public AchievementManager achievementManager;
+
+    private GameManager()
+    {
+        achievementManager = new AchievementManager();
+    }
 }

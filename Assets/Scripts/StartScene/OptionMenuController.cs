@@ -8,10 +8,7 @@ namespace StartMenu
     {
         public OptionMenuManager optionMenuManager;
 
-        private void OnEnable()
-        {
-            PlayerController.instance.AddController(this);
-        }
+        private void OnEnable() => PlayerController.instance.AddController(this);
 
         private void OnDisable()
         {
@@ -33,6 +30,11 @@ namespace StartMenu
             {
                 optionMenuManager.Submit();
             }
+        }
+
+        public void OnCancel(InputEvent inputEvent)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
