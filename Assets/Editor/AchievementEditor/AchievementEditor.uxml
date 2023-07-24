@@ -8,8 +8,8 @@
         <ui:TextField picking-mode="Ignore" label="Description" value="filler text" name="achievement-description" multiline="true" is-delayed="false" style="height: 60px;" />
         <ui:TextField picking-mode="Ignore" label="Reward" value="filler text" name="achievement-reward" />
         <ui:TextField picking-mode="Ignore" label="Story" value="filler text" multiline="true" name="achievement-story" style="height: 60px;" />
-        <uie:EnumField label="Event" name="achievement-event" type="AchievementEvent, Assembly-CSharp" />
         <ui:TextField picking-mode="Ignore" label=" Image Title" is-delayed="false" name="achievement-image" />
+        <uie:EnumField label="Event" name="achievement-event" type="AchievementEvent, Assembly-CSharp" />
         <ui:VisualElement name="button-wrapper" style="flex-wrap: nowrap; flex-direction: row; justify-content: space-around; margin-left: 0; margin-right: 0; margin-top: 10px; margin-bottom: 5px;">
             <ui:Button text="Add / Fix" display-tooltip-when-elided="true" name="commit-button" style="width: 40%;" />
             <ui:Button text="Delete" display-tooltip-when-elided="true" name="delete-button" style="width: 40%; align-items: stretch;" />

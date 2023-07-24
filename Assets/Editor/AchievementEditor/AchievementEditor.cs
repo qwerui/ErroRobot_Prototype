@@ -18,6 +18,10 @@ public class AchievementEditor : EditorWindow
     EnumField eventField;
     TextField imageField;
 
+    IntegerField intRequireField;
+    FloatField floatRequireField;
+    EnumField enumRequireField;
+
     AchievementList achievementList;
 
     [MenuItem("Window/Editors/AchievementEditor")]
@@ -50,7 +54,7 @@ public class AchievementEditor : EditorWindow
         descriptionField = root.Q<TextField>("achievement-description");
         rewardField = root.Q<TextField>("achievement-reward");
         storyField = root.Q<TextField>("achievement-story");
-        eventField = root.Q<EnumField>();
+        eventField = root.Q<EnumField>("achievement-event");
         imageField = root.Q<TextField>("achievement-image");
 
         findButton.clicked += OnClickFind;

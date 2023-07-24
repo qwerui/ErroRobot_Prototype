@@ -18,7 +18,11 @@ public class AchievementController : MonoBehaviour, IControllerBase
 
     public void OnSubmit(InputEvent inputEvent)
     {
-        
+        //notifier 테스트 코드
+        if(inputEvent == InputEvent.Pressed)
+        {
+            GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.PlayCount, 10);
+        }
     }
 
     public void OnNavigate(Vector2 direction, InputEvent inputEvent)
