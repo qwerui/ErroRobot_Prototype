@@ -24,4 +24,9 @@ public class GameoverController : MonoBehaviour, IControllerBase
         Time.timeScale = 1.0f;
         LoadingSceneManager.LoadScene("StartScene");
     }
+
+    public void OnCancel(InputEvent inputEvent)
+    {
+        throw new System.NotImplementedException();
+    }
 }

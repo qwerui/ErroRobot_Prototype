@@ -40,4 +40,9 @@ public class BuildController : MonoBehaviour, IControllerBase
             pointer.Click();
         }
     }
+
+    public void OnCancel(InputEvent inputEvent)
+    {
+        throw new System.NotImplementedException();
+    }
 }

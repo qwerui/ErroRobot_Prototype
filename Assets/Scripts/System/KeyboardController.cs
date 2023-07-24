@@ -37,6 +37,11 @@ public class KeyboardController : IControllerPlatform
             controller.OnSubmit(InputEvent.Pressed);
         }
 
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            controller.OnCancel(InputEvent.Pressed);
+        }
+
 #endregion
 #region OnReleased
 
@@ -57,6 +62,11 @@ public class KeyboardController : IControllerPlatform
         if(Input.GetKeyUp(KeyCode.Space))
         {
             controller.OnSubmit(InputEvent.Released);
+        }
+
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            controller.OnCancel(InputEvent.Pressed);
         }
 #endregion
     }

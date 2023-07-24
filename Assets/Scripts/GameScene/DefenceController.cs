@@ -38,4 +38,9 @@ public class DefenceController : MonoBehaviour, IControllerBase
     {
         weaponController.checkFire();
     }
+
+    public void OnCancel(InputEvent inputEvent)
+    {
+        throw new System.NotImplementedException();
+    }
 }

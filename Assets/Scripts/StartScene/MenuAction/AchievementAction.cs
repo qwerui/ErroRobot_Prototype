@@ -8,7 +8,7 @@ namespace StartMenu
     {
         public override void Execute()
         {
-            Debug.Log("업적 목록 창은 추후 구현");
+            LoadingSceneManager.LoadScene("AchievementScene");
         }
     }
 }
