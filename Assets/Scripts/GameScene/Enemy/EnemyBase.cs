@@ -9,11 +9,11 @@ namespace Enemy
     public class EnemyBase : MonoBehaviour
     {
         [SerializeField] 
-        float speed;
+        protected float speed;
         [SerializeField]
-        float hp;
+        protected float hp;
         [SerializeField]
-        float armor;
+        protected float armor;
 
         PhaseManager phaseManager;
 
@@ -26,11 +26,16 @@ namespace Enemy
             TryGetComponent<NavMeshAgent>(out agent);
             TryGetComponent<BehaviorTreeRunner>(out treeRunner);
             agent.speed = speed;
+            agent.acceleration = speed;
         }
 
         protected virtual void Start()
         {
             phaseManager = GameObject.FindObjectOfType<PhaseManager>();
+            PlayerStatus status = GameObject.FindObjectOfType<PlayerStatus>();
+            treeRunner.tree.blackboard.Set<GameObject>("target", target);
+            treeRunner.tree.blackboard.Set<PlayerStatus>("status", status);
+            treeRunner.RunTree();
         }
 
         public void Damaged(float damage)
