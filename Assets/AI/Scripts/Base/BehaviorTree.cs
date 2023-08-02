@@ -17,7 +17,7 @@ namespace AI.BehaviorTree
         public Blackboard blackboard;
         [HideInInspector] public GameObject self;
 
-        public Node.State Update()
+        public void Update()
         {
             if (rootNode.state == Node.State.Running)
             {
@@ -25,9 +25,8 @@ namespace AI.BehaviorTree
             }
             else if(repeat)
             {
-                treeState = Node.State.Running;
+                rootNode.state = Node.State.Running;
             }
-            return treeState;
         }
 
 #if UNITY_EDITOR
