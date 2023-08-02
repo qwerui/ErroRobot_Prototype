@@ -309,7 +309,7 @@ Animator:
   m_GameObject: {fileID: 2180227288094137361}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
-  m_Controller: {fileID: 9100000, guid: 3ec3fa7290104fa40adf74a14e2bf0cf, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3e8b89a03223bff45ac75f2ab816dddb, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -401,11 +401,11 @@ MonoBehaviour:
   hp: 0
   armor: 0
   target: {fileID: 0}
-  bullet: {fileID: 0}
-  delay: 0
+  bullet: {fileID: 33009136195725299, guid: 27eded9a192f037438613afcace6d50d, type: 3}
+  delay: 3
   shotPositionList:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3943609268365858627}
+  - {fileID: 5417246025306758764}
 --- !u!1 &2180227288094137363
 GameObject:
   m_ObjectHideFlags: 0

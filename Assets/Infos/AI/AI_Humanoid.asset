@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1500931612402191944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f114955651cc41449bed3461b531d6b1, type: 3}
+  m_Name: RootNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: f7920e237cba3db448e6c367cb29dd96
+  postion: {x: 275.76, y: -32.560005}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  description: 
+  child: {fileID: 437342334911047116}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9d341e522b3541409b1815cb8e26f9a, type: 3}
+  m_Name: AI_Humanoid
+  m_EditorClassIdentifier: 
+  rootNode: {fileID: -1500931612402191944}
+  treeState: 0
+  repeat: 1
+  nodes:
+  - {fileID: -1500931612402191944}
+  - {fileID: 437342334911047116}
+  - {fileID: 5051617426333945749}
+  - {fileID: 2492903237137079956}
+  blackboard: {fileID: 11400000, guid: 879b60644066ac848b32e1785bc833b9, type: 2}
+  self: {fileID: 0}
+--- !u!114 &437342334911047116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5301cf2d80547da418c83f425e9ee950, type: 3}
+  m_Name: SequencerNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 9a6a7c2763f58c1419235e457cefa524
+  postion: {x: 275, y: 108}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  description: 
+  children:
+  - {fileID: 2492903237137079956}
+  - {fileID: 5051617426333945749}
+--- !u!114 &2492903237137079956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a311b7e810fbb47a736cc6aafe8f54, type: 3}
+  m_Name: MoveToObject
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 9ac6fb53646308a45a112de8e697f19f
+  postion: {x: 170.4, y: 291}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  description: 
+  acceptanceRadius: 50
+--- !u!114 &5051617426333945749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60624d46185d2d043845ee812fe7af38, type: 3}
+  m_Name: MeleeAttack
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 0173afb88c6a5624d8e68a7074b4828c
+  postion: {x: 418, y: 283}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  description: 
