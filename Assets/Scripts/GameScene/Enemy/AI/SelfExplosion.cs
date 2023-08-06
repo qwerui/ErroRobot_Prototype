@@ -23,7 +23,7 @@ public class SelfExplosion : ActionNode
     protected override State OnUpdate()
     {
         status?.Damaged(50.0f);
-        Destroy(self);
+        self.GetComponent<Enemy.EnemyBase>().OnDead();
         return State.Success;
     }
 }

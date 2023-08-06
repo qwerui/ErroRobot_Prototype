@@ -8,7 +8,6 @@ namespace Enemy
     {
         [SerializeField] float radius;
 
-        public EnemyBase TempEnemy;
         public GameObject targetPostion; //플레이어 타워
 
         PhaseManager phaseManager;
