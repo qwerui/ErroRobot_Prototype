@@ -29,7 +29,7 @@ public class MoveToObject : ActionNode
         }
     
         agent.SetDestination(destination);
-        animator.SetBool("isMoving", true);
+        animator?.SetBool("isMoving", true);
     }
 
     protected override void OnStop()
@@ -49,7 +49,7 @@ public class MoveToObject : ActionNode
         if(agent.remainingDistance <= acceptanceRadius && agent.pathPending == false)
         {
             agent.isStopped = true;
-            animator.SetBool("isMoving", false);
+            animator?.SetBool("isMoving", false);
             return State.Success;
         }
         else
