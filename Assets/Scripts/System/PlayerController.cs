@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
         if(_instance == null)
         {
             _instance = this;
+            controllerPlatform = new KeyboardController();
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -73,5 +74,10 @@ public class PlayerController : MonoBehaviour
     public void ClearController()
     {
         controllerStack.Clear();
+    }
+
+    public bool CheckKeyboardMode()
+    {
+        return controllerPlatform is KeyboardController;
     }
 }

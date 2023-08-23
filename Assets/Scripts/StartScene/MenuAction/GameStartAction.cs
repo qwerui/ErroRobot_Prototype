@@ -8,6 +8,7 @@ namespace StartMenu
     {
         public override void Execute()
         {
+            GameManager.instance.isLoadedGame = false;
             //게임 시작
             LoadingSceneManager.LoadScene("GameScene");
         }

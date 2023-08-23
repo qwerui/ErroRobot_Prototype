@@ -6,9 +6,23 @@ namespace StartMenu
 {
     public class LoadGameAction : StartMenuListOption
     {
+        protected override void Awake() 
+        {
+            base.Awake();
+            
+            //불러오기 활성화
+            var saveData = JSONParser.ReadJSON<SaveData>($"{Application.persistentDataPath}/SaveData.json");
+            if(!saveData.isLoadable)
+            {
+                gameObject.SetActive(false);
+            }
+
+        }
+
         public override void Execute()
         {
-            Debug.Log("게임 불러오기는 추후 구현");
+            GameManager.instance.isLoadedGame = true;
+            LoadingSceneManager.LoadScene("GameScene");
         }
     }
 }

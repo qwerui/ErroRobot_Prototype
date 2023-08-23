@@ -3,24 +3,83 @@ using System.Collections.Generic;
 using Enemy;
 using UnityEngine;
 
+//추후에 GameplayManager로 명칭 변경 예정
 public class PhaseManager : MonoBehaviour
 {
+    public int wave = 1;
 
     public bool isDefense = false;
     public int remainEnemy = 0;
 
     public delegate void WaveStartDelegate();
     public delegate void WaveEndDelegate();
+    public delegate void GameEndDelegate();
 
-    public WaveStartDelegate OnWaveStart;
-    public WaveEndDelegate OnWaveEnd;
+    public event WaveStartDelegate OnWaveStart;
+    public event WaveEndDelegate OnWaveEnd;
+    public event GameEndDelegate OnGameEnd;
 
     [SerializeField] private GameObject go_defenseUI;
+    [Header("Controller")]
+    public BuildController buildController;
+    public DefenceController defenceController;
+    public GameoverController gameoverController;
+
+    public UIManager UI;
+    public PlayerStatus playerStatus;
+    public SaveManager saveManager;
 
     void Start()
     {
+        //컨트롤러 이벤트 초기화
+        OnWaveStart += () => buildController.gameObject.SetActive(false);
+        OnWaveStart += () => defenceController.gameObject.SetActive(true);
+        OnWaveEnd += () => buildController.gameObject.SetActive(true);
+        OnWaveEnd += () => defenceController.gameObject.SetActive(false);
+
+        if(GameManager.instance.isLoadedGame)
+        {
+            saveManager.LoadGame();
+        }
+        else
+        {
+            //새 게임
+            var startStatus = JSONParser.ReadJSON<StartStatus>($"{Application.streamingAssetsPath}/StartStatus.json") ?? StartStatus.Create();
+            playerStatus.Init(startStatus);
+            UI.towerSlotList.CreateSlot(startStatus.towerSlot);
+        }
+
+        playerStatus.onDead += Gameover;
+
+        if(PlayerPrefs.GetInt("IsFirst", 0) == 0) //0 : 첫 시작, 1 : 두 번째 게임 이후
+        {
+            var tutorial = Resources.Load<TutorialManager>("System/Tutorial");
+            tutorial = Instantiate<TutorialManager>(tutorial);
+            tutorial.onTutorialEnd = () => OnWaveEnd.Invoke();
+            PlayerPrefs.SetInt("IsFirst", 1);
+        }
+        else
+        {
+            OnWaveEnd.Invoke();
+        }
+
         // 시작은 건설 모드
         isDefense = false;
+    }
+
+    public void Gameover()
+    {
+        Time.timeScale = 0.0f;
+        gameoverController.gameObject.SetActive(true);
+        UI.OnGameover();
+    }
+
+    public void GameClear()
+    {
+        //임시 코드 추후에 게임 클리어 화면 출력
+        Time.timeScale = 0.0f;
+        gameoverController.gameObject.SetActive(true);
+        UI.OnGameover();
     }
 
     public void UpdateRemainEnemy()
@@ -28,8 +87,21 @@ public class PhaseManager : MonoBehaviour
         remainEnemy--;
         if(remainEnemy <= 0)
         {
-            OnWaveEnd.Invoke();
+            if(wave > 5)
+            {
+                OnGameEnd.Invoke();
+            }
+            else
+            {
+                wave++;
+                OnWaveEnd.Invoke();
+            }
         }
+    }
+
+    public void InvokeNextWave()
+    {
+        OnWaveStart.Invoke();
     }
 
     // void Update()

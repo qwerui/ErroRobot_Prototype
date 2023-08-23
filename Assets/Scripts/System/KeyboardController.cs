@@ -66,7 +66,7 @@ public class KeyboardController : IControllerPlatform
 
         if(Input.GetKeyUp(KeyCode.Escape))
         {
-            controller.OnCancel(InputEvent.Pressed);
+            controller.OnCancel(InputEvent.Released);
         }
 #endregion
     }
