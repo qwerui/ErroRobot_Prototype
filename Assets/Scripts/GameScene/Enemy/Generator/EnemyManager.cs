@@ -11,7 +11,7 @@ namespace Enemy
         public GameObject targetPostion; //플레이어 타워
 
         PhaseManager phaseManager;
-        PlayerStatus status;
+        public PlayerStatus status;
         Minimap minimap;
 
         //다음 웨이브 출현 적 목록
@@ -25,7 +25,7 @@ namespace Enemy
 
         private void Awake()
         {
-            jsonPath = Application.dataPath + "/Infos/EnemyWave.json";
+            jsonPath = Application.streamingAssetsPath + "/EnemyWave.json";
             enemyWave = JSONParser.ReadJSON<EnemyWave>(jsonPath);
             EnemyInfo[] enemyInfoList = Resources.LoadAll<EnemyInfo>("Enemy");
 
@@ -80,6 +80,7 @@ namespace Enemy
                 spawned.dot = minimap.dotPool.Get();
                 spawned.status = status;
                 spawned.target = targetPostion;
+                spawned.phaseManager = phaseManager;
                 yield return delayTime;
             }
         }
@@ -124,6 +125,6 @@ namespace Enemy
             Gizmos.color = new Color(1, 0, 0, 0.5f);
             Gizmos.DrawSphere(transform.position, radius);
         }
-    }
 #endif
+    }
 }
