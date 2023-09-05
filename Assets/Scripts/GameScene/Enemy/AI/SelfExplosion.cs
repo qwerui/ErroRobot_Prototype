@@ -9,10 +9,7 @@ public class SelfExplosion : ActionNode
 
     protected override void OnStart()
     {
-        if(status == null)
-        {
-            status = blackboard.Get<PlayerStatus>("status");
-        }    
+        status = blackboard.Get<PlayerStatus>("status");
     }
 
     protected override void OnStop()
@@ -22,7 +19,7 @@ public class SelfExplosion : ActionNode
 
     protected override State OnUpdate()
     {
-        status?.Damaged(50.0f, self);
+        status.Damaged(50.0f, self);
         self.GetComponent<Enemy.EnemyBase>().OnDead();
         return State.Success;
     }

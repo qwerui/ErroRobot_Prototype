@@ -118,6 +118,7 @@ namespace AI.BehaviorTree
                 EditorUtility.SetDirty(composite);
             }
         }
+#endif
 
         public List<Node> GetChildren(Node parent)
         {
@@ -146,7 +147,6 @@ namespace AI.BehaviorTree
 
             return children;
         }
-#endif
 
         public void Traverse(Node node, System.Action<Node> visiter)
         {
