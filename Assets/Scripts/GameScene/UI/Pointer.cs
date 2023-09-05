@@ -25,8 +25,8 @@ public class Pointer : MonoBehaviour
 
     RaycastResult nullRaycastResult = new RaycastResult();
 
-    void ShowPointer() => gameObject.SetActive(true);
-    void HidePointer() => gameObject.SetActive(false);
+    public void ShowPointer() => gameObject.SetActive(true);
+    public void HidePointer() => gameObject.SetActive(false);
 
     private void Awake() 
     {

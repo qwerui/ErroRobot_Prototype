@@ -11,6 +11,8 @@ namespace Enemy
         public GameObject targetPostion; //플레이어 타워
 
         PhaseManager phaseManager;
+        PlayerStatus status;
+        Minimap minimap;
 
         //다음 웨이브 출현 적 목록
         List<EnemyBase> nextEnemyList = new List<EnemyBase>();
@@ -20,8 +22,6 @@ namespace Enemy
         Dictionary<int, EnemyBase> enemyPrefabDict = new Dictionary<int, EnemyBase>();
 
         string jsonPath;
-
-        int wave = 0; //임시 변수(스테이지 저장)
 
         private void Awake()
         {
@@ -50,6 +50,9 @@ namespace Enemy
             phaseManager.OnWaveStart += OnWaveStart;
             phaseManager.OnWaveEnd += OnWaveEnd;
 
+            //status = GameObject.FindObjectOfType<PlayerStatus>();
+            minimap = GameObject.FindObjectOfType<Minimap>();
+
             //웨이브 종료 시 적 리스트를 초기화하기 때문에 호출
             OnWaveEnd();
         }
@@ -74,6 +77,8 @@ namespace Enemy
                 spawnPosition.x += Mathf.Sin(angle) * radius;
                 spawnPosition.z += Mathf.Cos(angle) * radius;
                 var spawned = Instantiate<EnemyBase>(nextEnemyList[index++], spawnPosition, Quaternion.identity);
+                spawned.dot = minimap.dotPool.Get();
+                spawned.status = status;
                 spawned.target = targetPostion;
                 yield return delayTime;
             }
@@ -89,8 +94,7 @@ namespace Enemy
         {
             nextEnemyList.Clear();
             
-            wave++;
-            var enemyList = enemyWave.GetEnemyLists(wave);
+            var enemyList = enemyWave.GetEnemyLists(phaseManager.wave);
             if(enemyList == null)
             {
                 Debug.LogAssertion("Load EnemyList failed!!");
@@ -113,6 +117,7 @@ namespace Enemy
             phaseManager.remainEnemy += nextEnemyList.Count;
         }
 
+#if UNITY_EDITOR
         //생성 범위 표시
         private void OnDrawGizmosSelected()
         {
@@ -120,4 +125,5 @@ namespace Enemy
             Gizmos.DrawSphere(transform.position, radius);
         }
     }
+#endif
 }

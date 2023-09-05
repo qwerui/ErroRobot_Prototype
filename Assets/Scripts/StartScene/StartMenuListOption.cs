@@ -18,7 +18,7 @@ namespace StartMenu
         Image selectedImage;
         EventTrigger eventTrigger;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             TryGetComponent<Transform>(out transform);
             TryGetComponent<EventTrigger>(out eventTrigger);

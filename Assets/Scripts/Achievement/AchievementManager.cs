@@ -13,7 +13,7 @@ public class AchievementManager
 
     public AchievementManager()
     {
-        achievementList = JSONParser.ReadJSON<AchievementList>($"{Application.dataPath}/Infos/Achievement.json");
+        achievementList = JSONParser.ReadJSON<AchievementList>($"{Application.streamingAssetsPath}/Achievement.json");
         var achievements = achievementList.achievements;
         if(achievements.Count > 0)
         {
@@ -45,7 +45,7 @@ public class AchievementManager
             if(succeed != null)
             {
                 succeed.isAchieved = true;
-                JSONParser.SaveJSON<AchievementList>($"{Application.dataPath}/Infos/Achievement.json", achievementList);
+                JSONParser.SaveJSON<AchievementList>($"{Application.streamingAssetsPath}/Achievement.json", achievementList);
                 notifier.ShowNotifier(succeed);
             }
         }
@@ -62,7 +62,7 @@ public class AchievementManager
             if(succeed != null)
             {
                 succeed.isAchieved = true;
-                JSONParser.SaveJSON<AchievementList>($"{Application.dataPath}/Infos/Achievement.json", achievementList);
+                JSONParser.SaveJSON<AchievementList>($"{Application.streamingAssetsPath}/Achievement.json", achievementList);
                 notifier.ShowNotifier(succeed);
             }
         }
@@ -79,7 +79,7 @@ public class AchievementManager
             if(succeed != null)
             {
                 succeed.isAchieved = true;
-                JSONParser.SaveJSON<AchievementList>($"{Application.dataPath}/Infos/Achievement.json", achievementList);
+                JSONParser.SaveJSON<AchievementList>($"{Application.streamingAssetsPath}/Achievement.json", achievementList);
                 notifier.ShowNotifier(succeed);
             }
         }

@@ -18,6 +18,7 @@ public class GameManager
     }
 
     public AchievementManager achievementManager;
+    public bool isLoadedGame;
 
     private GameManager()
     {

@@ -13,9 +13,15 @@ public class JSONParser
 
     public static T ReadJSON<T>(string path) where T : class
     {
-        string json = File.ReadAllTextAsync(path, System.Text.Encoding.UTF8)?.Result;
+        var taskResult = File.ReadAllTextAsync(path, System.Text.Encoding.UTF8);
+        
+        if(taskResult.IsFaulted)
+            return null;
+        
+        string json = taskResult.Result;
         if(json == null)
             return null;
+
         T target = JsonUtility.FromJson<T>(json);
         return target;
     }

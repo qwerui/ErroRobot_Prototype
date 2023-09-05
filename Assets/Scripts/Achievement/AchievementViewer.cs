@@ -16,6 +16,7 @@ public class AchievementViewer : MonoBehaviour
     public TMP_Text achievementReward;
     public TMP_Text achievementStory;
 
+    const string notAchievedString = "???";
     int index;
 
     private void Start() 
@@ -56,9 +57,20 @@ public class AchievementViewer : MonoBehaviour
 
     void ShowAchievementInfo(Achievement achievement)
     {
-        achievementTitle.SetText(achievement.title);
-        achievementDescription.SetText(achievement.description);
-        achievementReward.SetText(achievement.reward);
-        achievementStory.SetText(achievement.story);
+        if(achievement.isAchieved)
+        {
+            achievementTitle.SetText(achievement.title);
+            achievementDescription.SetText(achievement.description);
+            achievementReward.SetText(achievement.reward);
+            achievementStory.SetText(achievement.story);
+        }
+        else
+        {
+            achievementTitle.SetText(notAchievedString);
+            achievementDescription.SetText(achievement.description);
+            achievementReward.SetText(notAchievedString);
+            achievementStory.SetText(notAchievedString);
+        }
+        
     }
 }

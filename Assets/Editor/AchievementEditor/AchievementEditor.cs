@@ -66,7 +66,7 @@ public class AchievementEditor : EditorWindow
     {
         if(achievementList == null)
         {
-            achievementList = JSONParser.ReadJSON<AchievementList>($"{Application.dataPath}/Infos/Achievement.json");
+            achievementList = JSONParser.ReadJSON<AchievementList>($"{Application.streamingAssetsPath}/Achievement.json");
         }
     }
 

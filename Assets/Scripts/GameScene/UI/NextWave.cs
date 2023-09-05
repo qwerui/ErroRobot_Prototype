@@ -9,16 +9,16 @@ public class NextWave : MonoBehaviour
 
     public void OnPointerEnter(BaseEventData eventData)
     {
-
+        //동작 없음
     }
 
     public void OnPointerExit(BaseEventData eventData)
     {
-
+        //동작 없음
     }
 
     public void OnPointerClick(BaseEventData eventData)
     {
-        phaseManager.OnWaveStart.Invoke();
+        phaseManager.InvokeNextWave();
     }
 }

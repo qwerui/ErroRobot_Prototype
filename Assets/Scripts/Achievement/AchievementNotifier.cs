@@ -10,6 +10,8 @@ public class AchievementNotifier : MonoBehaviour
     [SerializeField] Image image;
     Animator anim;
 
+    Queue<Achievement> achievementQueue; 
+
     private void Awake() 
     {
         if(GameManager.instance.achievementManager.notifier != null)
@@ -19,6 +21,7 @@ public class AchievementNotifier : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         TryGetComponent<Animator>(out anim);
         GameManager.instance.achievementManager.notifier = this;
+        achievementQueue = new Queue<Achievement>();
     }
 
     public static void Init()
@@ -29,8 +32,18 @@ public class AchievementNotifier : MonoBehaviour
 
     public void ShowNotifier(Achievement achievement)
     {
-        title.SetText(achievement.title);
-        image.sprite = achievement.image;
-        anim.SetTrigger("Succeed");
+        achievementQueue.Enqueue(achievement);
+        OnNotifiyEnd();
+    }
+
+    public void OnNotifiyEnd()
+    {
+        if(achievementQueue.Count > 0)
+        {
+            var achievement = achievementQueue.Dequeue();
+            title.SetText(achievement.title);
+            image.sprite = achievement.image;
+            anim.SetTrigger("Succeed");
+        }
     }
 }

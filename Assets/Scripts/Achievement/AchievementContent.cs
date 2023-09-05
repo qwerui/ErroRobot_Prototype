@@ -12,6 +12,8 @@ public class AchievementContent : MonoBehaviour
     public Image image;
     public Outline outline;
 
+    const string notAchievedTitle = "Locked";
+
     public void Activate() => outline.enabled = true;
     public void Deactivate() => outline.enabled = false;
 
@@ -23,7 +25,14 @@ public class AchievementContent : MonoBehaviour
     public void Init(Achievement newAchievement)
     {
         achievement = newAchievement;
-        title.SetText(achievement.title);
+        if(newAchievement.isAchieved)
+        {
+            title.SetText(achievement.title);
+        }
+        else
+        {
+            title.SetText(notAchievedTitle);
+        }
         image.sprite = achievement.image;
     }
 }

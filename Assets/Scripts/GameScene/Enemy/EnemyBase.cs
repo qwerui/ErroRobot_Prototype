@@ -17,9 +17,11 @@ namespace Enemy
         [SerializeField]
         protected float core;
 
-        PhaseManager phaseManager;
+        public PhaseManager phaseManager;
         [HideInInspector]
         public EnemyDot dot;
+        [HideInInspector]
+        public PlayerStatus status;
 
         NavMeshAgent agent;
         protected BehaviorTreeRunner treeRunner;
@@ -35,10 +37,6 @@ namespace Enemy
 
         protected virtual void Start()
         {
-            phaseManager = GameObject.FindObjectOfType<PhaseManager>();
-            PlayerStatus status = GameObject.FindObjectOfType<PlayerStatus>();
-            Minimap minimap = GameObject.FindObjectOfType<Minimap>();
-            dot = minimap.dotPool.Get();
             treeRunner.tree.blackboard.Set<GameObject>("target", target);
             treeRunner.tree.blackboard.Set<PlayerStatus>("status", status);
             treeRunner.RunTree();
