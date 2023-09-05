@@ -28,7 +28,10 @@ public class DefenceController : MonoBehaviour, IControllerBase
 
     public void OnSubmit(InputEvent inputEvent)
     {
-        weaponController.checkFire();
+        if(inputEvent == InputEvent.Pressed)
+        {
+            weaponController.checkFire();
+        }
     }
 
     public void OnCancel(InputEvent inputEvent)

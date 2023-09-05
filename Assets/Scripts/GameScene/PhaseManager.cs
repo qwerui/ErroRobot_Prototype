@@ -50,6 +50,9 @@ public class PhaseManager : MonoBehaviour
         }
 
         playerStatus.onDead += Gameover;
+        playerStatus.onDead += defenceController.cameraController.DisableRotation;
+        OnGameEnd += GameClear;
+        OnGameEnd += defenceController.cameraController.DisableRotation;
 
         if(PlayerPrefs.GetInt("IsFirst", 0) == 0) //0 : 첫 시작, 1 : 두 번째 게임 이후
         {

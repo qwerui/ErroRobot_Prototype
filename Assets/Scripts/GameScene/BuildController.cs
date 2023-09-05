@@ -27,7 +27,7 @@ public class BuildController : MonoBehaviour, IControllerBase
 
     public void OnSubmit(InputEvent inputEvent)
     {
-        if(inputEvent == InputEvent.Released)
+        if(inputEvent == InputEvent.Pressed)
         {
             pointer.Click();
         }
