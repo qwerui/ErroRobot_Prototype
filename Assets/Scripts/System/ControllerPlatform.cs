@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IControllerPlatform
 {
+    void Reset();
     void Execute(IControllerBase controller);
 }

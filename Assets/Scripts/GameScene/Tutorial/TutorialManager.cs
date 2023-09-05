@@ -40,13 +40,13 @@ public class TutorialManager : MonoBehaviour
 
     public void Next()
     {
-        if(index > dialogues.Length)
+        if(index >= dialogues.Length)
         {
             Skip();
         }
         else
         {
-            dialogueText.text = "";
+            dialogueText.DOText("", 0);
             dialogueText.DOText(dialogues[index++], 3);
         }
     }
