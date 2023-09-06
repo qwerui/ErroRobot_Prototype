@@ -29,7 +29,7 @@ public class PhaseManager : MonoBehaviour
     public PlayerStatus playerStatus;
     public SaveManager saveManager;
 
-    void Start()
+    private void Awake() 
     {
         //컨트롤러 이벤트 초기화
         OnWaveStart += () => buildController.gameObject.SetActive(false);
@@ -37,6 +37,16 @@ public class PhaseManager : MonoBehaviour
         OnWaveEnd += () => buildController.gameObject.SetActive(true);
         OnWaveEnd += () => defenceController.gameObject.SetActive(false);
 
+        //게임 종료 이벤트 초기화
+        playerStatus.onDead += Gameover;
+        playerStatus.onDead += defenceController.cameraController.DisableRotation;
+        OnGameEnd += GameClear;
+        OnGameEnd += defenceController.cameraController.DisableRotation;
+    }
+
+    void Start()
+    {
+        //게임 로드 체크
         if(GameManager.instance.isLoadedGame)
         {
             saveManager.LoadGame();
@@ -49,11 +59,7 @@ public class PhaseManager : MonoBehaviour
             UI.towerSlotList.CreateSlot(startStatus.towerSlot);
         }
 
-        playerStatus.onDead += Gameover;
-        playerStatus.onDead += defenceController.cameraController.DisableRotation;
-        OnGameEnd += GameClear;
-        OnGameEnd += defenceController.cameraController.DisableRotation;
-
+        //튜토리얼 체크
         if(PlayerPrefs.GetInt("IsFirst", 0) == 0) //0 : 첫 시작, 1 : 두 번째 게임 이후
         {
             var tutorial = Resources.Load<TutorialManager>("System/Tutorial");

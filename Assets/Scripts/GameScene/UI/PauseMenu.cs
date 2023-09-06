@@ -5,9 +5,10 @@ using UnityEngine;
 /// <summary>
 /// 일시정지 관련
 /// </summary>
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : MonoBehaviour, IGameUI
 {
     PauseMenuContent[] pauseMenuContents;
+    GameUIController gameUIController;
     int index;
 
     private void OnEnable() 
@@ -16,19 +17,22 @@ public class PauseMenu : MonoBehaviour
         {
             pauseMenuContents = GetComponentsInChildren<PauseMenuContent>();
             System.Array.Sort(pauseMenuContents, (PauseMenuContent a, PauseMenuContent b)=>a.transform.GetSiblingIndex() - b.transform.GetSiblingIndex());
+            gameUIController = GetComponent<GameUIController>();
         }
+        
+        Time.timeScale = 0.0f;
         index = 0;
         pauseMenuContents[index].Activate();
     }
 
-    public void OnNavigate(float direction)
+    public void OnNavigate(Vector2 direction)
     {
         pauseMenuContents[index].Deactivate();
 
-        if(Mathf.Abs(direction) < Mathf.Epsilon)
+        if(Mathf.Abs(direction.y) < Mathf.Epsilon)
             return;
 
-        if(direction > 0)
+        if(direction.y > 0)
         {
             index--;
         }
