@@ -21,7 +21,10 @@ public class GameUIController : MonoBehaviour, IControllerBase
 
     private void OnDisable() 
     {
-        pointer.Activate();
+        if(pointer != null)
+        {
+            pointer.Activate();
+        }
         PlayerController.instance?.DeleteController(this);
     }
 
