@@ -12,9 +12,9 @@ public class RewardManager : MonoBehaviour
     int allRaritySum;
 
     //보상 획득 창
-    public GameObject rewardPanel;
+    public RewardPanel rewardPanel;
     public PhaseManager gameplayManager;
-    public RewardOption[] rewardOptions = new RewardOption[3];
+    
 
     public SaveManager saveManager;
 
@@ -34,7 +34,14 @@ public class RewardManager : MonoBehaviour
                 rewards[reward.rarity].Add(reward);
             }
         }
+    }
 
+    private void Start() 
+    {
+        /*
+        BuildController 활성화보다 늦게 호출해야함
+        BuildController는 Awake에서 할당 => (PhaseManager 클래스 참조)
+        */
         gameplayManager.OnWaveEnd += InitReward;
     }
 
@@ -53,7 +60,7 @@ public class RewardManager : MonoBehaviour
                 if(pickedRarity <= raritySum && rewards[rarity].Count > 0)
                 {
                     int pickedRewardIndex = Random.Range(0, rewards[rarity].Count);
-                    rewardOptions[i].Init(rewards[rarity][pickedRewardIndex]);
+                    rewardPanel.SetRewardOption(i, rewards[rarity][pickedRewardIndex]);
                     break; //다음 선택지로
                 }
             }
@@ -63,25 +70,10 @@ public class RewardManager : MonoBehaviour
         rewardPanel.gameObject.SetActive(true);
     }
 
-    public void PickLeftOption(BaseEventData eventData)
-    {
-        GetReward(rewardOptions[0].reward);
-    }
-
-    public void PickCenterOption(BaseEventData eventData)
-    {
-        GetReward(rewardOptions[1].reward);
-    }
-
-    public void PickRightOption(BaseEventData eventData)
-    {
-        GetReward(rewardOptions[2].reward);
-    }
-
-    void GetReward(Reward reward)
+    public void GetReward(Reward reward)
     {
         //보상 적용 코드
-        rewardPanel.SetActive(false);
+        rewardPanel.gameObject.SetActive(false);
 
         //보상 결정 시 세이브
         saveManager.SaveGame();
@@ -93,12 +85,6 @@ public class RewardManager : MonoBehaviour
         {
             //최대 레어도에 의한 길이 한계
             System.Array.Resize(ref rarityWeight, MAXRAREITY);
-        }
-        
-        if(rewardOptions.Length != 3)
-        {
-            //3선택지에 의한 길이 고정
-            rewardOptions = new RewardOption[3];
         }
     }
 }

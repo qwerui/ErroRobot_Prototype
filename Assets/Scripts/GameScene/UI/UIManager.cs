@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
 
     [Header("PhaseUI")]
     public GameObject buildUI;
+    public Pointer pointer;
     public GameObject aim;
     public GameObject gameoverPanel;
     public TMP_Text waveText;
@@ -28,7 +29,7 @@ public class UIManager : MonoBehaviour
     [Header("HitScreen")]
     public HitScreenManager hitScreenManager;
     
-    private void Start() 
+    private void Awake() 
     {
         phaseManager.OnWaveStart += OnWaveStart;
         phaseManager.OnWaveEnd += OnWaveEnd;
@@ -38,6 +39,7 @@ public class UIManager : MonoBehaviour
 
     public void OnWaveStart()
     {
+        pointer.isBuild = false;
         buildUI.SetActive(false);
         aim.SetActive(true);
     }
@@ -46,6 +48,7 @@ public class UIManager : MonoBehaviour
     {
         buildUI.SetActive(true);
         aim.SetActive(false);
+        pointer.isBuild = true;
         waveText.SetText($"Wave {phaseManager.wave}");
     }
 

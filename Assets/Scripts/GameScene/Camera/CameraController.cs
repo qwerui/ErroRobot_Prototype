@@ -76,4 +76,13 @@ public class CameraController : MonoBehaviour
     {
         moveDirection = Vector2.zero;
     }
+
+    public RaycastHit RaycastCheck()
+    {
+        RaycastHit hit;
+
+        Physics.Raycast(transform.position, transform.forward, out hit);
+    
+        return hit;
+    }
 }

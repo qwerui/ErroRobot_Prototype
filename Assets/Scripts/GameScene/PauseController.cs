@@ -5,7 +5,7 @@ using UnityEngine;
 public class PauseController : MonoBehaviour, IControllerBase
 {
     public PauseMenu pauseMenu;
-    public Pointer pointer;
+    public GameObject pointer;
 
     bool isFromBuild;
 
@@ -14,7 +14,7 @@ public class PauseController : MonoBehaviour, IControllerBase
         this.isFromBuild = isFromBuild;
         if(isFromBuild)
         {
-            pointer.HidePointer();
+            pointer.SetActive(false);
         }
         gameObject.SetActive(true);
     }
@@ -23,7 +23,7 @@ public class PauseController : MonoBehaviour, IControllerBase
     {
         if(isFromBuild)
         {
-            pointer.ShowPointer();
+            pointer.SetActive(true);
         }
         gameObject.SetActive(false);
     }
@@ -53,7 +53,7 @@ public class PauseController : MonoBehaviour, IControllerBase
     {
         if(inputEvent == InputEvent.Pressed)
         {
-            pauseMenu.OnNavigate(direction.y);
+            pauseMenu.OnNavigate(direction);
         }
     }
 

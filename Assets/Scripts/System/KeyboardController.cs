@@ -34,7 +34,6 @@ public class KeyboardController : IControllerPlatform
         }
         if(isNavigate)
         {
-            Debug.Log(NaviVector);
             controller.OnNavigate(NaviVector, InputEvent.Pressed);
         }
 
@@ -62,7 +61,6 @@ public class KeyboardController : IControllerPlatform
         }
         if(isNavigate)
         {
-            Debug.Log(NaviVector);
             controller.OnNavigate(NaviVector, InputEvent.Released);
         }
 

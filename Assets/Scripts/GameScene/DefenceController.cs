@@ -6,7 +6,7 @@ public class DefenceController : MonoBehaviour, IControllerBase
 {
     public WeaponController weaponController;
     public CameraController cameraController;
-    public PauseController pauseController;
+    public GameObject pauseMenu;
 
     void Activate() => gameObject.SetActive(true);
     void Deactivate() => gameObject.SetActive(false);
@@ -38,7 +38,7 @@ public class DefenceController : MonoBehaviour, IControllerBase
     {
         if(inputEvent == InputEvent.Pressed)
         {
-            pauseController.Activate(false);
+            pauseMenu.SetActive(true);
         }
     }
 }

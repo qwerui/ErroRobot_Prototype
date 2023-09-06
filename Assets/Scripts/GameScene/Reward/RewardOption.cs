@@ -2,13 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class RewardOption : MonoBehaviour
 {
     public TMP_Text title;
     public TMP_Text description;
     public UnityEngine.UI.Image image;
-    public Reward reward;
+    Reward reward;
+    Outline outline;
+
+    public void Activate() => outline.enabled = true;
+    public void Deactivate() => outline.enabled = false;
+
+    private void OnEnable() 
+    {
+        if(outline == null)
+        {
+            outline = GetComponent<Outline>();
+        }    
+    }
 
     public void Init(Reward reward)
     {
@@ -17,4 +30,10 @@ public class RewardOption : MonoBehaviour
         description.SetText(reward.description);
         image.sprite = reward.image;
     }
+
+    public Reward GetReward()
+    {
+        return reward;
+    }
+
 }
