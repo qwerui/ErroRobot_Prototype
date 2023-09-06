@@ -18,10 +18,13 @@ public class UIManager : MonoBehaviour
 
     [Header("PhaseUI")]
     public GameObject buildUI;
-    public Pointer pointer;
+    
     public GameObject aim;
     public GameObject gameoverPanel;
     public TMP_Text waveText;
+
+    [Header("Pointer")]
+    public Pointer pointer;
 
     [Header("Slots")]
     public TowerSlotList towerSlotList;
@@ -39,16 +42,14 @@ public class UIManager : MonoBehaviour
 
     public void OnWaveStart()
     {
-        pointer.isBuild = false;
         buildUI.SetActive(false);
-        aim.SetActive(true);
+        pointer.SetPointer(PointerIcon.Rifle);
     }
 
     public void OnWaveEnd()
     {
         buildUI.SetActive(true);
-        aim.SetActive(false);
-        pointer.isBuild = true;
+        pointer.SetPointer(PointerIcon.Build);
         waveText.SetText($"Wave {phaseManager.wave}");
     }
 

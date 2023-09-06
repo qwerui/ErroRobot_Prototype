@@ -3,113 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEditor;
+
+public enum PointerIcon
+{
+    Build,
+    Rifle
+}
 
 public class Pointer : MonoBehaviour
 {
-    public bool isBuild;
+    Dictionary<PointerIcon, PointerObject> pointerIcons = new Dictionary<PointerIcon, PointerObject>();
 
-    public void Activate()
+    PointerObject currentPointer;
+
+    public void Activate() => gameObject.SetActive(true);   
+    public void Deactivate() => gameObject.SetActive(false);
+    
+    private void Awake() 
     {
-        if(isBuild)
+        var pointerAssets = Resources.LoadAll<PointerAsset>("PointerIcons");
+        
+        foreach(PointerAsset pointerAsset in pointerAssets)
         {
-            gameObject.SetActive(true);
+            pointerIcons[pointerAsset.type] = pointerAsset.obj;
         }
     }
 
-    public void Deactivate()
+    public void SetPointer(PointerIcon icon)
     {
-        gameObject.SetActive(false);
+        if(!pointerIcons[icon].isInstantiated)
+        {
+            pointerIcons[icon] = Instantiate(pointerIcons[icon], transform);
+            pointerIcons[icon].isInstantiated = true;
+        }
+        
+        if(currentPointer != null)
+        {
+            currentPointer.gameObject.SetActive(false);
+        }
+        currentPointer = pointerIcons[icon];
+        currentPointer.gameObject.SetActive(true);
     }
-    // public GraphicRaycaster raycaster;
 
-    // PointerEventData pointerEventData;
-    // List<RaycastResult> results;
-
-    // PhaseManager phaseManager;
-
-    // EventTrigger currentTrigger = null;
-
-    // RectTransform rectTransform;
-    // Canvas canvas;
-    // public float moveSpeed = 1f;
-
-    // Vector2 moveDirection;
-    // Vector2 inputDirection;
-    // Vector2 currentPosition;
-
-    // RaycastResult nullRaycastResult = new RaycastResult();
-
-    // public void ShowPointer() => gameObject.SetActive(true);
-    // public void HidePointer() => gameObject.SetActive(false);
-
-    // private void Awake() 
-    // {
-    //     TryGetComponent<RectTransform>(out rectTransform);
-    //     results = new List<RaycastResult>();
-    //     pointerEventData = new PointerEventData(null);
-    // }
-
-    // private void Start() 
-    // {
-    //     currentPosition = rectTransform.anchoredPosition;
-    //     phaseManager = GameObject.FindObjectOfType<PhaseManager>();
-    //     phaseManager.OnWaveStart += HidePointer;
-    //     phaseManager.OnWaveEnd += ShowPointer;
-    // }
-
-    // private void OnEnable() 
-    // {
-    //     currentPosition = new Vector2(640, 360);    
-    // }
-
-    // private void OnDisable() 
-    // {
-    //     currentTrigger = null;    
-    // }
-
-    // //Raycast로 이벤트 발생, Build Phase일때만 활성화
-    // private void Update() 
-    // {
-    //     results.Clear();
-    //     pointerEventData.position = Screen.width / 1280f * rectTransform.anchoredPosition;
-        
-    //     raycaster.Raycast(pointerEventData, results);
-
-    //     if(results.Count <= 0)
-    //     {
-    //         pointerEventData.pointerCurrentRaycast = nullRaycastResult;
-    //         currentTrigger?.OnPointerExit(pointerEventData);
-    //         currentTrigger=null;
-    //         return;
-    //     }
-
-    //     results[0].gameObject.TryGetComponent<EventTrigger>(out EventTrigger hitTrigger);
-        
-    //     if(hitTrigger != currentTrigger)
-    //     {
-    //         pointerEventData.pointerCurrentRaycast = results[0];
-    //         currentTrigger?.OnPointerExit(pointerEventData);
-    //         currentTrigger = hitTrigger;
-    //         currentTrigger?.OnPointerEnter(pointerEventData);
-    //     }
-    // }
-
-    // private void LateUpdate() 
-    // {
-    //     currentPosition += moveSpeed * Time.deltaTime * moveDirection;
-    //     currentPosition.x = Mathf.Clamp(currentPosition.x, 0, 1280);
-    //     currentPosition.y = Mathf.Clamp(currentPosition.y, 0, 720);
-    //     rectTransform.anchoredPosition = currentPosition;
-    // }
-
-    // public void SetDirection(Vector2 direction, InputEvent inputEvent)
-    // {
-    //     inputDirection = direction * moveSpeed;
-    //     moveDirection = inputDirection.normalized;
-    // }
-
-    // public void Click()
-    // {
-    //     currentTrigger?.OnPointerClick(pointerEventData);
-    // }
+    public void DoAction()
+    {
+        currentPointer.DoAction();
+    }
 }
+
