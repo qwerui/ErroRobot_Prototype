@@ -23,6 +23,9 @@ public class WeaponController : MonoBehaviour
 
     // 장전 상태, true면 현재 장전 중
     private bool isReloading = false;
+    
+    // 현재 격발 진행 여부.(True = 버튼이 눌림)
+    private bool ButtonPressed = false;
 
 
 
@@ -42,20 +45,33 @@ public class WeaponController : MonoBehaviour
 
     void Update()
     {
-        calculateFireDelay();
-        //checkFire();
+        CalculateFireDelay();
+        if(ButtonPressed) 
+            CheckFire();
         checkReload();
     }
 
     // 총 격발 시간 계산
-    private void calculateFireDelay()
+    private void CalculateFireDelay()
     {
         if (currentFireDelay > 0)
             currentFireDelay -= Time.deltaTime;
     }
+    
+    // 격발 버튼 누르는 상태로 전환
+    public void PressButton()
+    {
+        ButtonPressed = true;
+    }
+    
+    // 격발 버튼 뗀 상태로 전환
+    public void ReleaseButton()
+    {
+        ButtonPressed = false;
+    }
 
     // 격발 버튼 눌렸을 때 처리.
-    public void checkFire()
+    private void CheckFire()
     {
         if (!isReloading)
         {
@@ -72,7 +88,7 @@ public class WeaponController : MonoBehaviour
 
 
     // 격발 실시!
-    public void Fire()
+    private void Fire()
     {
         currentFireDelay = currentWeapon.fireDelay;
         currentWeapon.nowBulletCount -= 1;
