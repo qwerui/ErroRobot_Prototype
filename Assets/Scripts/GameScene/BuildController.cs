@@ -39,6 +39,7 @@ public class BuildController : MonoBehaviour, IControllerBase
                 {
                     //next wave
                     nextWavePanel.SetActive(true);
+                    cameraController.DisableRotation();
                 }
                 else
                 {
