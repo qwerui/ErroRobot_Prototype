@@ -48,7 +48,7 @@ public class BaseWeapon : MonoBehaviour
     {
 
         // 적 체력 감소
-        if(target.tag == "Enemy")
+        if(target.CompareTag("Enemy"))
         {
             target.GetComponent<EnemyBase>().Damaged(damage);
         }
