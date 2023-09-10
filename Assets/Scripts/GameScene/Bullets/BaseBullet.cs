@@ -9,9 +9,9 @@ public class BaseBullet : MonoBehaviour
     public GameObject bulletPrefab;
 
     // rigidBody Ãæµ¹ ½Ã
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        parent.OnHit(collision.gameObject);
+        parent.OnHit(other.gameObject);
         Destroy(gameObject);
     }
 
