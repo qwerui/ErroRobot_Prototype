@@ -15,6 +15,11 @@ public class KeyboardController : IControllerPlatform
         navigateDict.Add(KeyCode.LeftArrow, Vector2.left);
     }
 
+    public void Reset()
+    {
+        NaviVector = Vector2.zero;
+    }
+
     public void Execute(IControllerBase controller)
     {
 #region OnPressed
@@ -37,6 +42,11 @@ public class KeyboardController : IControllerPlatform
             controller.OnSubmit(InputEvent.Pressed);
         }
 
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            controller.OnCancel(InputEvent.Pressed);
+        }
+
 #endregion
 #region OnReleased
 
@@ -57,6 +67,11 @@ public class KeyboardController : IControllerPlatform
         if(Input.GetKeyUp(KeyCode.Space))
         {
             controller.OnSubmit(InputEvent.Released);
+        }
+
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            controller.OnCancel(InputEvent.Released);
         }
 #endregion
     }

@@ -6,18 +6,42 @@ namespace Enemy
 {
     public class EnemyManager : MonoBehaviour
     {
-        [SerializeField] int width;
-        [SerializeField] int height;
+        [SerializeField] float radius;
 
-        public EnemyBase TempEnemy;
-        public GameObject targetPostion; //임시 위치
+        public GameObject targetPostion; //플레이어 타워
 
-        List<EnemyBase> nextEnemyList;
         PhaseManager phaseManager;
+        public PlayerStatus status;
+        Minimap minimap;
+
+        //다음 웨이브 출현 적 목록
+        List<EnemyBase> nextEnemyList = new List<EnemyBase>();
+        //json에서 읽어 온 출현 적 목록
+        EnemyWave enemyWave;
+        //적 프리팹 목록
+        Dictionary<int, EnemyBase> enemyPrefabDict = new Dictionary<int, EnemyBase>();
+
+        string jsonPath;
 
         private void Awake()
         {
-            nextEnemyList = new List<EnemyBase>();
+            jsonPath = Application.streamingAssetsPath + "/EnemyWave.json";
+            enemyWave = JSONParser.ReadJSON<EnemyWave>(jsonPath);
+            EnemyInfo[] enemyInfoList = Resources.LoadAll<EnemyInfo>("Enemy");
+
+            foreach(var enemyInfo in enemyInfoList)
+            {
+                var enemy = enemyInfo.prefab?.GetComponent<EnemyBase>();
+                if(enemy != null)
+                {
+                    enemyPrefabDict[enemyInfo.id] = enemy;
+                }
+                else
+                {
+                    //프리팹이 없거나 잘 못된 프리팹이 할당 된 경우
+                    Debug.LogWarning($"Not valid prefab!! id: {enemyInfo.id}");
+                }
+            }
         }
 
         private void Start() 
@@ -25,6 +49,9 @@ namespace Enemy
             phaseManager = GameObject.FindObjectOfType<PhaseManager>();
             phaseManager.OnWaveStart += OnWaveStart;
             phaseManager.OnWaveEnd += OnWaveEnd;
+
+            //status = GameObject.FindObjectOfType<PlayerStatus>();
+            minimap = GameObject.FindObjectOfType<Minimap>();
 
             //웨이브 종료 시 적 리스트를 초기화하기 때문에 호출
             OnWaveEnd();
@@ -40,18 +67,20 @@ namespace Enemy
 
         IEnumerator SpawnEnemy()
         {
-            WaitForSeconds delayTime = new WaitForSeconds(Random.Range(0.5f, 1.5f));
+            WaitForSeconds delayTime = new WaitForSeconds(Random.Range(0.5f, 1.0f));
             int index = 0;
-            Vector3 spawnPosition = new Vector3();
             while (index < nextEnemyList.Count)
             {
                 //instantiate
-                spawnPosition = transform.position;
-                spawnPosition.x = transform.localPosition.x + Random.Range(-0.05f, 0.05f);
-                spawnPosition.z = transform.localPosition.z + Random.Range(-0.4f, 0.4f);
-                spawnPosition = transform.parent.TransformPoint(spawnPosition);
+                Vector3 spawnPosition = transform.position;
+                float angle = Mathf.Deg2Rad * Random.Range(0, 90);
+                spawnPosition.x += Mathf.Sin(angle) * radius;
+                spawnPosition.z += Mathf.Cos(angle) * radius;
                 var spawned = Instantiate<EnemyBase>(nextEnemyList[index++], spawnPosition, Quaternion.identity);
+                spawned.dot = minimap.dotPool.Get();
+                spawned.status = status;
                 spawned.target = targetPostion;
+                spawned.phaseManager = phaseManager;
                 yield return delayTime;
             }
         }
@@ -65,22 +94,37 @@ namespace Enemy
         public void OnWaveEnd()
         {
             nextEnemyList.Clear();
-            //임시 생성
-            for(int i=0;i<10;i++)
+            
+            var enemyList = enemyWave.GetEnemyLists(phaseManager.wave);
+            if(enemyList == null)
             {
-                nextEnemyList.Add(TempEnemy);
+                Debug.LogAssertion("Load EnemyList failed!!");
+                Debug.Break();
+                return;
             }
 
+            foreach(EnemySet enemySet in enemyList)
+            {
+                EnemyBase enemyPrefab = enemyPrefabDict[enemySet.enemyId];
+                
+                if(enemyPrefab != null)
+                {
+                    for(int spawnCounter = 0; spawnCounter < enemySet.count; spawnCounter++)
+                    {
+                        nextEnemyList.Add(enemyPrefab);
+                    }
+                }
+            }
             phaseManager.remainEnemy += nextEnemyList.Count;
         }
 
+#if UNITY_EDITOR
         //생성 범위 표시
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             Gizmos.color = new Color(1, 0, 0, 0.5f);
-            Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
-            Gizmos.DrawCube(Vector3.zero, new Vector3(width, (width + height) * 0.5f, height));
+            Gizmos.DrawSphere(transform.position, radius);
         }
+#endif
     }
-
 }

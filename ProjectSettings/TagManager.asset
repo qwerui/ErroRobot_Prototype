@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - UICanvas
+  - Ground
+  - Pointer
   layers:
   - Default
   - TransparentFX

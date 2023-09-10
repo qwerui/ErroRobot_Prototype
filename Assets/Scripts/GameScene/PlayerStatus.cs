@@ -3,34 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-//프로토타입용 임시 클래스
+[System.Serializable]
 public class PlayerStatus : MonoBehaviour
 {
     public float currentShield;
     public float currentHp;
     public float maxShield;
     public float maxHp;
-    public int gold;
-    
-    public TMP_Text shieldText;
-    public TMP_Text hpText;
-    public TMP_Text goldText;
+    public float shieldRecovery;
+    public float coreGainPercent;
+    public int core;
 
-    public GameplayManager gameplayManager;
+    public int killCount;
 
-    void Start()
-    {
-        UpdateText();
+    public delegate void OnDeadDelegate();
+    public delegate void OnValueChangedDelegate(PlayerStatus newStatus);
+    public delegate void OnDamagedDelegate(GameObject source);
+
+    public event OnDeadDelegate onDead;
+    public event OnValueChangedDelegate OnValueChanged;
+    public event OnDamagedDelegate OnDamaged;
+
+    public void Init(StartStatus startStatus)
+    {  
+        maxHp = startStatus.maxHp;
+        maxShield = startStatus.maxShield;
+        currentShield = maxShield;
+        currentHp = maxHp;
+        shieldRecovery = startStatus.shieldRecovery;
+        core = startStatus.startCore;
+        coreGainPercent = startStatus.coreGainPercent;
+        
+        killCount = 0;
+        
+        OnValueChanged.Invoke(this);
     }
 
-    public void UpdateText()
-    {
-        shieldText.SetText($"{currentShield:0}/{maxShield:0}");
-        hpText.SetText($"{currentHp:0}/{maxHp:0}");
-        goldText.SetText($"{gold}");
-    }
-
-    public void Damaged(float damage)
+    public void Damaged(float damage, GameObject source)
     {
         float remainShield = currentShield - damage;
 
@@ -42,11 +51,12 @@ public class PlayerStatus : MonoBehaviour
         
         currentShield = Mathf.Clamp(remainShield, 0, maxShield);
 
-        UpdateText();
-
+        OnValueChanged.Invoke(this);
+        OnDamaged.Invoke(source);
+        
         if (currentHp <= 0)
         {
-            gameplayManager.Gameover();
+            onDead.Invoke();
         }
     }
 }

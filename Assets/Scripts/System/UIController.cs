@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class UIController : IControllerBase
 {
+    public void OnCancel(InputEvent inputEvent)
+    {
+        throw new System.NotImplementedException();
+    }
 
     public void OnNavigate(Vector2 direction, InputEvent inputEvent)
     {

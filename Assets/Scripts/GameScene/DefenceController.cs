@@ -6,19 +6,11 @@ public class DefenceController : MonoBehaviour, IControllerBase
 {
     public WeaponController weaponController;
     public CameraController cameraController;
+    public GameObject pauseMenu;
 
     void Activate() => gameObject.SetActive(true);
     void Deactivate() => gameObject.SetActive(false);
-
-    PhaseManager phaseManager;
-
-    public void Init() 
-    {
-        phaseManager = GameObject.FindObjectOfType<PhaseManager>();
-        phaseManager.OnWaveStart += Activate;
-        phaseManager.OnWaveEnd += Deactivate;
-    }
-
+    
     private void OnEnable() 
     {
         PlayerController.instance.AddController(this);
@@ -36,6 +28,17 @@ public class DefenceController : MonoBehaviour, IControllerBase
 
     public void OnSubmit(InputEvent inputEvent)
     {
-        weaponController.checkFire();
+        if(inputEvent == InputEvent.Pressed)
+        {
+            weaponController.checkFire();
+        }
+    }
+
+    public void OnCancel(InputEvent inputEvent)
+    {
+        if(inputEvent == InputEvent.Pressed)
+        {
+            pauseMenu.SetActive(true);
+        }
     }
 }

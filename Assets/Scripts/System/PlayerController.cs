@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
         if(_instance == null)
         {
             _instance = this;
+            controllerPlatform = new KeyboardController();
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -73,5 +75,15 @@ public class PlayerController : MonoBehaviour
     public void ClearController()
     {
         controllerStack.Clear();
+    }
+
+    public bool CheckKeyboardMode()
+    {
+        return controllerPlatform is KeyboardController;
+    }
+
+    public void ResetPlatform()
+    {
+        controllerPlatform?.Reset();
     }
 }

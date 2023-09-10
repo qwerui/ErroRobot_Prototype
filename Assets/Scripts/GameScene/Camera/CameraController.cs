@@ -13,6 +13,8 @@ public class CameraController : MonoBehaviour
 
     Vector2 moveDirection;
 
+    const string cameraSpeedPref = "CameraSpeed";
+
 
     private float xRotate = 0.0f;
     private float yRotate = 0.0f;
@@ -24,6 +26,7 @@ public class CameraController : MonoBehaviour
     {
         xRotate = transform.eulerAngles.x;
         yRotate = transform.eulerAngles.y;
+        keyboardSpeed = PlayerPrefs.GetInt(cameraSpeedPref, 50) / 100.0f;
     }
     
     void Update()
@@ -67,5 +70,19 @@ public class CameraController : MonoBehaviour
         // 값 초기화
         xRotateSize = 0f;
         yRotateSize = 0f;
+    }
+
+    public void DisableRotation()
+    {
+        moveDirection = Vector2.zero;
+    }
+
+    public RaycastHit RaycastCheck()
+    {
+        RaycastHit hit;
+
+        Physics.Raycast(transform.position, transform.forward, out hit);
+    
+        return hit;
     }
 }

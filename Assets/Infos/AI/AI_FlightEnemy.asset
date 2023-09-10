@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3445374871601240382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d96f3bf4095514ba7c16d1f8d7d4b0, type: 3}
+  m_Name: FlightMove
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: a51e00bd2f58afa42bc68bfa6c8660ef
+  postion: {x: 203, y: 302}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  description: 
+  acceptanceRadius: 300
+--- !u!114 &-3068534937411394345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d61477895b0bae4eb60b142fac0113b, type: 3}
+  m_Name: EnemyShoot
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: ee736756b8a951e419b20a4fc877723a
+  postion: {x: 391.00003, y: 301.64}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  description: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9d341e522b3541409b1815cb8e26f9a, type: 3}
+  m_Name: AI_FlightEnemy
+  m_EditorClassIdentifier: 
+  rootNode: {fileID: 2583865283434830414}
+  treeState: 0
+  repeat: 1
+  nodes:
+  - {fileID: 2583865283434830414}
+  - {fileID: 3519835012605115514}
+  - {fileID: -3445374871601240382}
+  - {fileID: -3068534937411394345}
+  blackboard: {fileID: 11400000, guid: 9cbf189685e96004f88353b0cfa8d370, type: 2}
+  self: {fileID: 0}
+--- !u!114 &2583865283434830414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f114955651cc41449bed3461b531d6b1, type: 3}
+  m_Name: RootNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: e2ca60f3d5ab24145bc729ea27422def
+  postion: {x: 308, y: -32}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  description: 
+  child: {fileID: 3519835012605115514}
+--- !u!114 &3519835012605115514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5301cf2d80547da418c83f425e9ee950, type: 3}
+  m_Name: SequencerNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 40daf2000ee91094c97f46d859932fd3
+  postion: {x: 300, y: 112}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  description: 
+  children:
+  - {fileID: -3445374871601240382}
+  - {fileID: -3068534937411394345}
