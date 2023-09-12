@@ -26,10 +26,11 @@ namespace StartMenu
 
         public void SelectOption(float direction)
         {
+            if(direction < Mathf.Epsilon && direction > -Mathf.Epsilon)
+                return;
             menuOptionList[menuIndex].Deselect();
             
-            //임시코드
-            menuIndex += direction < 0 ? -1 : 1;
+            menuIndex += direction < 0 ? 1 : -1;
 
             menuIndex = Mathf.Clamp(menuIndex, 0, menuOptionList.Count-1);
             menuOptionList[menuIndex].Select();

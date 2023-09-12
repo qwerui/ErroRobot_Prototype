@@ -8,6 +8,8 @@ public class MoveToObject : ActionNode
 {
     NavMeshAgent agent;
     GameObject target;
+    Vector3 destination;
+    Animator animator;
 
     public float acceptanceRadius;
 
@@ -15,11 +17,24 @@ public class MoveToObject : ActionNode
     {
         self.TryGetComponent<NavMeshAgent>(out agent);
         target = blackboard.Get<GameObject>("target");
+        self.TryGetComponent<Animator>(out animator);
+        var collider = target.GetComponent<Collider>();
+        if(collider != null)
+        {
+            destination = collider.ClosestPoint(self.transform.position);
+        }
+        else
+        {
+            destination = target.transform.position;
+        }
+    
+        agent.SetDestination(destination);
+        animator?.SetBool("isMoving", true);
     }
 
     protected override void OnStop()
     {
-
+        
     }
 
     protected override State OnUpdate()
@@ -28,12 +43,13 @@ public class MoveToObject : ActionNode
         {
             return State.Failure;
         }
-        
-        agent.SetDestination(target.transform.position);
+
         agent.Move(Vector3.zero);
         
-        if(agent.pathStatus == NavMeshPathStatus.PathComplete)
+        if(agent.remainingDistance <= acceptanceRadius && agent.pathPending == false)
         {
+            agent.isStopped = true;
+            animator?.SetBool("isMoving", false);
             return State.Success;
         }
         else
