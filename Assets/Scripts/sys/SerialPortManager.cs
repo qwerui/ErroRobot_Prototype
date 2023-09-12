@@ -105,19 +105,19 @@ public class SerialPortManager : MonoBehaviour
         {
             switch (sp.ReadByte())
             {
-                case 39:
+                case 75: //right
                     axisX += -1;
                     break;
 
-                case 37:
+                case 77: //left
                     axisX += 1;
                     break;
 
-                case 38:
+                case 72: //up
                     axisY += -1;
                     break;
 
-                case 40:
+                case 80: //down
                     axisY += 1;
                     break;
 
