@@ -10,10 +10,13 @@ public class CameraController : MonoBehaviour
 
     // 키보드 카메라 움직이는 속도
     public float keyboardSpeed = 0.1f;
+    public float acceleration = 0.2f;
+    float speedMultiplier;
 
     Vector2 moveDirection;
 
     const string cameraSpeedPref = "CameraSpeed";
+    const float initialMultiplier = 0.01f;
 
 
     private float xRotate = 0.0f;
@@ -27,6 +30,7 @@ public class CameraController : MonoBehaviour
         xRotate = transform.eulerAngles.x;
         yRotate = transform.eulerAngles.y;
         keyboardSpeed = PlayerPrefs.GetInt(cameraSpeedPref, 50) / 100.0f;
+        speedMultiplier = initialMultiplier;
     }
     
     void Update()
@@ -49,9 +53,9 @@ public class CameraController : MonoBehaviour
     }
     
     // 키보드 입력값을 받아옵니다.
-    public void controlWithKey(Vector2 direction, InputEvent inputEvent)
+    public void controlWithKey(Vector2 direction)
     {
-        moveDirection = direction * keyboardSpeed;
+        moveDirection = direction * keyboardSpeed * 2;
         
         // xRotateSize += direction.x * keyboardSpeed;
         // yRotateSize += direction.y * keyboardSpeed;
@@ -60,8 +64,18 @@ public class CameraController : MonoBehaviour
     // 키보드와 마우스의 입력값을 기반으로, 카메라의 각도를 조절합니다.
     void updateCamera()
     {
-        xRotate = Mathf.Clamp(xRotate - moveDirection.y, 0, 90);
-        yRotate = Mathf.Clamp(yRotate + moveDirection.x, -40, 130);
+        if(Mathf.Abs(moveDirection.x) + Mathf.Abs(moveDirection.y) > Mathf.Epsilon)
+        {
+            speedMultiplier += acceleration * Time.deltaTime;
+            speedMultiplier = Mathf.Clamp01(speedMultiplier);
+        }
+        else
+        {
+            speedMultiplier = initialMultiplier;
+        }
+
+        xRotate = Mathf.Clamp(xRotate - moveDirection.y * speedMultiplier, 0, 90);
+        yRotate = Mathf.Clamp(yRotate + moveDirection.x * speedMultiplier, -40, 130);
         // xRotate = Mathf.Clamp(xRotate + xRotateSize, 0, 90); // 중간값 : 45
         // yRotate = Mathf.Clamp(yRotate + yRotateSize, -40, 130); // 중간값 : 45
 
@@ -80,9 +94,7 @@ public class CameraController : MonoBehaviour
     public RaycastHit RaycastCheck()
     {
         RaycastHit hit;
-
         Physics.Raycast(transform.position, transform.forward, out hit);
-    
         return hit;
     }
 }

@@ -27,12 +27,15 @@ namespace Enemy
         protected BehaviorTreeRunner treeRunner;
         public GameObject target;
 
+        bool isDead;
+
         protected virtual void Awake() 
         {
             TryGetComponent<NavMeshAgent>(out agent);
             TryGetComponent<BehaviorTreeRunner>(out treeRunner);
             agent.speed = speed;
             agent.acceleration = speed;
+            isDead = false;
         }
 
         protected virtual void Start()
@@ -54,7 +57,7 @@ namespace Enemy
         public void Damaged(float damage)
         {
             hp -= damage;
-            if(hp <= 0)
+            if(hp <= 0 && !isDead)
             {
                 OnDead();
             }
@@ -62,6 +65,7 @@ namespace Enemy
 
         public void OnDead()
         {
+            isDead = true;
             phaseManager.UpdateRemainEnemy();
             dot.DestroyDot();
             Destroy(gameObject);
