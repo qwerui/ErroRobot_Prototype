@@ -88,7 +88,7 @@ public class PlayerStatus : MonoBehaviour
         currentShield = maxShield;
         currentHp = maxHp;
         shieldRecovery = startStatus.shieldRecovery;
-        core = startStatus.startCore + 500;
+        core = startStatus.startCore;
         coreGainPercent = startStatus.coreGainPercent;
         
         killCount = 0;
