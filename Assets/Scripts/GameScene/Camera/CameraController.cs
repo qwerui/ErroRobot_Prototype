@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -10,7 +11,8 @@ public class CameraController : MonoBehaviour
 
     // 키보드 카메라 움직이는 속도
     public float keyboardSpeed = 0.1f;
-    public float acceleration = 0.2f;
+    float acceleration = 0.0f;
+    const float accelerationConst = 0.005f; 
     float speedMultiplier;
 
     Vector2 moveDirection;
@@ -66,11 +68,13 @@ public class CameraController : MonoBehaviour
     {
         if(Mathf.Abs(moveDirection.x) + Mathf.Abs(moveDirection.y) > Mathf.Epsilon)
         {
-            speedMultiplier += acceleration * Time.deltaTime;
+            acceleration += Time.deltaTime * accelerationConst;
+            speedMultiplier += acceleration;
             speedMultiplier = Mathf.Clamp01(speedMultiplier);
         }
         else
         {
+            acceleration = 0;
             speedMultiplier = initialMultiplier;
         }
 

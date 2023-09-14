@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TowerUI : MonoBehaviour, IGameUI
 {
     Tower tower;
     GameUIController gameUIController;
+    public PlayerStatus playerStatus;
+    public TMP_Text upgradeText;
     public TowerMoveController towerMoveController;
     TowerDetailContent[] towerDetailContents;
     Outline[] outlines;
@@ -18,7 +21,7 @@ public class TowerUI : MonoBehaviour, IGameUI
         if(gameUIController == null)
         {
             gameUIController = GetComponent<GameUIController>();
-            towerDetailContents = GetComponentsInChildren<TowerDetailContent>();
+            towerDetailContents = GetComponentsInChildren<TowerDetailContent>(true);
             System.Array.Sort(towerDetailContents, (TowerDetailContent a, TowerDetailContent b)=>{
                 return a.transform.GetSiblingIndex() - b.transform.GetSiblingIndex();
             });
@@ -30,6 +33,8 @@ public class TowerUI : MonoBehaviour, IGameUI
         gameUIController.enabled = true;
         index = 0;
         outlines[0].enabled = true;
+
+        UpdateTowerDetail();
     }
 
     private void OnDisable() 
@@ -48,14 +53,59 @@ public class TowerUI : MonoBehaviour, IGameUI
     public void SetTower(Tower newTower)
     {
         tower = newTower;
-        UpdateTowerDetail();
     }
 
     void UpdateTowerDetail()
     {
-        //타워의 정보를 가져와야할 필요가 있음
-        //타워의 정보를 업데이트
+        if (tower.IsMaxLevel()) //최대 레벨
+        {
+            upgradeText.color = Color.black;
+            upgradeText.SetText("-");
+
+            //타워 정보 업데이트
+            var towerDetails = tower.GetTowerDetail(tower.Level);
+
+            if (towerDetails != null)
+            {
+                int detailIndex = 0;
+                foreach (KeyValuePair<string, string> detail in towerDetails)
+                {
+                    towerDetailContents[detailIndex].SetText(detail.Key, detail.Value);
+                    towerDetailContents[detailIndex].gameObject.SetActive(true);
+                    detailIndex++;
+                }
+            }
+        }
+        else
+        {
+            if (playerStatus.Core < tower.UpgradeCore)
+            {
+                upgradeText.color = Color.red;
+            }
+            else
+            {
+                upgradeText.color = Color.black;
+            }
+            upgradeText.SetText(tower.UpgradeCore.ToString());
+
+            //타워 정보 업데이트
+            var towerDetails = tower.GetTowerDetail(tower.Level);
+            var nextLevelDetail = tower.GetTowerDetail(tower.Level+1);
+
+            if (towerDetails != null)
+            {
+                int detailIndex = 0;
+                foreach (KeyValuePair<string, string> detail in towerDetails)
+                {   
+                    string valueString = $"{detail.Value} (+{float.Parse(nextLevelDetail[detail.Key]) - float.Parse(detail.Value)})";
+                    towerDetailContents[detailIndex].SetText(detail.Key, valueString);
+                    towerDetailContents[detailIndex].gameObject.SetActive(true);
+                    detailIndex++;
+                }
+            }
+        }
     }
+
 
     public void OnCancel()
     {
@@ -85,8 +135,12 @@ public class TowerUI : MonoBehaviour, IGameUI
                 towerMoveController.SetTower(tower);
             break;
             case 1: //업그레이드
-                tower.Upgrade();
-                UpdateTowerDetail();
+                if(playerStatus.Core >= tower.UpgradeCore && !tower.IsMaxLevel())
+                {
+                    playerStatus.Core -= tower.UpgradeCore;
+                    tower.Upgrade();
+                    UpdateTowerDetail();
+                }
             break;
             case 2: //닫기
                 OnCancel();

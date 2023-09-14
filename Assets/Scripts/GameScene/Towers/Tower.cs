@@ -14,13 +14,28 @@ using UnityEngine.AI;
 public class Tower : MonoBehaviour, IRaycastInteractable
 {
     BoxCollider boxCollider;
+    ParticleSystem upgradeEffect;
 
     readonly Color halfTransparent = new Color(1.0f, 1.0f, 1.0f, 0.5f);
     readonly Color opaque = Color.white;
     readonly Color notAvailable = new Color(1.0f, 0.0f, 0.0f, 0.5f);
 
+    protected Dictionary<string, string> towerString = new Dictionary<string, string>();
+    
     bool isBuildPhase;
     bool isMoving;
+    bool isCanPut;
+
+    /// <summary>
+    /// 타워 정보 변수, 자식 클래스에서는 다운 캐스팅 프로퍼티 필요
+    /// </summary>
+    protected TowerInfo towerInfo;
+    protected int level = 0;
+    public int Level {get{return level;}}
+    public float MaxHp {get{return towerInfo.maxHp[level];}}
+    protected float currentHp;
+    public float CurrentHp {set {currentHp = Mathf.Clamp(value, 0, MaxHp);} get {return currentHp;}}
+    public int UpgradeCore {get{return towerInfo.upgradeCore[level];}}
 
     IEnumerator towerLoop;
     PhaseManager gameplayManager;
@@ -35,10 +50,13 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         {
             StopCoroutine(towerLoop);
         }
-    } 
+    }
+
+    public bool IsMaxLevel() => level == towerInfo.maxLevel - 1;
 
     private void Start() 
     {
+        upgradeEffect = GetComponent<ParticleSystem>();
         gameplayManager = GameObject.FindObjectOfType<PhaseManager>();
         towerUI = GameObject.FindObjectOfType<TowerUI>(true);
         towerLoop = ActivateTowerLoop();
@@ -58,6 +76,7 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         boxCollider.isTrigger = true;
         isMoving = true;
         beforeMovePostion = transform.position;
+        isCanPut = true;
 
         //반투명화
         foreach(var mesh in GetComponentsInChildren<MeshRenderer>())
@@ -127,7 +146,27 @@ public class Tower : MonoBehaviour, IRaycastInteractable
     /// 방어 페이즈에 실행할 동작
     /// </summary>
     protected virtual void Execute(){}
-    public virtual void Upgrade(){}
+
+    public virtual void Upgrade()
+    {
+        level++;
+        upgradeEffect.Play();
+    }
+
+    public virtual Dictionary<string, string> GetTowerDetail(int level)
+    {
+        return towerInfo.GetTowerInfoString(level);
+    }
+
+    void OnDamaged(float damage)
+    {
+        CurrentHp -= damage;
+
+        if(CurrentHp <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void IRaycastInteractable.Execute()
     {
@@ -135,7 +174,10 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         {
             if(isMoving)
             {
-                Put();
+                if(isCanPut)
+                {
+                    Put();
+                }
             }
             else
             {
@@ -159,6 +201,7 @@ public class Tower : MonoBehaviour, IRaycastInteractable
                 var material = mesh.material;
                 material.SetColor("_Color", notAvailable);
             }
+            isCanPut = false;
         }
     }
 
@@ -172,6 +215,7 @@ public class Tower : MonoBehaviour, IRaycastInteractable
                 var material = mesh.material;
                 material.SetColor("_Color", halfTransparent);
             }
+            isCanPut = true;
         }
     }
 }
