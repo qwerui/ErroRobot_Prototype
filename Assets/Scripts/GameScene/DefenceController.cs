@@ -23,7 +23,7 @@ public class DefenceController : MonoBehaviour, IControllerBase
 
     public void OnNavigate(Vector2 direction, InputEvent inputEvent)
     {
-        cameraController.controlWithKey(direction, inputEvent);
+        cameraController.controlWithKey(direction);
     }
 
     public void OnSubmit(InputEvent inputEvent)
@@ -38,6 +38,7 @@ public class DefenceController : MonoBehaviour, IControllerBase
     {
         if(inputEvent == InputEvent.Pressed)
         {
+            cameraController.DisableRotation();
             pauseMenu.SetActive(true);
         }
     }
