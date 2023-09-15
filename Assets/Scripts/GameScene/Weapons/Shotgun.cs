@@ -11,7 +11,6 @@ public class Shotgun : BaseWeapon
         for (int i = 0; i < BulletAmount; i++)
         {
             base.Shoot(firePos, direction);
-            Debug.Log("Shoot " + i);
         }
     }
 
