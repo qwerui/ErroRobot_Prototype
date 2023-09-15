@@ -14,7 +14,6 @@ public class CameraController : MonoBehaviour
     float acceleration = 0.0f;
     const float accelerationConst = 0.005f; 
     float speedMultiplier;
-    public float keyboardSpeed = 0.05f;
 
     Vector2 moveDirection;
 
