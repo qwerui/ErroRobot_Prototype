@@ -24,7 +24,7 @@ public class BuildController : MonoBehaviour, IControllerBase
     public void OnNavigate(Vector2 direction, InputEvent inputEvent)
     {
         //pointer.SetDirection(direction, inputEvent);
-        cameraController.controlWithKey(direction);
+        cameraController.controlWithKey(direction, inputEvent);
     }
 
     public void OnSubmit(InputEvent inputEvent)
@@ -39,12 +39,10 @@ public class BuildController : MonoBehaviour, IControllerBase
                 {
                     //next wave
                     nextWavePanel.SetActive(true);
-                    cameraController.DisableRotation();
                 }
                 else
                 {
                     hit.transform.GetComponent<IRaycastInteractable>()?.Execute();
-                    cameraController.DisableRotation();
                 }
             }
         }
@@ -54,7 +52,6 @@ public class BuildController : MonoBehaviour, IControllerBase
     {
         if(inputEvent == InputEvent.Pressed)
         {
-            cameraController.DisableRotation();
             pauseMenu.SetActive(true);
         }
     }

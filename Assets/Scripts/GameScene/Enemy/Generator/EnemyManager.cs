@@ -52,6 +52,9 @@ namespace Enemy
 
             //status = GameObject.FindObjectOfType<PlayerStatus>();
             minimap = GameObject.FindObjectOfType<Minimap>();
+
+            //웨이브 종료 시 적 리스트를 초기화하기 때문에 호출
+            OnWaveEnd();
         }
 
         ///<summary>

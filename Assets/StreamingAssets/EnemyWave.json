@@ -7,7 +7,7 @@
                     "enemyList": [
                         {
                             "enemyId": 0,
-                            "count": 5
+                            "count": 10
                         }
                     ]
                 },
@@ -15,7 +15,7 @@
                     "enemyList": [
                         {
                             "enemyId": 0,
-                            "count": 10
+                            "count": 20
                         }
                     ]
                 }
@@ -28,7 +28,7 @@
                     "enemyList": [
                         {
                             "enemyId": 0,
-                            "count": 5
+                            "count": 10
                         }
                     ]
                 },
@@ -36,7 +36,7 @@
                     "enemyList": [
                         {
                             "enemyId": 0,
-                            "count": 10
+                            "count": 20
                         }
                     ]
                 }
@@ -49,7 +49,7 @@
                     "enemyList": [
                         {
                             "enemyId": 0,
-                            "count": 5
+                            "count": 10
                         }
                     ]
                 },
@@ -57,7 +57,7 @@
                     "enemyList": [
                         {
                             "enemyId": 0,
-                            "count": 10
+                            "count": 20
                         }
                     ]
                 }
@@ -70,7 +70,7 @@
                     "enemyList": [
                         {
                             "enemyId": 0,
-                            "count": 5
+                            "count": 10
                         }
                     ]
                 },
@@ -78,7 +78,7 @@
                     "enemyList": [
                         {
                             "enemyId": 0,
-                            "count": 10
+                            "count": 20
                         }
                     ]
                 }
@@ -91,7 +91,7 @@
                     "enemyList": [
                         {
                             "enemyId": 0,
-                            "count": 5
+                            "count": 10
                         }
                     ]
                 },
@@ -99,7 +99,7 @@
                     "enemyList": [
                         {
                             "enemyId": 0,
-                            "count": 10
+                            "count": 20
                         }
                     ]
                 }

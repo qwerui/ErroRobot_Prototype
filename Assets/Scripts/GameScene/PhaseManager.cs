@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using Enemy;
 using UnityEngine;
 
+//추후에 GameplayManager로 명칭 변경 예정
 public class PhaseManager : MonoBehaviour
 {
     public int wave = 1;
 
-    bool isGameEnd = false;
     public bool isDefense = false;
     public int remainEnemy = 0;
 
@@ -38,8 +38,8 @@ public class PhaseManager : MonoBehaviour
         OnWaveEnd += () => defenceController.gameObject.SetActive(false);
 
         //게임 종료 이벤트 초기화
-        playerStatus.OnDead += Gameover;
-        playerStatus.OnDead += defenceController.cameraController.DisableRotation;
+        playerStatus.onDead += Gameover;
+        playerStatus.onDead += defenceController.cameraController.DisableRotation;
         OnGameEnd += GameClear;
         OnGameEnd += defenceController.cameraController.DisableRotation;
     }
@@ -72,16 +72,12 @@ public class PhaseManager : MonoBehaviour
             OnWaveEnd.Invoke();
         }
 
-        playerStatus.PlayCount++;
-        GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.PlayCount, playerStatus.PlayCount);
-
         // 시작은 건설 모드
         isDefense = false;
     }
 
     public void Gameover()
     {
-        isGameEnd = true;
         Time.timeScale = 0.0f;
         gameoverController.gameObject.SetActive(true);
         UI.OnGameover();
@@ -89,10 +85,10 @@ public class PhaseManager : MonoBehaviour
 
     public void GameClear()
     {
-        isGameEnd = true;
+        //임시 코드 추후에 게임 클리어 화면 출력
         Time.timeScale = 0.0f;
         gameoverController.gameObject.SetActive(true);
-        UI.OnGameClear();
+        UI.OnGameover();
     }
 
     public void UpdateRemainEnemy()
@@ -104,7 +100,7 @@ public class PhaseManager : MonoBehaviour
             {
                 OnGameEnd.Invoke();
             }
-            else if(!isGameEnd)
+            else
             {
                 wave++;
                 OnWaveEnd.Invoke();
