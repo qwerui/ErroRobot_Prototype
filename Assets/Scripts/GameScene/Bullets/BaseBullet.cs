@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,19 @@ using UnityEngine;
 public class BaseBullet : MonoBehaviour
 {
     private BaseWeapon parent;
+    private float age = 0;
 
     public GameObject bulletPrefab;
+
+
+    public void Update()
+    {
+        age += Time.timeScale;
+        if (age >= 1000)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void SetParent(BaseWeapon parent)
     {
