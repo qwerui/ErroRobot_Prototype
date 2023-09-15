@@ -90,6 +90,8 @@ public class WeaponController : MonoBehaviour
     // 격발 실시!
     private void Fire()
     {
+        
+        
         currentFireDelay = currentWeapon.fireDelay;
         currentWeapon.nowBulletCount -= 1;
 
@@ -117,7 +119,6 @@ public class WeaponController : MonoBehaviour
         // R키를 누르고, 장전 중이 아닐 것이며, 현재 총알 수가 최대 장탄 수보다 적을 때
         if(Input.GetKeyDown(KeyCode.R) && !isReloading && currentWeapon.nowBulletCount < currentWeapon.maxBulletCount)
         {
-            Debug.Log("장전 시작...");
             StartCoroutine(ReloadCoroutine());
         }
     }
@@ -134,7 +135,7 @@ public class WeaponController : MonoBehaviour
 
         currentWeapon.nowBulletCount = currentWeapon.maxBulletCount;
         isReloading = false;
-        Debug.Log("장전 완료");
+        // Debug.Log("장전 완료");
     }
 
 

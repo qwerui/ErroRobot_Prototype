@@ -33,7 +33,7 @@ public class DefenceController : MonoBehaviour, IControllerBase
             weaponController.PressButton();
         }
 
-        if (inputEvent == InputEvent.Released)
+        else if (inputEvent == InputEvent.Released)
         {
             weaponController.ReleaseButton();
         }

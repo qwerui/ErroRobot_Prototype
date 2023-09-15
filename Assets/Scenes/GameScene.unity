@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.00019633505, g: 0.0001998828, b: 0.000196158, a: 1}
+  m_IndirectSpecularColor: {r: 0.00019565951, g: 0.00019707058, b: 0.00019549018, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1815,76 +1815,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
---- !u!1001 &693504960
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1444043866}
-    m_Modifications:
-    - target: {fileID: 6759915810939542690, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-      propertyPath: name
-      value: TestWeapon
-      objectReference: {fileID: 0}
-    - target: {fileID: 6759915810939542690, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 4956516880718611162, guid: 72fa8cb182cbe2e4e9a67f7467add412, type: 3}
-    - target: {fileID: 8718702267471529577, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8718702267471529577, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8718702267471529577, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8718702267471529577, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8718702267471529577, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8718702267471529577, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8718702267471529577, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8718702267471529577, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8718702267471529577, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8718702267471529577, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8718702267471529577, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8745114468140998339, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-      propertyPath: m_Name
-      value: TestWeapon
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
---- !u!4 &693504961 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8718702267471529577, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
-  m_PrefabInstance: {fileID: 693504960}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &697374198
 GameObject:
   m_ObjectHideFlags: 0
@@ -2348,7 +2278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b72569003762ae4b9735c77449dcdac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapon: {fileID: 6759915810939542690, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
+  currentWeapon: {fileID: -1384754086415200858, guid: 2092654be34835b40adf93cb568d49ae, type: 3}
   cam: {fileID: 650546218}
   firePos: {fileID: 650546219}
 --- !u!1 &767798727
@@ -5487,7 +5417,6 @@ Transform:
   m_Children:
   - {fileID: 650546219}
   - {fileID: 739776438}
-  - {fileID: 693504961}
   m_Father: {fileID: 2123817408}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6274,14 +6203,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: ProtoTower
   range: 100
-  damage: 10
-  accuracy: 0.1
-  fireDelay: 10
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  tf_TopGun: {fileID: 1007797111}
-  viewAngle: 0
+  weapon: {fileID: 7379442554004447077, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
 --- !u!1 &1539912225
 GameObject:
   m_ObjectHideFlags: 0

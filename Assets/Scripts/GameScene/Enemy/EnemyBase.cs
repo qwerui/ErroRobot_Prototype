@@ -54,6 +54,7 @@ namespace Enemy
         public void Damaged(float damage)
         {
             hp -= damage;
+            Debug.Log("Now Health : " + hp);
             if(hp <= 0)
             {
                 OnDead();

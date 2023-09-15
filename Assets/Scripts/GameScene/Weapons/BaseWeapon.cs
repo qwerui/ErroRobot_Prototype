@@ -31,11 +31,10 @@ public class BaseWeapon : MonoBehaviour
 
     // 기본적인 발사 로직. 대부분의 무기가 이 로직을 사용
     // 궤적이 휘는 총... 등 특수한 기믹이 있는 무기는 해당 로직을 사용하지 않을 예정
-    public void Shoot(Vector3 firePos, Vector3 _direction)
+    public virtual void Shoot(Vector3 firePos, Vector3 _direction)
     {
-        
         GameObject bullet = Instantiate(this.bullet.bulletPrefab, firePos, Quaternion.Euler(new Vector3(0, 0, 0)));
-        bullet.GetComponent<BaseBullet>().parent = this;
+        bullet.GetComponent<BaseBullet>().SetParent(this);
         // 명중률 보정
         Vector3 acc_value = new Vector3(Random.Range(-1f, 1f) * accuracy, Random.Range(-1, 1f) * accuracy, 0f);
         bullet.GetComponent<Rigidbody>().AddForce((_direction + acc_value) * bulletSpeed, ForceMode.Impulse);
@@ -44,9 +43,8 @@ public class BaseWeapon : MonoBehaviour
 
     // 기본적인 총알 피격 로직. 대부분의 무기가 이 로직을 사용
     // 대미지 없이 폭발만 일으키는 총알... 등 특수한 기믹이 있는 무기는 해당 로직을 사용하지 않을 예정
-    public void OnHit(GameObject target)
+    public virtual void OnHit(GameObject target)
     {
-
         // 적 체력 감소
         if(target.CompareTag("Enemy"))
         {

@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class BaseBullet : MonoBehaviour
 {
-    public BaseWeapon parent;
+    private BaseWeapon parent;
 
     public GameObject bulletPrefab;
 
-    // rigidBody Ãæµ¹ ½Ã
+    public void SetParent(BaseWeapon parent)
+    {
+        this.parent = parent;
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
-        parent.OnHit(other.gameObject);
-        Destroy(gameObject);
+        if (!other.CompareTag("Bullet"))
+        {
+            parent.OnHit(other.gameObject);
+            Destroy(gameObject);
+        }
+        
     }
+
+    
 
 }
