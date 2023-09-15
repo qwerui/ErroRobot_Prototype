@@ -31,14 +31,14 @@ public class SerialPortManager : MonoBehaviour
     {
         string[] abc = SerialPort.GetPortNames();
         Debug.Log(abc[0] + "   " + abc[1]);
-        sp = new SerialPort(abc[0], baudRate, Parity.None, 8, StopBits.One);
+        sp = new SerialPort("COM4", baudRate, Parity.None, 8, StopBits.One);
 
         if (!sp.IsOpen)
         {
             sp.Open();
         }
 
-        sp.ReadTimeout = 100;
+        sp.ReadTimeout = 500;
     }
 
     // Update is called once per frame
