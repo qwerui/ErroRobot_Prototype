@@ -33,10 +33,10 @@ public class AchievementNotifier : MonoBehaviour
     public void ShowNotifier(Achievement achievement)
     {
         achievementQueue.Enqueue(achievement);
-        OnNotifyEnd();
+        OnNotifiyEnd();
     }
 
-    public void OnNotifyEnd()
+    public void OnNotifiyEnd()
     {
         if(achievementQueue.Count > 0)
         {

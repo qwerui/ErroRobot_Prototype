@@ -6,78 +6,21 @@ using TMPro;
 [System.Serializable]
 public class PlayerStatus : MonoBehaviour
 {
-    [SerializeField, HideInInspector]
-    float currentShield;
-    [SerializeField, HideInInspector]
-    float currentHp;
-    [SerializeField, HideInInspector]
-    float maxShield;
-    [SerializeField, HideInInspector]
-    float maxHp;
-    [SerializeField, HideInInspector]
-    float shieldRecovery;
-    [SerializeField, HideInInspector]
-    float coreGainPercent;
-    [SerializeField, HideInInspector]
-    int core;
-    [SerializeField, HideInInspector]
-    int playCount;
-    [SerializeField, HideInInspector]
-    int killCount;
+    public float currentShield;
+    public float currentHp;
+    public float maxShield;
+    public float maxHp;
+    public float shieldRecovery;
+    public float coreGainPercent;
+    public int core;
 
-#region Property
-    public float CurrentShield
-    {
-        set{currentShield = Mathf.Clamp(value, 0, maxShield);}
-        get{return currentShield;}
-    }
-    public float CurrentHp
-    {
-        set{currentHp = Mathf.Clamp(value, 0, maxHp);}
-        get{return currentHp;}
-    }
-    public float MaxShield
-    {
-        set{maxShield = value;}
-        get{return maxShield;}
-    }
-    public float MaxHp
-    {
-        set{maxHp = value;}
-        get{return maxHp;}
-    }
-    public float ShieldRecovery
-    {
-        set{shieldRecovery = value;}
-        get{return shieldRecovery;}
-    }
-    public float CoreGainPercent
-    {
-        set{coreGainPercent = value;}
-        get{return coreGainPercent;}
-    }
-    public int Core
-    {
-        set{core = value;}
-        get{return core;}
-    }
-    public int KillCount
-    {
-        set{killCount = value;}
-        get{return killCount;}
-    }
-    public int PlayCount
-    {
-        set{playCount = value;GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.PlayCount, playCount);}
-        get{return playCount;}
-    }
-#endregion
+    public int killCount;
 
     public delegate void OnDeadDelegate();
     public delegate void OnValueChangedDelegate(PlayerStatus newStatus);
     public delegate void OnDamagedDelegate(GameObject source);
 
-    public event OnDeadDelegate OnDead;
+    public event OnDeadDelegate onDead;
     public event OnValueChangedDelegate OnValueChanged;
     public event OnDamagedDelegate OnDamaged;
 
@@ -94,27 +37,26 @@ public class PlayerStatus : MonoBehaviour
         killCount = 0;
         
         OnValueChanged.Invoke(this);
-        
     }
 
     public void Damaged(float damage, GameObject source)
     {
-        
-        float remainDamage = damage - currentShield;
-        currentShield -= damage;
+        float remainShield = currentShield - damage;
 
-        if(remainDamage > 0)
+        if(remainShield <= 0)
         {
             //실드 초과 데미지
-            currentHp -= damage;
+            currentHp = Mathf.Clamp(currentHp+remainShield, 0, maxHp);
         }
+        
+        currentShield = Mathf.Clamp(remainShield, 0, maxShield);
 
         OnValueChanged.Invoke(this);
         OnDamaged.Invoke(source);
         
         if (currentHp <= 0)
         {
-            OnDead.Invoke();
+            onDead.Invoke();
         }
     }
 }
