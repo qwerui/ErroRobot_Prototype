@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     public GameObject buildUI;
     
     public GameObject aim;
-    public GameoverPanel gameoverPanel;
+    public GameObject gameoverPanel;
     public TMP_Text waveText;
 
     [Header("Pointer")]
@@ -55,20 +55,15 @@ public class UIManager : MonoBehaviour
 
     public void UpdateStatus(PlayerStatus status)
     {
-        shieldText.SetText($"{status.CurrentShield:0}/{status.MaxShield:0}");
-        hpText.SetText($"{status.CurrentHp:0}/{status.MaxHp:0}");
-        coreText.SetText($"{status.Core}");
-        shieldBar.fillAmount = status.CurrentShield / status.MaxShield;
-        hpBar.fillAmount = status.CurrentHp / status.MaxHp;
+        shieldText.SetText($"{status.currentShield:0}/{status.maxShield:0}");
+        hpText.SetText($"{status.currentHp:0}/{status.maxHp:0}");
+        coreText.SetText($"{status.core}");
+        shieldBar.fillAmount = status.currentShield / status.maxShield;
+        hpBar.fillAmount = status.currentHp / status.maxHp;
     }
 
     public void OnGameover()
     {
-        gameoverPanel.Gameover();
-    }
-
-    public void OnGameClear()
-    {
-        gameoverPanel.GameClear();
+        gameoverPanel.SetActive(true);
     }
 }

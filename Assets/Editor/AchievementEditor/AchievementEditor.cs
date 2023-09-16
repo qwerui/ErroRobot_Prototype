@@ -17,7 +17,10 @@ public class AchievementEditor : EditorWindow
     TextField storyField;
     EnumField eventField;
     TextField imageField;
-    FloatField requireField;
+
+    IntegerField intRequireField;
+    FloatField floatRequireField;
+    EnumField enumRequireField;
 
     AchievementList achievementList;
 
@@ -53,7 +56,6 @@ public class AchievementEditor : EditorWindow
         storyField = root.Q<TextField>("achievement-story");
         eventField = root.Q<EnumField>("achievement-event");
         imageField = root.Q<TextField>("achievement-image");
-        requireField = root.Q<FloatField>("achievement-require");
 
         findButton.clicked += OnClickFind;
         commitButton.clicked += OnClickCommit;
@@ -91,7 +93,6 @@ public class AchievementEditor : EditorWindow
             storyField.value = foundAchievement.story;
             eventField.value = foundAchievement.eventType;
             imageField.value = foundAchievement.imagePath;
-            requireField.value = foundAchievement.requireValue;
         }
         else
         {
@@ -120,12 +121,11 @@ public class AchievementEditor : EditorWindow
             saveTarget.story = storyField.value;
             saveTarget.eventType = (AchievementEvent)eventField.value;
             saveTarget.imagePath = imageField.value.Length == 0 ? idField.value.ToString() : imageField.value;
-            saveTarget.requireValue = requireField.value;
 
             //업적 저장
             achievements.Add(saveTarget);
             achievements.Sort((Achievement a, Achievement b)=>{return a.id - b.id;});
-            JSONParser.SaveJSON<AchievementList>($"{Application.streamingAssetsPath}/Achievement.json", achievementList);
+            JSONParser.SaveJSON<AchievementList>($"{Application.dataPath}/Infos/Achievement.json", achievementList);
 
             Debug.Log("Save Success!!");
         }
