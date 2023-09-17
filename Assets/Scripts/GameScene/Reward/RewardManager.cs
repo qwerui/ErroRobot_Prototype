@@ -14,6 +14,7 @@ public class RewardManager : MonoBehaviour
     //보상 획득 창
     public RewardPanel rewardPanel;
     public PhaseManager gameplayManager;
+    public PlayerStatus playerStatus;
     
 
     public SaveManager saveManager;
@@ -29,10 +30,7 @@ public class RewardManager : MonoBehaviour
         
         foreach(Reward reward in loadedReward)
         {
-            if(reward.isPickable)
-            {
-                rewards[reward.rarity].Add(reward);
-            }
+            rewards[reward.rarity].Add(reward);
         }
     }
 
@@ -72,8 +70,30 @@ public class RewardManager : MonoBehaviour
 
     public void GetReward(Reward reward)
     {
-        //보상 적용 코드
         rewardPanel.gameObject.SetActive(false);
+
+        //보상 적용 코드
+        // switch(reward.type)
+        // {
+        //     case RewardType.Status:
+        //         var statusReward = reward as StatusReward;
+        //         playerStatus.Enhance(statusReward.statusType, statusReward.value);
+        //     break;
+        //     case RewardType.Weapon:
+        //     break;
+        //     case RewardType.Tower:
+        //     break;
+        //     default:
+        //         Debug.LogWarning("Invalid Reward");
+        //     break;
+        // }
+
+        // reward.pickableCount--;
+
+        // if(reward.pickableCount <= 0)
+        // {
+        //     rewards[reward.rarity].Remove(reward);
+        // }
 
         //보상 결정 시 세이브
         saveManager.SaveGame();

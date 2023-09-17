@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 [System.Serializable]
 public class PlayerStatus : MonoBehaviour
@@ -95,6 +96,33 @@ public class PlayerStatus : MonoBehaviour
         
         OnValueChanged.Invoke(this);
         
+    }
+
+    public void Enhance(StatusType type, float value)
+    {
+        switch(type)
+        {
+            case StatusType.MaxHP:
+                MaxHp += value;
+                CurrentHp += value;
+            break;
+            case StatusType.MaxShield:
+                MaxShield += value;
+                CurrentShield += value;
+            break;
+            case StatusType.ShieldRecover:
+                ShieldRecovery += value;
+            break;
+            case StatusType.CoreGain:
+                CoreGainPercent += value;
+            break;
+        }
+        OnValueChanged.Invoke(this);
+    }
+
+    public void GainCore(float value)
+    {
+        Core += (int)(value * CoreGainPercent);
     }
 
     public void Damaged(float damage, GameObject source)

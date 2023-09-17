@@ -12,7 +12,7 @@
         <uie:EnumField label="Event" name="achievement-event" type="AchievementEvent, Assembly-CSharp" />
         <uie:FloatField label="Require Value" value="1" name="achievement-require" readonly="false" />
         <ui:VisualElement name="button-wrapper" style="flex-wrap: nowrap; flex-direction: row; justify-content: space-around; margin-left: 0; margin-right: 0; margin-top: 10px; margin-bottom: 5px;">
-            <ui:Button text="Add / Fix" display-tooltip-when-elided="true" name="commit-button" style="width: 40%;" />
+            <ui:Button text="Add" display-tooltip-when-elided="true" name="commit-button" style="width: 40%;" />
             <ui:Button text="Delete" display-tooltip-when-elided="true" name="delete-button" style="width: 40%; align-items: stretch;" />
         </ui:VisualElement>
     </ui:VisualElement>
