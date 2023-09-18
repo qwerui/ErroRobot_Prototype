@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Reward : ScriptableObject 
+[System.Serializable]
+public class Reward
 {
     public int id;
     public string title;
@@ -11,8 +13,12 @@ public class Reward : ScriptableObject
     public RewardType type;
     [Range(0, 4)]
     public int rarity;
+    [NonSerialized]
     public Sprite image;
+    public string imagePath;
     public int pickableCount;
+    public int currentPickable;
+    public bool isUnlocked;
 }
 
 public enum RewardType

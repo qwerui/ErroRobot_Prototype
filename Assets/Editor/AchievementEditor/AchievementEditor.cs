@@ -140,6 +140,7 @@ public class AchievementEditor : EditorWindow
         if(deleted > 0)
         {
             Debug.LogWarning($"ID: {idField.value} is deleted");
+            JSONParser.SaveJSON<AchievementList>($"{Application.streamingAssetsPath}/Achievement.json", achievementList);
         }
         else
         {

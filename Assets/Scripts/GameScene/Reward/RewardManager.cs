@@ -26,12 +26,12 @@ public class RewardManager : MonoBehaviour
             rewards[i] = new List<Reward>();
             allRaritySum += rarityWeight[i];
         }
-        var loadedReward = Resources.LoadAll<Reward>("Reward");
+        // var loadedReward = Resources.LoadAll<Reward>("Reward");
         
-        foreach(Reward reward in loadedReward)
-        {
-            rewards[reward.rarity].Add(reward);
-        }
+        // foreach(Reward reward in loadedReward)
+        // {
+        //     rewards[reward.rarity].Add(reward);
+        // }
     }
 
     private void Start() 

@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WeaponEnhanceReward", menuName = "Infos/Reward/WeaponEnhanceReward", order = 0)]
-public class WeaponEnhanceReward : ScriptableObject 
+[System.Serializable]
+public class WeaponEnhanceReward : Reward
 {
-    //target weapon
+    public int targetId;
     public EnhanceType enhanceType;
+    public float enhanceValue;
 }
 
 public enum EnhanceType
