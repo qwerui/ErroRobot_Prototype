@@ -10,7 +10,7 @@ public class DefenceController : MonoBehaviour, IControllerBase
 
     void Activate() => gameObject.SetActive(true);
     void Deactivate() => gameObject.SetActive(false);
-    
+
     private void OnEnable() 
     {
         PlayerController.instance.AddController(this);
@@ -30,7 +30,12 @@ public class DefenceController : MonoBehaviour, IControllerBase
     {
         if(inputEvent == InputEvent.Pressed)
         {
-            weaponController.checkFire();
+            weaponController.PressButton();
+        }
+
+        else if (inputEvent == InputEvent.Released)
+        {
+            weaponController.ReleaseButton();
         }
     }
 

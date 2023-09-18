@@ -23,6 +23,9 @@ public class WeaponController : MonoBehaviour
 
     // 장전 상태, true면 현재 장전 중
     private bool isReloading = false;
+    
+    // 현재 격발 진행 여부.(True = 버튼이 눌림)
+    private bool ButtonPressed = false;
 
 
 
@@ -42,20 +45,33 @@ public class WeaponController : MonoBehaviour
 
     void Update()
     {
-        calculateFireDelay();
-        //checkFire();
+        CalculateFireDelay();
+        if(ButtonPressed) 
+            CheckFire();
         checkReload();
     }
 
     // 총 격발 시간 계산
-    private void calculateFireDelay()
+    private void CalculateFireDelay()
     {
         if (currentFireDelay > 0)
             currentFireDelay -= Time.deltaTime;
     }
+    
+    // 격발 버튼 누르는 상태로 전환
+    public void PressButton()
+    {
+        ButtonPressed = true;
+    }
+    
+    // 격발 버튼 뗀 상태로 전환
+    public void ReleaseButton()
+    {
+        ButtonPressed = false;
+    }
 
     // 격발 버튼 눌렸을 때 처리.
-    public void checkFire()
+    private void CheckFire()
     {
         if (!isReloading)
         {
@@ -72,16 +88,24 @@ public class WeaponController : MonoBehaviour
 
 
     // 격발 실시!
-    public void Fire()
+    private void Fire()
     {
-
-        Debug.Log("격발!");
-
+        
+        
         currentFireDelay = currentWeapon.fireDelay;
         currentWeapon.nowBulletCount -= 1;
 
+
+        Vector3 firePos = cam.transform.position;
+        Vector3 temp = new Vector3(0, 0.5f, 0);
+
+        //Debug.Log("위치 : " + cam.transform.position);
+        //Debug.Log("수정 : " + (cam.transform.position - temp));
+
         // TODO : 총알 발사 (파티클, 사운드)
-        currentWeapon.Shoot(cam.transform);
+        // currentWeapon.Shoot(firePos - temp, cam.transform.forward.normalized - temp);
+        currentWeapon.Shoot(firePos - temp, cam.transform.forward.normalized);
+
 
         // 총기 반동 코루틴
         /*StopAllCoroutines();
@@ -95,7 +119,6 @@ public class WeaponController : MonoBehaviour
         // R키를 누르고, 장전 중이 아닐 것이며, 현재 총알 수가 최대 장탄 수보다 적을 때
         if(Input.GetKeyDown(KeyCode.R) && !isReloading && currentWeapon.nowBulletCount < currentWeapon.maxBulletCount)
         {
-            Debug.Log("장전 시작...");
             StartCoroutine(ReloadCoroutine());
         }
     }
@@ -112,7 +135,7 @@ public class WeaponController : MonoBehaviour
 
         currentWeapon.nowBulletCount = currentWeapon.maxBulletCount;
         isReloading = false;
-        Debug.Log("장전 완료");
+        // Debug.Log("장전 완료");
     }
 
 
