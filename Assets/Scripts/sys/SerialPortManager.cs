@@ -38,7 +38,7 @@ public class SerialPortManager : MonoBehaviour
             sp.Open();
         }
 
-        sp.ReadTimeout = 100;
+        sp.ReadTimeout = 500;
     }
 
     // Update is called once per frame

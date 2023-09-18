@@ -12,11 +12,15 @@ namespace StartMenu
             
             //불러오기 활성화
             var saveData = JSONParser.ReadJSON<SaveData>($"{Application.persistentDataPath}/SaveData.json");
-            if(!saveData.isLoadable)
+            if(saveData == null)
             {
                 gameObject.SetActive(false);
+                
             }
-
+            else if(!saveData.isLoadable)
+            {
+                gameObject.SetActive(false);   
+            }
         }
 
         public override void Execute()

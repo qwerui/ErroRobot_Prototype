@@ -15,6 +15,7 @@ public class Achievement
     [System.NonSerialized]
     public Sprite image; //instanceID로 저장되기 때문에 NonSerialized로 변경
     public AchievementEvent eventType;
+    public float requireValue;
 
     public bool isAchieved = false;
 }
