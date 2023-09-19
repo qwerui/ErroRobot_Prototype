@@ -50,7 +50,7 @@ public class RewardManager : MonoBehaviour
                 break;
                 case RewardType.Tower:
                     TowerReward tower = JsonUtility.FromJson<TowerReward>(rewardJson);
-                    tower.towerPrefab = Resources.Load<TowerMapper>($"Rewards/Tower/{tower.id}").tower;
+                    tower.towerPrefab = Resources.Load<TowerMapper>($"Reward/Tower/{tower.towerId}").tower;
                     reward = tower;
                 break;
                 case RewardType.Enhance:
@@ -133,20 +133,20 @@ public class RewardManager : MonoBehaviour
             case RewardType.Status:
                 var statusReward = reward as StatusReward;
                 playerStatus.Enhance(statusReward.statusType, statusReward.value);
-                JSONParser.SaveJSON<StatusReward>($"{Application.streamingAssetsPath}/Rewards/{statusReward.id}", statusReward);
+                JSONParser.SaveJSON<StatusReward>($"{Application.streamingAssetsPath}/Rewards/{statusReward.id}.json", statusReward);
             break;
             case RewardType.Weapon:
                 var weaponReward = reward as WeaponReward;
-                JSONParser.SaveJSON<WeaponReward>($"{Application.streamingAssetsPath}/Rewards/{weaponReward.id}", weaponReward);
+                JSONParser.SaveJSON<WeaponReward>($"{Application.streamingAssetsPath}/Rewards/{weaponReward.id}.json", weaponReward);
             break;
             case RewardType.Tower:
                 var towerReward = reward as TowerReward;
                 towerManager.CreateTower(towerReward.towerPrefab);
-                JSONParser.SaveJSON<TowerReward>($"{Application.streamingAssetsPath}/Rewards/{towerReward.id}", towerReward);
+                JSONParser.SaveJSON<TowerReward>($"{Application.streamingAssetsPath}/Rewards/{towerReward.id}.json", towerReward);
             break;
             case RewardType.Enhance:
                 var enhanceReward = reward as WeaponEnhanceReward;
-                JSONParser.SaveJSON<WeaponEnhanceReward>($"{Application.streamingAssetsPath}/Rewards/{enhanceReward.id}", enhanceReward);
+                JSONParser.SaveJSON<WeaponEnhanceReward>($"{Application.streamingAssetsPath}/Rewards/{enhanceReward.id}.json", enhanceReward);
             break;
             default:
                 Debug.LogWarning("Invalid Reward");

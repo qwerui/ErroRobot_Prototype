@@ -60,6 +60,7 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         gameplayManager = GameObject.FindObjectOfType<PhaseManager>();
         towerUI = GameObject.FindObjectOfType<TowerUI>(true);
         towerLoop = ActivateTowerLoop();
+        isBuildPhase = true;
         
         gameplayManager.OnWaveStart += StartLoop;
         gameplayManager.OnWaveStart += () => isBuildPhase = false;

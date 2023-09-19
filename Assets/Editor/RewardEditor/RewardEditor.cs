@@ -292,6 +292,7 @@ public class RewardEditor : EditorWindow
         reward.description = description.value;
         reward.imagePath = icon.value;
         reward.rarity = rarity.value;
+        reward.type = (RewardType)rewardType.value;
         reward.pickableCount = pickableCount.value;
         reward.currentPickable = pickableCount.value;
         reward.isUnlocked = initialReward.value;

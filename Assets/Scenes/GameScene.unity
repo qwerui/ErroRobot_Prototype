@@ -5834,7 +5834,7 @@ MonoBehaviour:
   gameplayManager: {fileID: 1523325107}
   playerStatus: {fileID: 827913350}
   saveManager: {fileID: 1196440660}
-  towerManager: {fileID: 0}
+  towerManager: {fileID: 757667819}
 --- !u!4 &1186157671
 Transform:
   m_ObjectHideFlags: 0

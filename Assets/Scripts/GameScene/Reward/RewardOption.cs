@@ -31,6 +31,17 @@ public class RewardOption : MonoBehaviour
         .Append(title.rectTransform.DOAnchorPosX(150 - titleLength, 2).SetEase(Ease.Linear))
         .AppendInterval(1.0f)
         .SetLoops(-1);
+
+        //최초 실행 시 의도되지 않은 움직임 방지
+        if(titleLength > 150)
+        {
+            sequence.Play();
+        }
+        else
+        {
+            sequence.Pause();
+            title.rectTransform.anchoredPosition = Vector2.zero;
+        }
     }
 
     private void OnEnable() 
