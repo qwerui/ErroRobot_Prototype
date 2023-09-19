@@ -2,6 +2,9 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.IO;
+using System;
+using System.Collections.Generic;
 
 
 public class RewardEditor : EditorWindow
@@ -22,6 +25,7 @@ public class RewardEditor : EditorWindow
     
     VisualElement rewardWeapon;
     IntegerField weaponId;
+    ListView enhanceList;
 
     VisualElement rewardTower;
     IntegerField towerId;
@@ -33,7 +37,10 @@ public class RewardEditor : EditorWindow
 
     Button confirmButton;
     Button deleteButton;
-    
+
+    readonly string rewardPathBase = $"{Application.streamingAssetsPath}/Rewards";
+    List<int> enhanceArray = new List<int>(10);
+
     [MenuItem("Window/Editors/RewardEditor")]
     public static void ShowExample()
     {
@@ -67,6 +74,7 @@ public class RewardEditor : EditorWindow
 
         rewardWeapon = root.Q<VisualElement>("reward-weapon");
         weaponId = root.Q<IntegerField>("reward-weapon-id");
+        enhanceList = root.Q<ListView>("reward-weapon-enhance");
 
         rewardTower = root.Q<VisualElement>("reward-tower");
         towerId = root.Q<IntegerField>("reward-tower-id");
@@ -85,11 +93,19 @@ public class RewardEditor : EditorWindow
 
         rewardType.RegisterValueChangedCallback((evt)=>{OnChange_Type(evt.newValue);});
 
-    }
+        enhanceList.itemsSource = new int[0];
+        enhanceList.makeItem = () => new IntegerField();
+        enhanceList.bindItem = (element, i) => {
+            if(enhanceArray.Count <= i)
+            {
+                enhanceArray.Add(0);
+            }
+            ((IntegerField)element).value = enhanceArray[i];
+            ((IntegerField)element).RegisterValueChangedCallback((value)=>{
+                enhanceArray[i] = value.newValue;
+            });
+        };
 
-    private void OnEnable() 
-    {
-        
     }
 
     private void OnDisable() 
@@ -101,17 +117,97 @@ public class RewardEditor : EditorWindow
 
     void OnClick_Find()
     {
+        var found = JSONParser.ReadJSON<Reward>($"{rewardPathBase}/{id.value}.json");
+        if(found != null)
+        {
+            title.value = found.title;
+            description.value = found.description;
+            icon.value = found.imagePath;
+            rarity.value = found.rarity;
+            pickableCount.value = found.pickableCount;
+            initialReward.value = found.isUnlocked;
+            rewardType.value = found.type;
 
+            if(found.type == RewardType.Status)
+            {
+                var converted = JSONParser.ReadJSON<StatusReward>($"{rewardPathBase}/{id.value}.json");
+                statusType.value = converted.statusType;
+                statusValue.value = converted.value;
+            }
+            else if(found.type == RewardType.Tower)
+            {
+                var converted = JSONParser.ReadJSON<TowerReward>($"{rewardPathBase}/{id.value}.json");
+                towerId.value = converted.towerId;
+            }
+            else if(found.type == RewardType.Weapon)
+            {
+                var converted = JSONParser.ReadJSON<WeaponReward>($"{rewardPathBase}/{id.value}.json");
+                weaponId.value = converted.weaponId;
+            }
+            else if(found.type == RewardType.Enhance)
+            {
+                var converted = JSONParser.ReadJSON<WeaponEnhanceReward>($"{rewardPathBase}/{id.value}.json");
+                targetId.value = converted.targetId;
+                enhanceType.value = converted.enhanceType;
+                enhanceValue.value = converted.enhanceValue;
+            }
+            else
+            {
+                Debug.LogAssertion("Invalid Reward Type");
+            }
+        }
     }
 
     void OnClick_Confirm()
     {
+        if(File.Exists($"{rewardPathBase}/{id.value}.json"))
+        {
+            //이미 ID가 존재하는 경우 입력 불가능
+            Debug.LogAssertion($"ID: {id.value} already exist");
+        }
+        else
+        {
+            try
+            {
+                switch(rewardType.value)
+                {
+                    case RewardType.Status:
+                        JSONParser.SaveJSON($"{rewardPathBase}/{id.value}.json", CreateStatusReward());
+                    break;
+                    case RewardType.Tower:
+                        JSONParser.SaveJSON($"{rewardPathBase}/{id.value}.json", CreateTowerReward());
+                    break;
+                    case RewardType.Weapon:
+                        JSONParser.SaveJSON($"{rewardPathBase}/{id.value}.json", CreateWeaponReward());
+                    break;
+                    case RewardType.Enhance:
+                        JSONParser.SaveJSON($"{rewardPathBase}/{id.value}.json", CreateEnhanceReward());           
+                    break;
+                    default:
+                        Debug.LogAssertion("Invalid Reward Type");
+                    return;
+                }
 
+                Debug.Log("Save Success");
+            }
+            catch
+            {
+                Debug.LogAssertion("Save Failed");
+            }
+        }
     }
 
     void OnClick_Delete()
     {
-
+        if(File.Exists($"{rewardPathBase}/{id.value}.json"))
+        {
+            File.Delete($"{rewardPathBase}/{id.value}.json");
+            Debug.LogWarning($"ID: {id.value} is deleted");
+        }
+        else
+        {
+            Debug.Log($"ID: {id.value} already not exist");
+        }
     }
 
     void OnChange_Type(System.Enum type)
@@ -136,5 +232,69 @@ public class RewardEditor : EditorWindow
                 rewardEnhance.style.display = DisplayStyle.Flex;
             break;
         }
+    }
+
+    StatusReward CreateStatusReward()
+    {
+        var reward = new StatusReward
+        {
+            statusType = (StatusType)statusType.value,
+            value = statusValue.value
+        };
+        InitCommon(reward);
+        return reward;
+    }
+
+    TowerReward CreateTowerReward()
+    {
+        var reward = new TowerReward
+        {
+            towerId = towerId.value
+        };
+        InitCommon(reward);
+        return reward;
+    }
+
+    WeaponReward CreateWeaponReward()
+    {
+        int[] enhanceListId = new int[enhanceList.itemsSource.Count];
+
+        for(int i=0;i<enhanceListId.Length;i++)
+        {
+            enhanceListId[i] = enhanceArray[i];
+        }
+
+        var reward = new WeaponReward
+        {
+            weaponId = weaponId.value,
+            enhanceListId = enhanceListId
+        };
+        InitCommon(reward);
+        return reward;
+    }
+
+    WeaponEnhanceReward CreateEnhanceReward()
+    {
+        var reward = new WeaponEnhanceReward
+        {
+            targetId = targetId.value,
+            enhanceType = (EnhanceType)enhanceType.value,
+            enhanceValue = enhanceValue.value
+        };
+        InitCommon(reward);
+        return reward;
+    }
+
+    void InitCommon(Reward reward)
+    {
+        reward.id = id.value;
+        reward.title = title.value;
+        reward.description = description.value;
+        reward.imagePath = icon.value;
+        reward.rarity = rarity.value;
+        reward.type = (RewardType)rewardType.value;
+        reward.pickableCount = pickableCount.value;
+        reward.currentPickable = pickableCount.value;
+        reward.isUnlocked = initialReward.value;
     }
 }

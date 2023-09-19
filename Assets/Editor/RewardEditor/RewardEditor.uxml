@@ -16,7 +16,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="reward-weapon" style="visibility: visible; display: none;">
             <uie:IntegerField label="Weapon ID" value="0" name="reward-weapon-id" style="display: flex;" />
-            <ui:ListView focusable="true" show-foldout-header="true" name="reward-weapon-enhance" header-title="Enhance ID" show-add-remove-footer="true" reorderable="false" reorder-mode="Animated" show-border="true" virtualization-method="DynamicHeight" horizontal-scrolling="false" />
+            <ui:ListView focusable="true" show-foldout-header="true" name="reward-weapon-enhance" header-title="Enhance ID" show-add-remove-footer="true" reorderable="false" reorder-mode="Animated" show-border="true" virtualization-method="DynamicHeight" horizontal-scrolling="false" style="margin-bottom: 20px;" />
         </ui:VisualElement>
         <ui:VisualElement name="reward-tower" style="visibility: visible; display: none;">
             <uie:IntegerField label="Tower ID" value="0" name="reward-tower-id" />

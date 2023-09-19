@@ -11,7 +11,7 @@ public class TowerUI : MonoBehaviour, IGameUI
     GameUIController gameUIController;
     public PlayerStatus playerStatus;
     public TMP_Text upgradeText;
-    public TowerMoveController towerMoveController;
+    public TowerManager towerManager;
     TowerDetailContent[] towerDetailContents;
     Outline[] outlines;
     int index = 0;
@@ -131,8 +131,7 @@ public class TowerUI : MonoBehaviour, IGameUI
         {
             case 0: //이동
                 OnCancel();
-                tower.ReadyToPut();
-                towerMoveController.SetTower(tower);
+                towerManager.MoveTower(tower);
             break;
             case 1: //업그레이드
                 if(playerStatus.Core >= tower.UpgradeCore && !tower.IsMaxLevel())

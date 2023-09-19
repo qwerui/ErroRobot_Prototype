@@ -25,4 +25,15 @@ public class JSONParser
         T target = JsonUtility.FromJson<T>(json);
         return target;
     }
+
+    public static string ReadJSONString(string path)
+    {
+        var taskResult = File.ReadAllTextAsync(path, System.Text.Encoding.UTF8);
+        
+        if(taskResult.IsFaulted)
+            return null;
+        
+        string json = taskResult.Result;
+        return json;
+    }
 }
