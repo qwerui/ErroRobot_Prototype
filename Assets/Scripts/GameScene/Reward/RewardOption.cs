@@ -3,17 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using DG.Tweening;
+using UnityEngine.Tilemaps;
 
 public class RewardOption : MonoBehaviour
 {
     public TMP_Text title;
     public TMP_Text description;
-    public UnityEngine.UI.Image image;
+    public Image image;
     Reward reward;
     Outline outline;
 
+    float titleLength;
+
+    Sequence sequence; 
+
     public void Activate() => outline.enabled = true;
     public void Deactivate() => outline.enabled = false;
+
+    private void Awake() 
+    {
+        sequence = DOTween.Sequence();
+        sequence.OnStart(()=>{
+            title.rectTransform.anchoredPosition = Vector2.zero;
+        })
+        .AppendInterval(1.0f)
+        .Append(title.rectTransform.DOAnchorPosX(150 - titleLength, 2).SetEase(Ease.Linear))
+        .AppendInterval(1.0f)
+        .SetLoops(-1);
+    }
 
     private void OnEnable() 
     {
@@ -29,6 +47,18 @@ public class RewardOption : MonoBehaviour
         title.SetText(reward.title);
         description.SetText(reward.description);
         image.sprite = reward.image;
+
+        titleLength = title.GetPreferredValues(reward.title).x;
+
+        if(titleLength > 150)
+        {
+            sequence.Play();
+        }
+        else
+        {
+            sequence.Pause();
+            title.rectTransform.anchoredPosition = Vector2.zero;
+        }
     }
 
     public Reward GetReward()

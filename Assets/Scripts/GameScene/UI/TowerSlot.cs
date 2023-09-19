@@ -6,20 +6,21 @@ using UnityEngine.EventSystems;
 
 public class TowerSlot : MonoBehaviour
 {
-    public BaseTower tower;
-    TowerDetail towerDetail;
+    Tower tower;
+    public Tower Tower
+    {
+        set {tower = value;}
+        get {return tower;}
+    }
 
     private void OnEnable() 
     {
-        towerDetail = GameObject.FindObjectOfType<TowerDetail>(true);
+
     }
 
     public void OnPointerEnter(BaseEventData eventData)
     {
-        if(towerDetail != null)
-        {
-            towerDetail.ShowTowerInfo(tower);
-        }
+
     }
 
     public void OnPointerExit(BaseEventData eventData)
