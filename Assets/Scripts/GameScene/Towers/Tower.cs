@@ -14,17 +14,18 @@ using UnityEngine.AI;
 public class Tower : MonoBehaviour, IRaycastInteractable
 {
     BoxCollider boxCollider;
-    ParticleSystem upgradeEffect;
 
     readonly Color halfTransparent = new Color(1.0f, 1.0f, 1.0f, 0.5f);
     readonly Color opaque = Color.white;
     readonly Color notAvailable = new Color(1.0f, 0.0f, 0.0f, 0.5f);
 
-    protected Dictionary<string, string> towerString = new Dictionary<string, string>();
-    
     bool isBuildPhase;
     bool isMoving;
     bool isCanPut;
+
+#region TowerInfo
+
+    protected Dictionary<string, string> towerString = new Dictionary<string, string>();
 
     /// <summary>
     /// 타워 정보 변수, 자식 클래스에서는 다운 캐스팅 프로퍼티 필요
@@ -37,26 +38,31 @@ public class Tower : MonoBehaviour, IRaycastInteractable
     public float CurrentHp {set {currentHp = Mathf.Clamp(value, 0, MaxHp);} get {return currentHp;}}
     public int UpgradeCore {get{return towerInfo.upgradeCore[level];}}
 
+    public Sprite icon;
+    public ParticleSystem upgradeEffect;
+
+#endregion
+
     IEnumerator towerLoop;
     PhaseManager gameplayManager;
     TowerUI towerUI;
 
     Vector3 beforeMovePostion;
 
-    void StartLoop() => StartCoroutine(towerLoop);
-    void StopLoop()
-    {
-        if(towerLoop != null)
-        {
-            StopCoroutine(towerLoop);
-        }
-    }
+    public delegate void OnValueChangeDelegate();
+    public OnValueChangeDelegate OnValueChange;
+    public delegate void OnPutDelegate();
+    public OnPutDelegate OnPut;
 
     public bool IsMaxLevel() => level == towerInfo.maxLevel - 1;
 
+    public virtual Dictionary<string, string> GetTowerDetail(int level)
+    {
+        return towerInfo.GetTowerInfoString(level);
+    }
+
     private void Start() 
     {
-        upgradeEffect = GetComponent<ParticleSystem>();
         gameplayManager = GameObject.FindObjectOfType<PhaseManager>();
         towerUI = GameObject.FindObjectOfType<TowerUI>(true);
         towerLoop = ActivateTowerLoop();
@@ -67,6 +73,79 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         gameplayManager.OnWaveEnd += StopLoop;
         gameplayManager.OnWaveEnd += () => isBuildPhase = true;
     }
+
+    private void OnDestroy() 
+    {
+        gameplayManager.OnWaveStart -= StartLoop;
+        gameplayManager.OnWaveEnd -= StopLoop;
+    }
+
+#region Actions
+
+    void StartLoop() => StartCoroutine(towerLoop);
+    void StopLoop()
+    {
+        if(towerLoop != null)
+        {
+            StopCoroutine(towerLoop);
+        }
+    }
+    
+    /// <summary>
+    /// 방어 페이즈에 실행할 동작
+    /// </summary>
+    protected virtual void Execute(){}
+
+    public virtual void Upgrade()
+    {
+        level++;
+        upgradeEffect.Play();
+    }
+
+    void OnDamaged(float damage)
+    {
+        CurrentHp -= damage;
+        OnValueChange.Invoke();
+
+        if(CurrentHp <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    /// <summary>
+    /// 방어 페이즈때만 실행하는 루프
+    /// </summary>
+    IEnumerator ActivateTowerLoop()
+    {
+        while(true)
+        {
+            Execute();
+            yield return null;
+        }
+    }
+
+    void IRaycastInteractable.Execute()
+    {
+        if(isBuildPhase)
+        {
+            if(isMoving)
+            {
+                if(isCanPut)
+                {
+                    Put();
+                }
+            }
+            else
+            {
+                towerUI.SetTower(this);
+                towerUI.gameObject.SetActive(true);
+            }
+        }
+    }
+#endregion
+
+#region SetTower
 
     /// <summary>
     /// 설치 준비
@@ -107,6 +186,7 @@ public class Tower : MonoBehaviour, IRaycastInteractable
     public void RevertMove()
     {
         transform.position = beforeMovePostion;
+        Put();
     }
 
     /// <summary>
@@ -123,69 +203,8 @@ public class Tower : MonoBehaviour, IRaycastInteractable
             var material = mesh.material;
             material.SetColor("_Color", opaque);
         }
-    }
 
-    /// <summary>
-    /// 방어 페이즈때만 실행하는 루프
-    /// </summary>
-    IEnumerator ActivateTowerLoop()
-    {
-        while(true)
-        {
-            Execute();
-            yield return null;
-        }
-    }
-
-    private void OnDestroy() 
-    {
-        gameplayManager.OnWaveStart -= StartLoop;
-        gameplayManager.OnWaveEnd -= StopLoop;
-    }
-    
-    /// <summary>
-    /// 방어 페이즈에 실행할 동작
-    /// </summary>
-    protected virtual void Execute(){}
-
-    public virtual void Upgrade()
-    {
-        level++;
-        upgradeEffect.Play();
-    }
-
-    public virtual Dictionary<string, string> GetTowerDetail(int level)
-    {
-        return towerInfo.GetTowerInfoString(level);
-    }
-
-    void OnDamaged(float damage)
-    {
-        CurrentHp -= damage;
-
-        if(CurrentHp <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    void IRaycastInteractable.Execute()
-    {
-        if(isBuildPhase)
-        {
-            if(isMoving)
-            {
-                if(isCanPut)
-                {
-                    Put();
-                }
-            }
-            else
-            {
-                towerUI.SetTower(this);
-                towerUI.gameObject.SetActive(true);
-            }
-        }
+        OnPut.Invoke();
     }
 
     /*
@@ -219,4 +238,5 @@ public class Tower : MonoBehaviour, IRaycastInteractable
             isCanPut = true;
         }
     }
+#endregion
 }

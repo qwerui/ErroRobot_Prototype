@@ -1150,7 +1150,6 @@ MonoBehaviour:
   gameoverPanel: {fileID: 353551987}
   waveText: {fileID: 2049100528}
   pointer: {fileID: 697374202}
-  towerSlotList: {fileID: 1111669561}
   hitScreenManager: {fileID: 1211669640}
 --- !u!4 &250127423
 Transform:
@@ -3406,6 +3405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerSlotList: {fileID: 1111669561}
   towerMoveController: {fileID: 431265208}
+  saveManager: {fileID: 1196440660}
 --- !u!4 &757667820
 Transform:
   m_ObjectHideFlags: 0
@@ -5084,6 +5084,7 @@ GameObject:
   - component: {fileID: 1111669559}
   - component: {fileID: 1111669560}
   - component: {fileID: 1111669561}
+  - component: {fileID: 1111669562}
   m_Layer: 5
   m_Name: TowerList
   m_TagString: Untagged
@@ -5136,7 +5137,7 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  m_ReverseArrangement: 1
 --- !u!114 &1111669561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5150,6 +5151,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerSlotPrefab: {fileID: 7652033084217901304, guid: deddbdd0e29519a4ca5d1f617f7dc1bd, type: 3}
+--- !u!114 &1111669562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111669558}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3866785af90d5b54ca6fc566930f93bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1114193390
 GameObject:
   m_ObjectHideFlags: 0
@@ -5829,7 +5842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d270c8119d8994d45822f0f5cee2998a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarityWeight: 0000000000000000000000000000000000000000
+  rarityWeight: 24130000b80b0000dc050000f401000064000000
   rewardPanel: {fileID: 592447868}
   gameplayManager: {fileID: 1523325107}
   playerStatus: {fileID: 827913350}
@@ -5881,6 +5894,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 827913350}
   gameplayManager: {fileID: 1523325107}
+  towerManager: {fileID: 757667819}
 --- !u!4 &1196440661
 Transform:
   m_ObjectHideFlags: 0
@@ -8856,6 +8870,7 @@ MonoBehaviour:
   UI: {fileID: 250127422}
   playerStatus: {fileID: 827913350}
   saveManager: {fileID: 1196440660}
+  towerManager: {fileID: 757667819}
 --- !u!4 &1523325108
 Transform:
   m_ObjectHideFlags: 0

@@ -54,6 +54,7 @@ public class TowerMoveController : MonoBehaviour, IControllerBase
         if(inputEvent == InputEvent.Pressed)
         {
             targetTower.RevertMove();
+            gameObject.SetActive(false);
         }
     }
 

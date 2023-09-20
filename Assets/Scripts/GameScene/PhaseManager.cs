@@ -28,6 +28,7 @@ public class PhaseManager : MonoBehaviour
     public UIManager UI;
     public PlayerStatus playerStatus;
     public SaveManager saveManager;
+    public TowerManager towerManager;
 
     private void Awake() 
     {
@@ -56,7 +57,7 @@ public class PhaseManager : MonoBehaviour
             //새 게임
             var startStatus = JSONParser.ReadJSON<StartStatus>($"{Application.streamingAssetsPath}/StartStatus.json") ?? StartStatus.Create();
             playerStatus.Init(startStatus);
-            UI.towerSlotList.CreateSlot(startStatus.towerSlot);
+            towerManager.CreateSlot(startStatus.towerSlot);
         }
 
         //튜토리얼 체크

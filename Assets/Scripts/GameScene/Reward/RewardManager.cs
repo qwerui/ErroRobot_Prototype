@@ -88,7 +88,20 @@ public class RewardManager : MonoBehaviour
         BuildController 활성화보다 늦게 호출해야함
         BuildController는 Awake에서 할당 => (PhaseManager 클래스 참조)
         */
+        if(GameManager.instance.isLoadedGame)
+        {
+            gameplayManager.OnWaveEnd += InitReward_LoadedGame;
+        }
+        else
+        {
+            gameplayManager.OnWaveEnd += InitReward;
+        }
+    }
+
+    public void InitReward_LoadedGame()
+    {
         gameplayManager.OnWaveEnd += InitReward;
+        gameplayManager.OnWaveEnd -= InitReward_LoadedGame;
     }
 
     public void InitReward()
