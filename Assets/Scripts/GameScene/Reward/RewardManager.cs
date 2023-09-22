@@ -145,7 +145,14 @@ public class RewardManager : MonoBehaviour
         {
             case RewardType.Status:
                 var statusReward = reward as StatusReward;
-                playerStatus.Enhance(statusReward.statusType, statusReward.value);
+                if(statusReward.statusType == StatusType.TowerSlot)
+                {
+                    towerManager.CreateSlot();
+                }
+                else
+                {
+                    playerStatus.Enhance(statusReward.statusType, statusReward.value);
+                }
                 JSONParser.SaveJSON<StatusReward>($"{Application.streamingAssetsPath}/Rewards/{statusReward.id}.json", statusReward);
             break;
             case RewardType.Weapon:

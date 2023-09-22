@@ -22,6 +22,7 @@ public class KeyboardController : IControllerPlatform
 
     public void Execute(IControllerBase controller)
     {
+        
 #region OnPressed
         bool isNavigate = false;
         foreach(KeyCode key in navigateDict.Keys)
@@ -74,5 +75,22 @@ public class KeyboardController : IControllerPlatform
             controller.OnCancel(InputEvent.Released);
         }
 #endregion
+#region Dial
+        if(controller is IDialControl)
+        {
+            IDialControl tempController = controller as IDialControl;
+
+            if(Input.GetKeyDown(KeyCode.A))
+            {
+                tempController.OnDial(Vector2.left);
+            }
+
+            if(Input.GetKeyDown(KeyCode.D))
+            {
+                tempController.OnDial(Vector2.right);
+            }
+        }
+#endregion
+
     }
 }

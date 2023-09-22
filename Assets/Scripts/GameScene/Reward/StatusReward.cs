@@ -14,5 +14,6 @@ public enum StatusType
     MaxHP,
     MaxShield,
     CoreGain,
-    ShieldRecover
+    ShieldRecover,
+    TowerSlot
 }

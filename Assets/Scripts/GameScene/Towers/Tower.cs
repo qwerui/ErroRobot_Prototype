@@ -19,6 +19,7 @@ public class Tower : MonoBehaviour, IRaycastInteractable
     readonly Color opaque = Color.white;
     readonly Color notAvailable = new Color(1.0f, 0.0f, 0.0f, 0.5f);
 
+    bool isMaterialInstanced;
     bool isBuildPhase;
     bool isMoving;
     bool isCanPut;
@@ -162,13 +163,20 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         foreach(var mesh in GetComponentsInChildren<MeshRenderer>())
         {
             var material = mesh.material;
-            material = Instantiate(material);
+
+            if(!isMaterialInstanced)
+            {
+                material = Instantiate(material);
+            }
+            
             if(material.shader.renderQueue == 3000) //Transparent = 3000
             {
                 material.SetColor("_Color", halfTransparent);
             }
             mesh.material = material;
         }
+
+        isMaterialInstanced = true;
     }
 
     /// <summary>

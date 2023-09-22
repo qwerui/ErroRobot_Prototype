@@ -55,6 +55,11 @@ public class TowerSlotList : MonoBehaviour, IGameUI
         return false;
     }
 
+    public void CreateSlot()
+    {
+        towerSlots.Add(Instantiate(towerSlotPrefab, transform));
+    }
+
     public void CreateSlot(int amount)
     {
         for(int i = transform.childCount; i < amount; i++)

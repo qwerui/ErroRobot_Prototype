@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefenceController : MonoBehaviour, IControllerBase
+public class DefenceController : MonoBehaviour, IControllerBase, IDialControl
 {
     public WeaponController weaponController;
     public CameraController cameraController;
@@ -46,5 +46,10 @@ public class DefenceController : MonoBehaviour, IControllerBase
             cameraController.DisableRotation();
             pauseMenu.SetActive(true);
         }
+    }
+
+    public void OnDial(Vector2 direction)
+    {
+        Debug.Log("OnDial");
     }
 }

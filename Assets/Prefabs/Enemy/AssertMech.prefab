@@ -398,8 +398,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
-  hp: 0
+  hp: 150
   armor: 0
+  core: 50
+  phaseManager: {fileID: 0}
+  dot: {fileID: 0}
+  status: {fileID: 0}
   target: {fileID: 0}
   bullet: {fileID: 33009136195725299, guid: 27eded9a192f037438613afcace6d50d, type: 3}
   delay: 3

@@ -20,6 +20,8 @@ public class TowerManager : MonoBehaviour
         return serializedTowers;
     }
 
+    public void CreateSlot() => towerSlotList.CreateSlot();
+
     public void CreateSlot(int amount)
     {
         towerSlotList.CreateSlot(amount);

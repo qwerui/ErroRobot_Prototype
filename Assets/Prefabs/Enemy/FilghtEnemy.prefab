@@ -60,6 +60,10 @@ MonoBehaviour:
   speed: 30
   hp: 30
   armor: 0
+  core: 20
+  phaseManager: {fileID: 0}
+  dot: {fileID: 0}
+  status: {fileID: 0}
   target: {fileID: 0}
   initialHeight: 100
   delay: 5
