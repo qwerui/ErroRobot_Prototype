@@ -45,7 +45,7 @@ public class Tower : MonoBehaviour, IRaycastInteractable
 #endregion
 
     IEnumerator towerLoop;
-    PhaseManager gameplayManager;
+    protected PhaseManager gameplayManager;
     TowerUI towerUI;
 
     Vector3 beforeMovePostion;
@@ -62,7 +62,7 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         return towerInfo.GetTowerInfoString(level);
     }
 
-    private void Start() 
+    protected virtual void Start() 
     {
         gameplayManager = GameObject.FindObjectOfType<PhaseManager>();
         towerUI = GameObject.FindObjectOfType<TowerUI>(true);
@@ -75,7 +75,7 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         gameplayManager.OnWaveEnd += () => isBuildPhase = true;
     }
 
-    private void OnDestroy() 
+    protected virtual void OnDestroy() 
     {
         gameplayManager.OnWaveStart -= StartLoop;
         gameplayManager.OnWaveEnd -= StopLoop;
@@ -212,7 +212,7 @@ public class Tower : MonoBehaviour, IRaycastInteractable
             material.SetColor("_Color", opaque);
         }
 
-        OnPut.Invoke();
+        OnPut?.Invoke();
     }
 
     /*
