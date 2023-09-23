@@ -57,6 +57,36 @@ public class AchievementManager
                 succeed.isAchieved = true;
                 JSONParser.SaveJSON<AchievementList>($"{Application.streamingAssetsPath}/Achievement.json", achievementList);
                 notifier.ShowNotifier(succeed);
+
+                switch(succeed.rewardType)
+                {
+                    case AchievementRewardType.Enhance:
+                    var startStatus = JSONParser.ReadJSON<StartStatus>($"{Application.streamingAssetsPath}/StartStatus.json");
+                    
+                    switch(succeed.statusType)
+                    {
+                        case StatusType.MaxHP:
+                            startStatus.maxHp += succeed.rewardValue;
+                        break;
+                        case StatusType.MaxShield:
+                            startStatus.maxShield += succeed.rewardValue;
+                        break;
+                        case StatusType.CoreGain:
+                            startStatus.coreGainPercent += succeed.rewardValue;
+                        break;
+                        case StatusType.ShieldRecover:
+                            startStatus.shieldRecovery += succeed.rewardValue;
+                        break;
+                    }
+
+                    JSONParser.SaveJSON<StartStatus>($"{Application.streamingAssetsPath}/StartStatus.json", startStatus);
+                    break;
+                    case AchievementRewardType.Unlock:
+                    var unlock = JSONParser.ReadJSONString($"{Application.streamingAssetsPath}/Rewards/{(int)succeed.rewardValue}.json");
+                    unlock.Replace("\"isUnlocked\":false", "\"isUnlocked\":true");
+                    JSONParser.SaveJSONString($"{Application.streamingAssetsPath}/Rewards/{(int)succeed.rewardValue}.json", unlock);
+                    break;
+                }
             }
         }
     }

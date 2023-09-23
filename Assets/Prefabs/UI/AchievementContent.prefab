@@ -227,10 +227,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1663ac7fb38e28f46be3580d4a6a8cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  achievement: {fileID: 0}
+  achievement:
+    id: 0
+    title: 
+    description: 
+    reward: 
+    story: 
+    imagePath: 
+    eventType: 0
+    rewardType: 0
+    rewardValue: 0
+    statusType: 0
+    requireValue: 0
+    isAchieved: 0
   title: {fileID: 3104379154599679475}
   image: {fileID: 1349909743279023722}
-  outline: {fileID: 0}
+  lockSprite: {fileID: 21300000, guid: 640b86b0058321e4fab8001b90531991, type: 3}
 --- !u!114 &2783683534717535634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,13 +318,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 640b86b0058321e4fab8001b90531991, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

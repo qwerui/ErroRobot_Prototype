@@ -138,7 +138,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void GainCore(float value)
     {
-        Core += (int)(value * CoreGainPercent);
+        Core += (int)(value * (1+CoreGainPercent));
     }
 
     public void Damaged(float damage, GameObject source)
