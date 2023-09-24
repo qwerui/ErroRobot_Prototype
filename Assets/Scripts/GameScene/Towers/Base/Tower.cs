@@ -36,7 +36,13 @@ public class Tower : MonoBehaviour, IRaycastInteractable
     public int Level {get{return level;}}
     public float MaxHp {get{return towerInfo.maxHp[level];}}
     protected float currentHp;
-    public float CurrentHp {set {currentHp = Mathf.Clamp(value, 0, MaxHp);} get {return currentHp;}}
+    public float CurrentHp {
+        set {
+            currentHp = Mathf.Clamp(value, 0, MaxHp);
+            OnValueChange?.Invoke();
+        } 
+        get {return currentHp;}
+    }
     public int UpgradeCore {get{return towerInfo.upgradeCore[level];}}
 
     public Sprite icon;
@@ -68,6 +74,8 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         towerUI = GameObject.FindObjectOfType<TowerUI>(true);
         towerLoop = ActivateTowerLoop();
         isBuildPhase = true;
+
+        CurrentHp = MaxHp;
         
         gameplayManager.OnWaveStart += StartLoop;
         gameplayManager.OnWaveStart += () => isBuildPhase = false;
@@ -103,11 +111,10 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         upgradeEffect.Play();
     }
 
-    void OnDamaged(float damage)
+    public void OnDamaged(float damage)
     {
         CurrentHp -= damage;
-        OnValueChange.Invoke();
-
+        
         if(CurrentHp <= 0)
         {
             Destroy(gameObject);

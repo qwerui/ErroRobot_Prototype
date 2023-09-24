@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Pointer
   - Bullet
+  - Tower
   layers:
   - Default
   - TransparentFX

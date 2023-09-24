@@ -22,6 +22,7 @@ namespace AI.BehaviorTree
         [HideInInspector] public Vector2 postion;
         [HideInInspector] public Blackboard blackboard;
         [HideInInspector] public GameObject self;
+        public bool canAbort = false;
         [TextArea] public string description;
 
         public State Update()
@@ -62,5 +63,13 @@ namespace AI.BehaviorTree
         ///주 노드 작업
         ///</summary>
         protected abstract State OnUpdate();
+
+        public void Abort()
+        {
+            OnStop();
+            started = false;
+        }
+
+        public virtual bool CheckAbort() {return false;}
     }
 }

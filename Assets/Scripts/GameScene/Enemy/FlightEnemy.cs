@@ -10,6 +10,7 @@ public class FlightEnemy : EnemyBase
     public float delay;
     public List<Transform> shotPositionList;
     public EnemyProjectile bullet;
+    public float damage;
 
     protected override void Start()
     {
@@ -18,6 +19,7 @@ public class FlightEnemy : EnemyBase
         treeRunner.tree.blackboard.Set<float>("delay", delay);
         treeRunner.tree.blackboard.Set<List<Transform>>("shotPosition", shotPositionList);
         treeRunner.tree.blackboard.Set<float>("moveSpeed", speed);
+        treeRunner.tree.blackboard.Set<float>("damage", damage/4.0f);
         base.Start();
     }
 }

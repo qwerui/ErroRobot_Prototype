@@ -410,6 +410,7 @@ MonoBehaviour:
   shotPositionList:
   - {fileID: 3943609268365858627}
   - {fileID: 5417246025306758764}
+  damage: 60
 --- !u!1 &2180227288094137363
 GameObject:
   m_ObjectHideFlags: 0

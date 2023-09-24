@@ -16,6 +16,8 @@ public class StartStatus
 
     [Range(0, 4)]
     public int towerSlot;
+    [Range(1, 4)]
+    public int weaponSlot;
 
     public static StartStatus Create()
     {
