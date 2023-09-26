@@ -27,12 +27,11 @@ public class BaseBullet : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Bullet"))
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
         {
             parent.OnHit(other.gameObject);
             Destroy(gameObject);
         }
-        
     }
 
     

@@ -9,6 +9,10 @@ public class WeaponController : MonoBehaviour
     // 현재 선택된 무기
     [SerializeField]
     private BaseWeapon currentWeapon;
+    public BaseWeapon CurrentWeapon
+    {
+        set {currentWeapon = value;}
+    }
 
     // 카메라
     [SerializeField]
@@ -45,10 +49,13 @@ public class WeaponController : MonoBehaviour
 
     void Update()
     {
-        CalculateFireDelay();
-        if(ButtonPressed) 
-            CheckFire();
-        checkReload();
+        if (currentWeapon != null)
+        {
+            CalculateFireDelay();
+            if (ButtonPressed)
+                CheckFire();
+            checkReload();
+        }
     }
 
     // 총 격발 시간 계산

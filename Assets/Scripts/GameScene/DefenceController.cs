@@ -7,6 +7,7 @@ public class DefenceController : MonoBehaviour, IControllerBase, IDialControl
     public WeaponController weaponController;
     public CameraController cameraController;
     public GameObject pauseMenu;
+    public WeaponManager weaponManager;
 
     void Activate() => gameObject.SetActive(true);
     void Deactivate() => gameObject.SetActive(false);
@@ -50,6 +51,10 @@ public class DefenceController : MonoBehaviour, IControllerBase, IDialControl
 
     public void OnDial(Vector2 direction)
     {
-        Debug.Log("OnDial");
+        if(Mathf.Abs(direction.x) < Mathf.Epsilon)
+        {
+            return;
+        }
+        weaponManager.ChangeWeapon(direction);
     }
 }

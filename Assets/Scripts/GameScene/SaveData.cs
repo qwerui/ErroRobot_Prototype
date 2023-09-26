@@ -10,6 +10,8 @@ public class SaveData
     public int wave;
     public int towerSlots;
     public List<SerializedTower> towers;
+    public int weaponSlots;
+    public List<SerializedWeapon> weapons;
     
     public bool isLoadable;
     public void SetPlayerStatus(PlayerStatus playerStatus)
@@ -28,4 +30,11 @@ public class SerializedTower
     public int id;
     public int level;
     public Vector3 position;
+}
+
+[System.Serializable]
+public class SerializedWeapon
+{
+    public int id;
+    public List<int> enhance = new List<int>();
 }

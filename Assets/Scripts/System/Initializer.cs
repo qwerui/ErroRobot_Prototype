@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 //Singleton Monobehavior 생성기
 public static class Initializer
@@ -11,5 +12,6 @@ public static class Initializer
         PlayerController.Init();
         SoundQueue.Init();
         AchievementNotifier.Init();
+        DOTween.KillAll();
     }
 }

@@ -57,4 +57,5 @@ MonoBehaviour:
   fireParticle: {fileID: 0}
   fireSound: {fileID: 0}
   bullet: {fileID: 4956516880718611162, guid: 72fa8cb182cbe2e4e9a67f7467add412, type: 3}
+  enhanceIdList: 
   BulletAmount: 5

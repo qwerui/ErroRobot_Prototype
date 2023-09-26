@@ -8,5 +8,5 @@ public class TowerReward : Reward
 {
     public int towerId;
     [NonSerialized]
-    public Tower towerPrefab;
+    public TowerMapper tower;
 }

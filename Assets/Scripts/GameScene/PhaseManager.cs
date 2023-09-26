@@ -29,6 +29,7 @@ public class PhaseManager : MonoBehaviour
     public PlayerStatus playerStatus;
     public SaveManager saveManager;
     public TowerManager towerManager;
+    public WeaponManager weaponManager;
 
     private void Awake() 
     {
@@ -58,6 +59,8 @@ public class PhaseManager : MonoBehaviour
             var startStatus = JSONParser.ReadJSON<StartStatus>($"{Application.streamingAssetsPath}/StartStatus.json") ?? StartStatus.Create();
             playerStatus.Init(startStatus);
             towerManager.CreateSlot(startStatus.towerSlot);
+            weaponManager.CreateSlot(startStatus.weaponSlot);
+            weaponManager.SetWeapon(Resources.Load<WeaponMapper>("Reward/Weapon/0"));
         }
 
         //튜토리얼 체크
