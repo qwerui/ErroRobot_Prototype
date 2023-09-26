@@ -18,6 +18,9 @@ public class AchievementEditor : EditorWindow
     EnumField eventField;
     TextField imageField;
     FloatField requireField;
+    EnumField rewardTypeField;
+    FloatField rewardValueField;
+    EnumField statusField;
 
     AchievementList achievementList;
 
@@ -54,10 +57,24 @@ public class AchievementEditor : EditorWindow
         eventField = root.Q<EnumField>("achievement-event");
         imageField = root.Q<TextField>("achievement-image");
         requireField = root.Q<FloatField>("achievement-require");
+        rewardTypeField = root.Q<EnumField>("achievement-reward-type");
+        rewardValueField = root.Q<FloatField>("achievement-reward-value");
+        statusField = root.Q<EnumField>("achievement-reward-status");
 
         findButton.clicked += OnClickFind;
         commitButton.clicked += OnClickCommit;
         deleteButton.clicked += OnClickDelete;
+
+        rewardTypeField.RegisterValueChangedCallback((evt)=>{
+            if((AchievementRewardType)evt.newValue == AchievementRewardType.Enhance)
+            {
+                statusField.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
+                statusField.style.display = DisplayStyle.None;
+            }
+        });
     }
 
     private void OnEnable() 
@@ -92,6 +109,9 @@ public class AchievementEditor : EditorWindow
             eventField.value = foundAchievement.eventType;
             imageField.value = foundAchievement.imagePath;
             requireField.value = foundAchievement.requireValue;
+            rewardTypeField.value = foundAchievement.rewardType;
+            rewardValueField.value = foundAchievement.rewardValue;
+            statusField.value = foundAchievement.statusType;
         }
         else
         {
@@ -121,6 +141,9 @@ public class AchievementEditor : EditorWindow
             saveTarget.eventType = (AchievementEvent)eventField.value;
             saveTarget.imagePath = imageField.value.Length == 0 ? idField.value.ToString() : imageField.value;
             saveTarget.requireValue = requireField.value;
+            saveTarget.rewardType = (AchievementRewardType)rewardTypeField.value;
+            saveTarget.rewardValue = rewardValueField.value;
+            saveTarget.statusType = (StatusType)statusField.value;
 
             //업적 저장
             achievements.Add(saveTarget);

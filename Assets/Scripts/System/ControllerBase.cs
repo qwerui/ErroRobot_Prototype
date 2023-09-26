@@ -9,6 +9,11 @@ public interface IControllerBase
     void OnCancel(InputEvent inputEvent);
 }
 
+public interface IDialControl
+{
+    void OnDial(Vector2 direction);
+}
+
 public enum InputEvent
 {
     Pressed,

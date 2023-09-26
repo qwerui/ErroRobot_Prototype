@@ -36,4 +36,9 @@ public class JSONParser
         string json = taskResult.Result;
         return json;
     }
+
+    public static void SaveJSONString(string path, string json)
+    {
+        File.WriteAllTextAsync(path, json, System.Text.Encoding.UTF8);
+    }
 }

@@ -26,9 +26,6 @@ public class UIManager : MonoBehaviour
     [Header("Pointer")]
     public Pointer pointer;
 
-    [Header("Slots")]
-    public TowerSlotList towerSlotList;
-
     [Header("HitScreen")]
     public HitScreenManager hitScreenManager;
     

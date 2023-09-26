@@ -14,17 +14,19 @@ using UnityEngine.AI;
 public class Tower : MonoBehaviour, IRaycastInteractable
 {
     BoxCollider boxCollider;
-    ParticleSystem upgradeEffect;
 
     readonly Color halfTransparent = new Color(1.0f, 1.0f, 1.0f, 0.5f);
     readonly Color opaque = Color.white;
     readonly Color notAvailable = new Color(1.0f, 0.0f, 0.0f, 0.5f);
 
-    protected Dictionary<string, string> towerString = new Dictionary<string, string>();
-    
+    bool isMaterialInstanced;
     bool isBuildPhase;
     bool isMoving;
     bool isCanPut;
+
+#region TowerInfo
+
+    protected Dictionary<string, string> towerString = new Dictionary<string, string>();
 
     /// <summary>
     /// 타워 정보 변수, 자식 클래스에서는 다운 캐스팅 프로퍼티 필요
@@ -34,14 +36,60 @@ public class Tower : MonoBehaviour, IRaycastInteractable
     public int Level {get{return level;}}
     public float MaxHp {get{return towerInfo.maxHp[level];}}
     protected float currentHp;
-    public float CurrentHp {set {currentHp = Mathf.Clamp(value, 0, MaxHp);} get {return currentHp;}}
+    public float CurrentHp {
+        set {
+            currentHp = Mathf.Clamp(value, 0, MaxHp);
+            OnValueChange?.Invoke();
+        } 
+        get {return currentHp;}
+    }
     public int UpgradeCore {get{return towerInfo.upgradeCore[level];}}
 
+    public Sprite icon;
+    public ParticleSystem upgradeEffect;
+
+#endregion
+
     IEnumerator towerLoop;
-    PhaseManager gameplayManager;
+    protected PhaseManager gameplayManager;
     TowerUI towerUI;
 
     Vector3 beforeMovePostion;
+
+    public delegate void OnValueChangeDelegate();
+    public OnValueChangeDelegate OnValueChange;
+    public delegate void OnPutDelegate();
+    public OnPutDelegate OnPut;
+
+    public bool IsMaxLevel() => level == towerInfo.maxLevel - 1;
+
+    public virtual Dictionary<string, string> GetTowerDetail(int level)
+    {
+        return towerInfo.GetTowerInfoString(level);
+    }
+
+    protected virtual void Start() 
+    {
+        gameplayManager = GameObject.FindObjectOfType<PhaseManager>();
+        towerUI = GameObject.FindObjectOfType<TowerUI>(true);
+        towerLoop = ActivateTowerLoop();
+        isBuildPhase = true;
+
+        CurrentHp = MaxHp;
+        
+        gameplayManager.OnWaveStart += StartLoop;
+        gameplayManager.OnWaveStart += () => isBuildPhase = false;
+        gameplayManager.OnWaveEnd += StopLoop;
+        gameplayManager.OnWaveEnd += () => isBuildPhase = true;
+    }
+
+    protected virtual void OnDestroy() 
+    {
+        gameplayManager.OnWaveStart -= StartLoop;
+        gameplayManager.OnWaveEnd -= StopLoop;
+    }
+
+#region Actions
 
     void StartLoop() => StartCoroutine(towerLoop);
     void StopLoop()
@@ -50,97 +98,6 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         {
             StopCoroutine(towerLoop);
         }
-    }
-
-    public bool IsMaxLevel() => level == towerInfo.maxLevel - 1;
-
-    private void Start() 
-    {
-        upgradeEffect = GetComponent<ParticleSystem>();
-        gameplayManager = GameObject.FindObjectOfType<PhaseManager>();
-        towerUI = GameObject.FindObjectOfType<TowerUI>(true);
-        towerLoop = ActivateTowerLoop();
-        isBuildPhase = true;
-        
-        gameplayManager.OnWaveStart += StartLoop;
-        gameplayManager.OnWaveStart += () => isBuildPhase = false;
-        gameplayManager.OnWaveEnd += StopLoop;
-        gameplayManager.OnWaveEnd += () => isBuildPhase = true;
-    }
-
-    /// <summary>
-    /// 설치 준비
-    /// </summary>
-    public void ReadyToPut()
-    {
-        boxCollider ??= GetComponent<BoxCollider>();
-        boxCollider.isTrigger = true;
-        isMoving = true;
-        beforeMovePostion = transform.position;
-        isCanPut = true;
-
-        //반투명화
-        foreach(var mesh in GetComponentsInChildren<MeshRenderer>())
-        {
-            var material = mesh.material;
-            material = Instantiate(material);
-            if(material.shader.renderQueue == 3000) //Transparent = 3000
-            {
-                material.SetColor("_Color", halfTransparent);
-            }
-            mesh.material = material;
-        }
-    }
-
-    /// <summary>
-    /// 설치 준비 시 위치 이동
-    /// </summary>
-    /// <param name="target">목적지</param>
-    public void Move(Vector3 target)
-    {
-        transform.SetPositionAndRotation(target, Quaternion.identity);
-    }
-
-    /// <summary>
-    /// 이동 취소
-    /// </summary>
-    public void RevertMove()
-    {
-        transform.position = beforeMovePostion;
-    }
-
-    /// <summary>
-    /// 타워 설치
-    /// </summary>
-    public void Put()
-    {
-        boxCollider.isTrigger = false;
-        isMoving = false;
-
-        //불투명화
-        foreach(var mesh in GetComponentsInChildren<MeshRenderer>())
-        {
-            var material = mesh.material;
-            material.SetColor("_Color", opaque);
-        }
-    }
-
-    /// <summary>
-    /// 방어 페이즈때만 실행하는 루프
-    /// </summary>
-    IEnumerator ActivateTowerLoop()
-    {
-        while(true)
-        {
-            Execute();
-            yield return null;
-        }
-    }
-
-    private void OnDestroy() 
-    {
-        gameplayManager.OnWaveStart -= StartLoop;
-        gameplayManager.OnWaveEnd -= StopLoop;
     }
     
     /// <summary>
@@ -154,18 +111,25 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         upgradeEffect.Play();
     }
 
-    public virtual Dictionary<string, string> GetTowerDetail(int level)
-    {
-        return towerInfo.GetTowerInfoString(level);
-    }
-
-    void OnDamaged(float damage)
+    public void OnDamaged(float damage)
     {
         CurrentHp -= damage;
-
+        
         if(CurrentHp <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    /// <summary>
+    /// 방어 페이즈때만 실행하는 루프
+    /// </summary>
+    IEnumerator ActivateTowerLoop()
+    {
+        while(true)
+        {
+            Execute();
+            yield return null;
         }
     }
 
@@ -186,6 +150,76 @@ public class Tower : MonoBehaviour, IRaycastInteractable
                 towerUI.gameObject.SetActive(true);
             }
         }
+    }
+#endregion
+
+#region SetTower
+
+    /// <summary>
+    /// 설치 준비
+    /// </summary>
+    public void ReadyToPut()
+    {
+        boxCollider ??= GetComponent<BoxCollider>();
+        boxCollider.isTrigger = true;
+        isMoving = true;
+        beforeMovePostion = transform.position;
+        isCanPut = true;
+
+        //반투명화
+        foreach(var mesh in GetComponentsInChildren<MeshRenderer>())
+        {
+            var material = mesh.material;
+
+            if(!isMaterialInstanced)
+            {
+                material = Instantiate(material);
+            }
+            
+            if(material.shader.renderQueue == 3000) //Transparent = 3000
+            {
+                material.SetColor("_Color", halfTransparent);
+            }
+            mesh.material = material;
+        }
+
+        isMaterialInstanced = true;
+    }
+
+    /// <summary>
+    /// 설치 준비 시 위치 이동
+    /// </summary>
+    /// <param name="target">목적지</param>
+    public void Move(Vector3 target)
+    {
+        transform.SetPositionAndRotation(target, Quaternion.identity);
+    }
+
+    /// <summary>
+    /// 이동 취소
+    /// </summary>
+    public void RevertMove()
+    {
+        transform.position = beforeMovePostion;
+        Put();
+    }
+
+    /// <summary>
+    /// 타워 설치
+    /// </summary>
+    public void Put()
+    {
+        boxCollider.isTrigger = false;
+        isMoving = false;
+
+        //불투명화
+        foreach(var mesh in GetComponentsInChildren<MeshRenderer>())
+        {
+            var material = mesh.material;
+            material.SetColor("_Color", opaque);
+        }
+
+        OnPut?.Invoke();
     }
 
     /*
@@ -219,4 +253,5 @@ public class Tower : MonoBehaviour, IRaycastInteractable
             isCanPut = true;
         }
     }
+#endregion
 }

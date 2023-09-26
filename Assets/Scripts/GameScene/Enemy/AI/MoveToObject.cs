@@ -27,7 +27,7 @@ public class MoveToObject : ActionNode
         {
             destination = target.transform.position;
         }
-    
+        agent.isStopped = false;
         agent.SetDestination(destination);
         animator?.SetBool("isMoving", true);
     }
@@ -50,6 +50,7 @@ public class MoveToObject : ActionNode
         {
             agent.isStopped = true;
             animator?.SetBool("isMoving", false);
+            
             return State.Success;
         }
         else

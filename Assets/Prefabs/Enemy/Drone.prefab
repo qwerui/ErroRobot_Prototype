@@ -103,7 +103,7 @@ MonoBehaviour:
   speed: 50
   hp: 30
   armor: 0
-  core: 0
+  core: 10
   phaseManager: {fileID: 0}
   dot: {fileID: 0}
   status: {fileID: 0}

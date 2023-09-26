@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TowerInfo
 {
+    public int id;
     public float[] maxHp;
     public int[] upgradeCore;
     public int maxLevel;

@@ -8,4 +8,6 @@ public class WeaponReward : Reward
 {
     public int weaponId;
     public int[] enhanceListId;
+    [NonSerialized]
+    public WeaponMapper weapon;
 }

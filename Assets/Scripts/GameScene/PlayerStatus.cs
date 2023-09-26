@@ -26,6 +26,8 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField, HideInInspector]
     int killCount;
 
+    float recoverDelay = 0;
+
 #region Property
     public float CurrentShield
     {
@@ -82,6 +84,20 @@ public class PlayerStatus : MonoBehaviour
     public event OnValueChangedDelegate OnValueChanged;
     public event OnDamagedDelegate OnDamaged;
 
+    private void Update() 
+    {
+        if(recoverDelay > 0.5f)
+        {
+            recoverDelay = 0f;
+            CurrentShield += ShieldRecovery / 2;
+            OnValueChanged.Invoke(this);
+        }
+        else
+        {
+            recoverDelay += Time.deltaTime;
+        }
+    }
+
     public void Init(StartStatus startStatus)
     {  
         maxHp = startStatus.maxHp;
@@ -122,7 +138,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void GainCore(float value)
     {
-        Core += (int)(value * CoreGainPercent);
+        Core += (int)(value * (1+CoreGainPercent));
     }
 
     public void Damaged(float damage, GameObject source)

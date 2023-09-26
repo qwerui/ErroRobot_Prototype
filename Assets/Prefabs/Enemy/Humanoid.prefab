@@ -2089,10 +2089,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
-  hp: 0
+  hp: 30
   armor: 0
+  core: 10
+  phaseManager: {fileID: 0}
+  dot: {fileID: 0}
+  status: {fileID: 0}
   target: {fileID: 0}
-  attackCollider: {fileID: 0}
   delay: 3
 --- !u!1 &8654250720420973342
 GameObject:

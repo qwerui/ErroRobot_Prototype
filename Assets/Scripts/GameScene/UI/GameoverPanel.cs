@@ -5,7 +5,7 @@ using TMPro;
 
 public class GameoverPanel : MonoBehaviour
 {
-    TMP_Text GameEndTitle;
+    public TMP_Text GameEndTitle;
 
     public void Gameover()
     {

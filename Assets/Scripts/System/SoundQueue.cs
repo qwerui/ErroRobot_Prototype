@@ -4,11 +4,7 @@ using UnityEngine;
 
 /*
 사용법
-1. Resources/Audio 폴더에 SoundInfo를 생성(ScriptableObject)
-2. 생성한 SoundInfo에 id와 음악 파일을 할당
-3. 사용할 스크립트에서 id를 매개변수로 넘긴다.
--PlaySound
--PlayBGM
+PlaySFX에 clip을 매개변수로 넘김
 */
 public class SoundQueue : MonoBehaviour
 {
@@ -25,7 +21,8 @@ public class SoundQueue : MonoBehaviour
         }
     }
 
-    Queue<int> playQueue = new Queue<int>();
+    Queue<AudioClip> playQueue = new();
+    HashSet<string> alreadyEnqueueSet = new();
     Dictionary<int, AudioClip> soundList = new Dictionary<int, AudioClip>();
     
     [SerializeField] AudioSource bgm;
@@ -74,11 +71,12 @@ public class SoundQueue : MonoBehaviour
 
     }
 
-    public void PlaySound(int id)
+    public void PlaySFX(AudioClip clip)
     {
-        if(!playQueue.Contains(id))
+        if(!alreadyEnqueueSet.Contains(clip.name))
         {
-            playQueue.Enqueue(id);
+            alreadyEnqueueSet.Add(clip.name);
+            playQueue.Enqueue(clip);
         }
     }
 
@@ -86,12 +84,12 @@ public class SoundQueue : MonoBehaviour
     {
         while(playQueue.Count > 0)
         {
-            int currentSoundId = playQueue.Dequeue();
-            AudioClip currentSound = soundList[currentSoundId];
+            AudioClip currentSound = playQueue.Dequeue();
             if(currentSound != null)
             {
                 sfx?.PlayOneShot(currentSound);
             }
         }
+        alreadyEnqueueSet.Clear();
     }
 }
