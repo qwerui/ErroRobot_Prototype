@@ -11,6 +11,7 @@ public class TowerProjectile : MonoBehaviour
     public float speed;
     float instancedTime;
     const float destoryTime = 10.0f;
+    CrowdControl crowdControl;
 
     private void Awake() 
     {
@@ -27,10 +28,11 @@ public class TowerProjectile : MonoBehaviour
         }
     }
 
-    public void InitProjectile(GameObject target, float newDamage)
+    public void InitProjectile(GameObject target, float newDamage, CrowdControl crowdControl = null)
     {
         Vector3 dir = target.transform.position - transform.position;
         damage = newDamage;
+        this.crowdControl = crowdControl;
         rigid.AddForce(dir * speed, ForceMode.Impulse);
     }
 
@@ -39,7 +41,7 @@ public class TowerProjectile : MonoBehaviour
         EnemyBase enemy = other.GetComponent<EnemyBase>();
         if(enemy != null)
         {
-            enemy.Damaged(damage);
+            enemy.Damaged(damage, crowdControl);
             //폭발 이펙트가 2초
             Destroy(Instantiate(particle, transform.position, Quaternion.identity), 2.0f);
             Destroy(gameObject);
