@@ -97,7 +97,8 @@ public class TowerUI : MonoBehaviour, IGameUI
                 int detailIndex = 0;
                 foreach (KeyValuePair<string, string> detail in towerDetails)
                 {   
-                    string valueString = $"{detail.Value} (+{float.Parse(nextLevelDetail[detail.Key]) - float.Parse(detail.Value)})";
+                    float towerValue = float.Parse(nextLevelDetail[detail.Key]) - float.Parse(detail.Value);
+                    string valueString = $"{detail.Value} ({(towerValue > 0 ? "+" : "-")}{Mathf.Abs(towerValue)})";
                     towerDetailContents[detailIndex].SetText(detail.Key, valueString);
                     towerDetailContents[detailIndex].gameObject.SetActive(true);
                     detailIndex++;

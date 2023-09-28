@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Enemy;
 using UnityEngine;
 
+/// <summary>
+/// 슬로우 CC 감소율이 가장 큰 것만 적용
+/// </summary>
 public class SlowCC : CrowdControl
 {
     float speedReducer;
@@ -35,11 +38,9 @@ public class SlowCC : CrowdControl
                     
                     enemy.Speed -= reducedValue;
                     base.OnStart(enemy);
+                    
                 }
-                else
-                {
-                    return;
-                }
+                return;
             }
         }
 
