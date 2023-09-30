@@ -2092,6 +2092,7 @@ MonoBehaviour:
   hp: 30
   armor: 0
   core: 10
+  explosion: {fileID: 1121192042590650, guid: 998c60195a3e77842b5bca419aaddc6e, type: 3}
   phaseManager: {fileID: 0}
   dot: {fileID: 0}
   status: {fileID: 0}
