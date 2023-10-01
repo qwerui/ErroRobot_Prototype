@@ -20,9 +20,9 @@ public class TowerDetail : MonoBehaviour
     public void ShowTowerInfo(BaseTower tower)
     {
         towerName.SetText(tower.name);
-        towerDamage.SetText($"Damage: {tower.damage:0}");
+        towerDamage.SetText($"Damage: {tower.weapon.damage:0}");
         towerRange.SetText($"Range: {tower.range:0}");
-        towerDelay.SetText($"Delay: {tower.fireDelay:0.00}");
+        towerDelay.SetText($"Delay: {tower.weapon.fireDelay:0.00}");
         gameObject.SetActive(true);
     }
 

@@ -14,6 +14,7 @@ namespace AI.BehaviorTree
         public Node.State treeState = Node.State.Running;
         public bool repeat = false;
         public List<Node> nodes = new List<Node>();
+        public List<Node> abortNodes = new List<Node>();
         public Blackboard blackboard;
         [HideInInspector] public GameObject self;
 
@@ -22,6 +23,19 @@ namespace AI.BehaviorTree
             if (rootNode.state == Node.State.Running)
             {
                 treeState = rootNode.Update();
+
+                foreach(Node abort in abortNodes)
+                {
+                    if(abort.CheckAbort())
+                    {
+                        foreach(Node node in nodes)
+                        {
+                            node.Abort();
+                        }
+                        break;
+                    }
+                }
+
             }
             else if(repeat)
             {
@@ -176,6 +190,10 @@ namespace AI.BehaviorTree
             Traverse(rootNode, node => {
                 node.blackboard = blackboard;
                 node.self = self;
+                if(node.canAbort)
+                {
+                    abortNodes.Add(node);
+                }
             });
         }
     }

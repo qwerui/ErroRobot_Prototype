@@ -398,14 +398,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
-  hp: 0
+  hp: 150
   armor: 0
+  core: 50
+  phaseManager: {fileID: 0}
+  dot: {fileID: 0}
+  status: {fileID: 0}
   target: {fileID: 0}
   bullet: {fileID: 33009136195725299, guid: 27eded9a192f037438613afcace6d50d, type: 3}
   delay: 3
   shotPositionList:
   - {fileID: 3943609268365858627}
   - {fileID: 5417246025306758764}
+  damage: 60
 --- !u!1 &2180227288094137363
 GameObject:
   m_ObjectHideFlags: 0

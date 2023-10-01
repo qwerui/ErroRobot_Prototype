@@ -10,7 +10,8 @@ public class AchievementContent : MonoBehaviour
 
     public TMP_Text title;
     public Image image;
-    public Outline outline;
+    public Sprite lockSprite;
+    Outline outline;
 
     const string notAchievedTitle = "Locked";
 
@@ -28,11 +29,12 @@ public class AchievementContent : MonoBehaviour
         if(newAchievement.isAchieved)
         {
             title.SetText(achievement.title);
+            image.sprite = achievement.image;
         }
         else
         {
             title.SetText(notAchievedTitle);
+            image.sprite = lockSprite;
         }
-        image.sprite = achievement.image;
     }
 }

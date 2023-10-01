@@ -1,0 +1,223 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5800068209108026288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5301cf2d80547da418c83f425e9ee950, type: 3}
+  m_Name: SequencerNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 99b428f0423598d49afead5fbd692359
+  postion: {x: 137.00002, y: 430.50992}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  canAbort: 0
+  description: 
+  children:
+  - {fileID: -4427453281145443262}
+  - {fileID: -695943069061201881}
+--- !u!114 &-5458366897153928824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a311b7e810fbb47a736cc6aafe8f54, type: 3}
+  m_Name: MoveToObject
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: e4092d6780eaef6419af379a7d94c63e
+  postion: {x: 392, y: 487.28}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  canAbort: 0
+  description: 
+  acceptanceRadius: 100
+--- !u!114 &-4427453281145443262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a311b7e810fbb47a736cc6aafe8f54, type: 3}
+  m_Name: MoveToObject
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 7492a373854c9f548a5d9990a56394c1
+  postion: {x: 30, y: 623}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  canAbort: 0
+  description: 
+  acceptanceRadius: 100
+--- !u!114 &-3263330441592441826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5301cf2d80547da418c83f425e9ee950, type: 3}
+  m_Name: SequencerNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: d3b500f26e3271a40b3529824eb32a36
+  postion: {x: 400, y: 301}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  canAbort: 0
+  description: 
+  children:
+  - {fileID: -5458366897153928824}
+  - {fileID: 8116997059743354101}
+--- !u!114 &-2086798010194603404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd089a9299414db49b8e2314920f6709, type: 3}
+  m_Name: SelectorNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 3c66af0eb6f6604438a52678516305a0
+  postion: {x: 278.99997, y: 143}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  canAbort: 0
+  description: 
+  children:
+  - {fileID: 5702706496921392767}
+  - {fileID: -3263330441592441826}
+--- !u!114 &-695943069061201881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d61477895b0bae4eb60b142fac0113b, type: 3}
+  m_Name: EnemyShoot
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 9ce1465c56383f845bcdd4f63e332823
+  postion: {x: 220.00009, y: 614.5139}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  canAbort: 0
+  description: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9d341e522b3541409b1815cb8e26f9a, type: 3}
+  m_Name: AI_Guardian
+  m_EditorClassIdentifier: 
+  rootNode: {fileID: 3958796662993946858}
+  treeState: 0
+  repeat: 1
+  nodes:
+  - {fileID: 3958796662993946858}
+  - {fileID: -2086798010194603404}
+  - {fileID: 5702706496921392767}
+  - {fileID: -3263330441592441826}
+  - {fileID: -5458366897153928824}
+  - {fileID: 8116997059743354101}
+  - {fileID: -5800068209108026288}
+  - {fileID: -695943069061201881}
+  - {fileID: -4427453281145443262}
+  abortNodes: []
+  blackboard: {fileID: 11400000, guid: 1e13d391f9cd0af45b584d4cf900cf3c, type: 2}
+  self: {fileID: 0}
+--- !u!114 &3958796662993946858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f114955651cc41449bed3461b531d6b1, type: 3}
+  m_Name: RootNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 987801e8cfe9d0e4183edc510479ef46
+  postion: {x: 270.8, y: -8.040009}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  canAbort: 0
+  description: 
+  child: {fileID: -2086798010194603404}
+--- !u!114 &5702706496921392767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aade31359cf99d4883d5f284d7d2880, type: 3}
+  m_Name: DetectTower
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 039d242c7baeeeb419b4f40ed75fc76c
+  postion: {x: 172.07999, y: 293.4}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  canAbort: 1
+  description: 
+  child: {fileID: -5800068209108026288}
+--- !u!114 &8116997059743354101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d61477895b0bae4eb60b142fac0113b, type: 3}
+  m_Name: EnemyShoot
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: b0aef91999964ce4caea7915bf054927
+  postion: {x: 595.88, y: 495}
+  blackboard: {fileID: 0}
+  self: {fileID: 0}
+  canAbort: 0
+  description: 

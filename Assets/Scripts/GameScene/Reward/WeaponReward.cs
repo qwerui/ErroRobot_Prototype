@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WeaponReward", menuName = "Infos/Reward/WeaponReward", order = 0)]
+[System.Serializable]
 public class WeaponReward : Reward
 {
-
+    public int weaponId;
+    public int[] enhanceListId;
+    [NonSerialized]
+    public WeaponMapper weapon;
 }

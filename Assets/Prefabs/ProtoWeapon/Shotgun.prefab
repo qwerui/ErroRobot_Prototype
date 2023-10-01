@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8745114468140998339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8718702267471529577}
+  - component: {fileID: -1384754086415200858}
+  m_Layer: 0
+  m_Name: Shotgun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8718702267471529577
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8745114468140998339}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1384754086415200858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8745114468140998339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70efa10ad9f04716b2cb40a2d9c7c1ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: "\uC0F7\uAC74"
+  accuracy: 0.03
+  bulletSpeed: 800
+  fireDelay: 0.5
+  reloadDelay: 1
+  damage: 5
+  maxBulletCount: 10
+  nowBulletCount: 0
+  reboundHorizontalAmount: 0.1
+  reboundVerticalAmount: 0.1
+  fireParticle: {fileID: 0}
+  fireSound: {fileID: 0}
+  bullet: {fileID: 4956516880718611162, guid: 72fa8cb182cbe2e4e9a67f7467add412, type: 3}
+  enhanceIdList: 
+  BulletAmount: 5

@@ -6,9 +6,11 @@ public class EnemyProjectile : MonoBehaviour
 {
     Rigidbody rigid;
     public float moveSpeed;
+    float damage;
 
-    public void Init(GameObject target)
+    public void Init(GameObject target, float damage)
     {
+        this.damage = damage;
         transform.LookAt(target.transform);
         TryGetComponent<Rigidbody>(out rigid);
         rigid?.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);    
@@ -18,7 +20,12 @@ public class EnemyProjectile : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            Debug.Log("데미지 구현 필요");
+            other.GetComponent<PlayerStatus>().Damaged(damage, gameObject);
+            Destroy(gameObject);
+        }
+        else if(other.CompareTag("Tower"))
+        {
+            other.GetComponent<Tower>().OnDamaged(damage);
             Destroy(gameObject);
         }
     }

@@ -1,0 +1,34 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement name="reward-top">
+        <uie:IntegerField label="ID" value="0" name="reward-id">
+            <ui:Button text="Find" display-tooltip-when-elided="true" name="reward-find" />
+        </uie:IntegerField>
+        <ui:TextField picking-mode="Ignore" label="Title" is-delayed="false" name="reward-title" />
+        <ui:TextField picking-mode="Ignore" label="Description" name="reward-description" multiline="true" style="height: 50px;" />
+        <ui:TextField picking-mode="Ignore" label="Icon File Name" name="reward-sprite" />
+        <ui:SliderInt picking-mode="Ignore" label="Rarity" value="0" high-value="4" show-input-field="true" name="reward-rarity" />
+        <uie:IntegerField label="Pickable Count" value="0" name="reward-count" />
+        <ui:Toggle label="Initial Reward" name="reward-initial" />
+        <uie:EnumField label="Reward Type" include-obsolete-values="true" name="reward-type" type="RewardType, Assembly-CSharp" />
+        <ui:VisualElement name="reward-status" style="visibility: visible; overflow: hidden; display: none;">
+            <uie:EnumField label="Status Type" name="reward-status-type" type="StatusType, Assembly-CSharp" />
+            <uie:FloatField label="Status Value" value="0" name="reward-status-value" />
+        </ui:VisualElement>
+        <ui:VisualElement name="reward-weapon" style="visibility: visible; display: none;">
+            <uie:IntegerField label="Weapon ID" value="0" name="reward-weapon-id" style="display: flex;" />
+            <ui:ListView focusable="true" show-foldout-header="true" name="reward-weapon-enhance" header-title="Enhance ID" show-add-remove-footer="true" reorderable="false" reorder-mode="Animated" show-border="true" virtualization-method="DynamicHeight" horizontal-scrolling="false" style="margin-bottom: 20px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="reward-tower" style="visibility: visible; display: none;">
+            <uie:IntegerField label="Tower ID" value="0" name="reward-tower-id" />
+        </ui:VisualElement>
+        <ui:VisualElement name="reward-enhance" style="display: none;">
+            <uie:IntegerField label="Enhance target ID" value="0" name="reward-enhance-target" />
+            <uie:EnumField label="Enhance Type" name="reward-enhance-type" include-obsolete-values="false" type="EnhanceType, Assembly-CSharp" />
+            <uie:FloatField label="Value" value="0" name="reward-enhance-value" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="reward-bottom" style="flex-direction: row; justify-content: space-around; align-items: stretch; flex-wrap: nowrap;">
+        <ui:Button text="Add" display-tooltip-when-elided="true" name="reward-confirm" style="flex-direction: column; width: 150px;" />
+        <ui:Button text="Delete" display-tooltip-when-elided="true" name="reward-delete" style="width: 150px;" />
+    </ui:VisualElement>
+</ui:UXML>

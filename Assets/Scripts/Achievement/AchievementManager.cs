@@ -5,7 +5,7 @@ using UnityEngine;
 public class AchievementManager
 {
     AchievementList achievementList;
-    Dictionary<AchievementEvent, IAchievementChecker> checkers = new Dictionary<AchievementEvent, IAchievementChecker>();
+    Dictionary<AchievementEvent, AchievementChecker> checkers = new Dictionary<AchievementEvent, AchievementChecker>();
 
     public AchievementNotifier notifier;
 
@@ -20,40 +20,33 @@ public class AchievementManager
             achievements.Sort((Achievement a, Achievement b) => a.id - b.id);
         }
 
-        InitChecker();
+        //업적 체크 클래스를 각 이벤트에 할당
+        foreach(string eventString in System.Enum.GetNames(typeof(AchievementEvent)))
+        {
+            AchievementEvent converted = System.Enum.Parse<AchievementEvent>(eventString);
+            checkers[converted] = new AchievementChecker();
+        }
 
+        //업적 체크 클래스에 체크할 업적 할당
         foreach(Achievement achievement in achievements)
         {
             checkers[achievement.eventType].Add(achievement);
         }
     }
 
-    //이 부분은 하드 코딩
-    void InitChecker()
+    public void CheckAchievement(AchievementEvent occuredEvent, float value = 1)
     {
-        checkers.Add(AchievementEvent.PlayCount, new PlayCountChecker());
+        CheckAchievement_Internal(occuredEvent, value);
     }
 
     public void CheckAchievement(AchievementEvent occuredEvent, int value)
     {
-        IAchievementChecker checker = checkers[occuredEvent];
-        
-        if(checker != null)
-        {
-            Achievement succeed = checker.Check(value);
-            
-            if(succeed != null)
-            {
-                succeed.isAchieved = true;
-                JSONParser.SaveJSON<AchievementList>($"{Application.streamingAssetsPath}/Achievement.json", achievementList);
-                notifier.ShowNotifier(succeed);
-            }
-        }
+        CheckAchievement_Internal(occuredEvent, (float)value);
     }
 
-    public void CheckAchievement(AchievementEvent occuredEvent, float value)
+    void CheckAchievement_Internal(AchievementEvent occuredEvent, float value)
     {
-        IAchievementChecker checker = checkers[occuredEvent];
+        AchievementChecker checker = checkers[occuredEvent];
         
         if(checker != null)
         {
@@ -64,38 +57,37 @@ public class AchievementManager
                 succeed.isAchieved = true;
                 JSONParser.SaveJSON<AchievementList>($"{Application.streamingAssetsPath}/Achievement.json", achievementList);
                 notifier.ShowNotifier(succeed);
+
+                switch(succeed.rewardType)
+                {
+                    case AchievementRewardType.Enhance:
+                    var startStatus = JSONParser.ReadJSON<StartStatus>($"{Application.streamingAssetsPath}/StartStatus.json");
+                    
+                    switch(succeed.statusType)
+                    {
+                        case StatusType.MaxHP:
+                            startStatus.maxHp += succeed.rewardValue;
+                        break;
+                        case StatusType.MaxShield:
+                            startStatus.maxShield += succeed.rewardValue;
+                        break;
+                        case StatusType.CoreGain:
+                            startStatus.coreGainPercent += succeed.rewardValue;
+                        break;
+                        case StatusType.ShieldRecover:
+                            startStatus.shieldRecovery += succeed.rewardValue;
+                        break;
+                    }
+
+                    JSONParser.SaveJSON<StartStatus>($"{Application.streamingAssetsPath}/StartStatus.json", startStatus);
+                    break;
+                    case AchievementRewardType.Unlock:
+                    var unlock = JSONParser.ReadJSONString($"{Application.streamingAssetsPath}/Rewards/{(int)succeed.rewardValue}.json");
+                    unlock.Replace("\"isUnlocked\":false", "\"isUnlocked\":true");
+                    JSONParser.SaveJSONString($"{Application.streamingAssetsPath}/Rewards/{(int)succeed.rewardValue}.json", unlock);
+                    break;
+                }
             }
         }
     }
-
-    public void CheckAchievement(AchievementEvent occuredEvent, System.Enum value)
-    {
-        IAchievementChecker checker = checkers[occuredEvent];
-        
-        if(checker != null)
-        {
-            Achievement succeed = checker.Check(value);
-            
-            if(succeed != null)
-            {
-                succeed.isAchieved = true;
-                JSONParser.SaveJSON<AchievementList>($"{Application.streamingAssetsPath}/Achievement.json", achievementList);
-                notifier.ShowNotifier(succeed);
-            }
-        }
-    }
-}
-
-///<summary>
-///업적 체크하는 인터페이스<br/>
-///각 조건에 따른 달성 체크는 하드 코딩<br/>
-///업적 생성할 때 id는 먼저 달성 되는 순서로 지정<br/>
-///ex) 50, 100, 150 처치 -> id : 1, 2, 3
-///</summary>
-public interface IAchievementChecker
-{
-    public Achievement Check(int value);
-    public Achievement Check(float value);
-    public Achievement Check(System.Enum value);
-    public void Add(Achievement achievement);
 }

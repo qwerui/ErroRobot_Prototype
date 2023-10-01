@@ -60,6 +60,10 @@ MonoBehaviour:
   speed: 30
   hp: 30
   armor: 0
+  core: 20
+  phaseManager: {fileID: 0}
+  dot: {fileID: 0}
+  status: {fileID: 0}
   target: {fileID: 0}
   initialHeight: 100
   delay: 5
@@ -69,6 +73,7 @@ MonoBehaviour:
   - {fileID: 400010}
   - {fileID: 400012}
   bullet: {fileID: -4996963418652580643, guid: a6ec753175c140d47bec29c614952c08, type: 3}
+  damage: 20
 --- !u!65 &272499697607607585
 BoxCollider:
   m_ObjectHideFlags: 0

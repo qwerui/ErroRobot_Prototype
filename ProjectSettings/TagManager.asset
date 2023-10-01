@@ -8,6 +8,8 @@ TagManager:
   - UICanvas
   - Ground
   - Pointer
+  - Bullet
+  - Tower
   layers:
   - Default
   - TransparentFX

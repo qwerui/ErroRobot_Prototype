@@ -6,7 +6,7 @@ public class RewardPanel : MonoBehaviour, IGameUI
 {
     GameUIController gameUIController;
     public RewardManager rewardManager;
-    RewardOption[] rewardOptions = new RewardOption[3];
+    public RewardOption[] rewardOptions = new RewardOption[3];
 
     int index;
 
@@ -15,10 +15,6 @@ public class RewardPanel : MonoBehaviour, IGameUI
         if(gameUIController == null)
         {
             gameUIController = GetComponent<GameUIController>();
-            rewardOptions = GetComponentsInChildren<RewardOption>();
-            System.Array.Sort(rewardOptions, (RewardOption a, RewardOption b)=>{
-                return a.transform.GetSiblingIndex() - b.transform.GetSiblingIndex();
-            });    
         }
 
         gameUIController.enabled = true;

@@ -10,6 +10,7 @@ public class EnemyShoot : ActionNode
     float remainDelay;
     GameObject target;
     Animator animator;
+    float damage;
 
     List<Transform> shotPositionList;
 
@@ -19,6 +20,7 @@ public class EnemyShoot : ActionNode
         delay = blackboard.Get<float>("delay");
         shotPositionList = blackboard.Get<List<Transform>>("shotPosition");
         target = blackboard.Get<GameObject>("target");
+        damage = blackboard.Get<float>("damage");
         self.TryGetComponent<Animator>(out animator);
     }
 
@@ -40,11 +42,12 @@ public class EnemyShoot : ActionNode
             return State.Running;
         }
         
-        animator.SetTrigger("isAttacking");
+        self.transform.LookAt(target.transform);
+        animator?.SetTrigger("isAttacking");
         foreach(Transform shotPosition in shotPositionList)
         {
             var createdProjectile = Instantiate<EnemyProjectile>(projectile, shotPosition.position, Quaternion.identity);
-            createdProjectile.Init(target);
+            createdProjectile.Init(target, damage);
         }
         remainDelay = delay;
         return State.Success;

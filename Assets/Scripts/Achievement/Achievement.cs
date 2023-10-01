@@ -15,6 +15,10 @@ public class Achievement
     [System.NonSerialized]
     public Sprite image; //instanceID로 저장되기 때문에 NonSerialized로 변경
     public AchievementEvent eventType;
+    public AchievementRewardType rewardType;
+    public float rewardValue;
+    public StatusType statusType;
+    public float requireValue;
 
     public bool isAchieved = false;
 }
@@ -28,4 +32,10 @@ public enum AchievementEvent
 public class AchievementList
 {
     public List<Achievement> achievements = new List<Achievement>();
+}
+
+public enum AchievementRewardType
+{
+    Enhance,
+    Unlock
 }
