@@ -11,6 +11,7 @@ public class WeaponManager : MonoBehaviour, IGameUI
     GameUIController gameUIController;
     WeaponMapper tempForAlter;
     public RewardManager rewardManager;
+    public TextNotifier textNotifier;
 
     int index = 0;
 
@@ -50,6 +51,7 @@ public class WeaponManager : MonoBehaviour, IGameUI
             }
         }
 
+        textNotifier.Activate("변경할 무기를 선택해주세요");
         tempForAlter = weapon;
         gameUIController.enabled = true;
     }
@@ -135,6 +137,7 @@ public class WeaponManager : MonoBehaviour, IGameUI
         Destroy(slotList[index].GetWeapon().gameObject);
         slotList[index].SetWeapon(tempForAlter);
         weaponController.CurrentWeapon = slotList[index].GetWeapon();
+        textNotifier.Deactivate();
         tempForAlter = null;
         gameUIController.enabled = false;
     }

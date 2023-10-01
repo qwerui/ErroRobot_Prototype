@@ -7,6 +7,7 @@ public class TowerManager : MonoBehaviour
     public TowerSlotList towerSlotList;
     public TowerMoveController towerMoveController;
     public SaveManager saveManager;
+    public TextNotifier textNotifier;
 
     public List<SerializedTower> GetSerializedTowerList()
     {
@@ -39,6 +40,8 @@ public class TowerManager : MonoBehaviour
         }
         else
         {
+            textNotifier.Activate("변경할 타워를 선택해주세요");
+            towerSlotList.alterTowerCallback += textNotifier.Deactivate;
             towerSlotList.alterTowerCallback += () => MoveTower(created);
             towerSlotList.AlterTower(newTower);
         }
