@@ -11,6 +11,7 @@ public class WaveEffect : MonoBehaviour
     public Image lower;
     public Image background;
     public TMP_Text text;
+    public AudioClip clip;
 
     Sequence waveStartSeq;
     Sequence waveClearSeq;
@@ -67,6 +68,10 @@ public class WaveEffect : MonoBehaviour
 
     }
 
-    public void WaveStartEffect() => waveStartSeq.Play();
+    public void WaveStartEffect()
+    {
+        waveStartSeq.Play();
+        SoundQueue.instance.PlaySFX(clip);
+    }
     // public void WaveClearEffect() => waveClearSeq.Play();
 }

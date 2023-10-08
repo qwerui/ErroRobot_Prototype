@@ -7,6 +7,7 @@ public class RewardPanel : MonoBehaviour, IGameUI
     GameUIController gameUIController;
     public RewardManager rewardManager;
     public RewardOption[] rewardOptions = new RewardOption[3];
+    public AudioClip enableClip;
 
     int index;
 
@@ -17,6 +18,7 @@ public class RewardPanel : MonoBehaviour, IGameUI
             gameUIController = GetComponent<GameUIController>();
         }
 
+        SoundQueue.instance.PlaySFX(enableClip);
         gameUIController.enabled = true;
         index = 0;
         rewardOptions[index].Activate();

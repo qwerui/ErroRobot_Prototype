@@ -461,6 +461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueText: {fileID: 7097238338835464105}
+  clip: {fileID: 8300000, guid: 05d0d2dac5e7a044281c18d5290c6b95, type: 3}
 --- !u!114 &6578060543421724734
 MonoBehaviour:
   m_ObjectHideFlags: 0

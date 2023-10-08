@@ -5,6 +5,8 @@ using UnityEngine;
 public class AchievementController : MonoBehaviour, IControllerBase
 {
     public AchievementViewer viewer;
+    public AudioClip navigateClip;
+    public AudioClip selectClip;
 
     private void OnEnable() 
     {
@@ -19,10 +21,10 @@ public class AchievementController : MonoBehaviour, IControllerBase
     public void OnSubmit(InputEvent inputEvent)
     {
         //notifier 테스트 코드
-        if(inputEvent == InputEvent.Pressed)
-        {
-            GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.PlayCount, 10);
-        }
+        // if(inputEvent == InputEvent.Pressed)
+        // {
+        //     GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.PlayCount, 10);
+        // }
     }
 
     public void OnNavigate(Vector2 direction, InputEvent inputEvent)
@@ -30,11 +32,16 @@ public class AchievementController : MonoBehaviour, IControllerBase
         if(inputEvent == InputEvent.Pressed)
         {
             viewer.ChangeContent(direction.y);
+            SoundQueue.instance.PlaySFX(navigateClip);
         }
     }
 
     public void OnCancel(InputEvent inputEvent)
     {
-        LoadingSceneManager.LoadScene("StartScene");
+        if(inputEvent == InputEvent.Released)
+        {
+            SoundQueue.instance.PlaySFX(selectClip);
+            LoadingSceneManager.LoadScene("StartScene");
+        }
     }
 }

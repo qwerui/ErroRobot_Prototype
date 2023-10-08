@@ -6,6 +6,8 @@ public class GameUIController : MonoBehaviour, IControllerBase
 {
     IGameUI gameUI;
     Pointer pointer;
+    public AudioClip navigateClip;
+    public AudioClip selectClip;
 
     private void OnEnable() 
     {
@@ -33,6 +35,7 @@ public class GameUIController : MonoBehaviour, IControllerBase
         if(inputEvent == InputEvent.Pressed)
         {
             gameUI?.OnCancel();
+            SoundQueue.instance.PlaySFX(selectClip);
         }
     }
 
@@ -41,6 +44,7 @@ public class GameUIController : MonoBehaviour, IControllerBase
         if(inputEvent == InputEvent.Pressed)
         {
             gameUI?.OnNavigate(direction);
+            SoundQueue.instance.PlaySFX(navigateClip);
         }
     }
 
@@ -49,6 +53,7 @@ public class GameUIController : MonoBehaviour, IControllerBase
         if(inputEvent == InputEvent.Pressed)
         {
             gameUI?.OnSubmit();
+            SoundQueue.instance.PlaySFX(selectClip);
         }
     }
 
