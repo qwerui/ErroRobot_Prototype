@@ -4398,6 +4398,9 @@ MonoBehaviour:
   core: 0
   playCount: 0
   killCount: 0
+  roundCount: 0
+  clearCount: 0
+  waveCount: 0
 --- !u!4 &827913351
 Transform:
   m_ObjectHideFlags: 0
