@@ -25,7 +25,10 @@ public class Achievement
 
 public enum AchievementEvent
 {
-    PlayCount
+    PlayCount,
+    KillCount,
+    ClearCount,
+    WaveCount
 }
 
 [System.Serializable]
