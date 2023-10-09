@@ -2000,6 +2000,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   optionMenuManager: {fileID: 1592440049}
+  navigateClip: {fileID: 8300000, guid: 6955e8b652e32444daf533f625a2ac2d, type: 3}
+  selectClip: {fileID: 8300000, guid: 53c203a356407fc438f70849d5b3a653, type: 3}
 --- !u!1 &841000170
 GameObject:
   m_ObjectHideFlags: 0
@@ -3858,6 +3860,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startMenuManager: {fileID: 1137951707}
+  navigateClip: {fileID: 8300000, guid: 6955e8b652e32444daf533f625a2ac2d, type: 3}
+  selectClip: {fileID: 8300000, guid: 53c203a356407fc438f70849d5b3a653, type: 3}
 --- !u!4 &1422520573
 Transform:
   m_ObjectHideFlags: 0

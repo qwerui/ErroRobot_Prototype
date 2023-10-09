@@ -212,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 7933378049834524387}
   HpBar: {fileID: 8192001876094443865}
+  outline: {fileID: 4981517687830042757}
 --- !u!114 &7652033084217901305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,6 +258,21 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &4981517687830042757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967321854253214623}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!224 &5892441958438197759 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3113087461819769675, guid: d6a9925a09a197249bd159f4330dec44, type: 3}

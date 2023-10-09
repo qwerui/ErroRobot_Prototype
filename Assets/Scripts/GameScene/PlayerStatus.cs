@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 [System.Serializable]
 public class PlayerStatus : MonoBehaviour
 {
+#region Field
     [SerializeField, HideInInspector]
     float currentShield;
     [SerializeField, HideInInspector]
@@ -25,6 +26,13 @@ public class PlayerStatus : MonoBehaviour
     int playCount;
     [SerializeField, HideInInspector]
     int killCount;
+    [SerializeField, HideInInspector]
+    int roundCount;
+    [SerializeField, HideInInspector]
+    int clearCount;
+    [SerializeField, HideInInspector]
+    int waveCount;
+#endregion
 
     float recoverDelay = 0;
 
@@ -66,13 +74,39 @@ public class PlayerStatus : MonoBehaviour
     }
     public int KillCount
     {
-        set{killCount = value;}
+        set
+        {
+            killCount = value;
+            GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.KillCount, killCount);
+        }
         get{return killCount;}
     }
     public int PlayCount
     {
-        set{playCount = value;GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.PlayCount, playCount);}
+        set
+        {
+            playCount = value;
+            GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.PlayCount, playCount);
+        }
         get{return playCount;}
+    }
+    public int ClearCount
+    {
+        set
+        {
+            clearCount = value;
+            GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.ClearCount);
+        }
+        get{return clearCount;}
+    }
+    public int WaveCount
+    {
+        set
+        {
+            waveCount = value;
+            GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.WaveCount);
+        }
+        get {return waveCount;}
     }
 #endregion
 

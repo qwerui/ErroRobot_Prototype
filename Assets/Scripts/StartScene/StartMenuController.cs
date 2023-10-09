@@ -5,6 +5,8 @@ using UnityEngine;
 public class StartMenuController : MonoBehaviour, IControllerBase
 {
     public StartMenu.StartMenuManager startMenuManager;
+    public AudioClip navigateClip;
+    public AudioClip selectClip;
 
     private void OnEnable() 
     {
@@ -21,6 +23,7 @@ public class StartMenuController : MonoBehaviour, IControllerBase
         if(inputEvent == InputEvent.Pressed)
         {
             startMenuManager?.SelectOption(direction.y);
+            SoundQueue.instance.PlaySFX(navigateClip);
         }
     }
 
@@ -29,11 +32,16 @@ public class StartMenuController : MonoBehaviour, IControllerBase
         if(inputEvent == InputEvent.Pressed)
         {
             startMenuManager?.Execute();
+            SoundQueue.instance.PlaySFX(selectClip);
         }
     }
 
     public void OnCancel(InputEvent inputEvent)
     {
-        throw new System.NotImplementedException();
+        if(inputEvent == InputEvent.Pressed)
+        {
+            startMenuManager?.SetExit();
+            SoundQueue.instance.PlaySFX(selectClip);
+        }
     }
 }

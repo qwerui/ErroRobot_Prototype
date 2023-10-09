@@ -40,5 +40,12 @@ namespace StartMenu
         {
             menuOptionList[menuIndex].Execute();
         }
+
+        public void SetExit()
+        {
+            menuOptionList[menuIndex].Deselect();
+            menuIndex = menuOptionList.Count - 1;
+            menuOptionList[menuIndex].Select();
+        }
     }
 }

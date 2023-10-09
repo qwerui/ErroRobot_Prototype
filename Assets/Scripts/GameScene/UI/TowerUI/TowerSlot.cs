@@ -10,6 +10,7 @@ public class TowerSlot : MonoBehaviour
     Tower tower;
     public Image towerImage;
     public Image HpBar;
+    public Outline outline;
 
     public Tower Tower
     {
@@ -33,8 +34,8 @@ public class TowerSlot : MonoBehaviour
         get {return tower;}
     }
 
-    public void Activate() {}
-    public void Deactivate() {}
+    public void Activate() => outline.enabled = true;
+    public void Deactivate() => outline.enabled = false;
 
     public void AlterTower(Tower newTower)
     {

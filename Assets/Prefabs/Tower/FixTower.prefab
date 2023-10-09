@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30673ef1ec30a84e90a388c44b6e217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 1121192042590650, guid: 7e6eea9e3dc3d4f4f8e90f6be7d58139, type: 3}
   icon: {fileID: 21300000, guid: 4217838d18d06c04fbb38361be7b975f, type: 3}
   upgradeEffect: {fileID: 2113195431632419337}
 --- !u!54 &1121798146

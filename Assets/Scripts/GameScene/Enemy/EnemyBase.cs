@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using AI.BehaviorTree;
+using Unity.Mathematics;
 
 namespace Enemy
 {
@@ -16,6 +17,8 @@ namespace Enemy
         protected float armor;
         [SerializeField]
         protected float core;
+        [SerializeField]
+        protected GameObject explosion;
 
         public float Speed
         {
@@ -96,6 +99,7 @@ namespace Enemy
             phaseManager.UpdateRemainEnemy();
             dot.DestroyDot();
             status.GainCore(core);
+            Destroy(Instantiate(explosion, transform.position, Quaternion.identity), 2.0f);
             Destroy(gameObject);
         }
 

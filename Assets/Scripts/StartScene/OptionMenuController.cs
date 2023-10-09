@@ -7,6 +7,8 @@ namespace StartMenu
     public class OptionMenuController : MonoBehaviour, IControllerBase
     {
         public OptionMenuManager optionMenuManager;
+        public AudioClip navigateClip;
+        public AudioClip selectClip;
 
         private void OnEnable() => PlayerController.instance.AddController(this);
 
@@ -21,6 +23,7 @@ namespace StartMenu
             {
                 optionMenuManager.SelectOption(direction.y);
                 optionMenuManager.ChangeOptionValue(direction.x);
+                SoundQueue.instance.PlaySFX(navigateClip);
             }
         }
 
@@ -29,12 +32,17 @@ namespace StartMenu
             if(inputEvent == InputEvent.Pressed)
             {
                 optionMenuManager.Submit();
+                SoundQueue.instance.PlaySFX(selectClip);
             }
         }
 
         public void OnCancel(InputEvent inputEvent)
         {
-            throw new System.NotImplementedException();
+            if(inputEvent == InputEvent.Pressed)
+            {
+                optionMenuManager.ReturnMenu();
+                SoundQueue.instance.PlaySFX(selectClip);
+            }
         }
     }
 }
