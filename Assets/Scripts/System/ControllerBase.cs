@@ -11,7 +11,8 @@ public interface IControllerBase
 
 public interface IDialControl
 {
-    void OnDial(Vector2 direction);
+    //void OnDial(Vector2 direction);
+    void OnDial(InputEvent inputEvent);
 }
 
 public enum InputEvent

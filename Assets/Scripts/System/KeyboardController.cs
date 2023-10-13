@@ -80,14 +80,14 @@ public class KeyboardController : IControllerPlatform
         {
             IDialControl tempController = controller as IDialControl;
 
-            if(Input.GetKeyDown(KeyCode.A))
+            if(Input.GetKeyDown(KeyCode.LeftControl))
             {
-                tempController.OnDial(Vector2.left);
+                tempController.OnDial(InputEvent.Pressed);
             }
 
-            if(Input.GetKeyDown(KeyCode.D))
+            if(Input.GetKeyUp(KeyCode.LeftControl))
             {
-                tempController.OnDial(Vector2.right);
+                tempController.OnDial(InputEvent.Released);
             }
         }
 #endregion

@@ -56,9 +56,18 @@ public class WeaponManager : MonoBehaviour, IGameUI
         gameUIController.enabled = true;
     }
 
-    public void ChangeWeapon(Vector2 direction)
+    public void ChangeWeapon()
     {
-        OnNavigate(direction);
+        if(index == slotList.Count-1)
+        {
+            slotList[index].Deactivate();
+            index = 0;
+            slotList[index].Activate();
+        }
+        else
+        {
+            OnNavigate(Vector2.right);
+        }
         weaponController.CurrentWeapon = slotList[index].GetWeapon();
     }
 

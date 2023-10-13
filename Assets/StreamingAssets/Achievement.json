@@ -1,1 +1,1 @@
-﻿{"achievements":[{"id":0,"title":"Test Achievement","description":"Test Description","reward":"Test Reward","story":"Test Story","imagePath":"0","eventType":0,"rewardType":0,"rewardValue":0.0,"statusType":0,"requireValue":1.0,"isAchieved":true}]}
+﻿{"achievements":[{"id":0,"title":"첫 시작","description":"처음으로 게임을 시작했다","reward":"최대 HP 10 증가","story":"잘 왔네 신입!","imagePath":"0","eventType":0,"rewardType":0,"rewardValue":0.0,"statusType":0,"requireValue":1.0,"isAchieved":true}]}
