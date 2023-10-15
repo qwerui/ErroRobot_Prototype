@@ -107,4 +107,4 @@ MonoBehaviour:
   self: {fileID: 0}
   canAbort: 0
   description: 
-  acceptanceRadius: 100
+  acceptanceRadius: 70
