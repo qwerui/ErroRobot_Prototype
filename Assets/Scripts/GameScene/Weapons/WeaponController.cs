@@ -19,8 +19,7 @@ public class WeaponController : MonoBehaviour
     private Camera cam;
 
     // 격발 위치 오브젝트 transform
-    [SerializeField]
-    private List<Transform> fireStartPos;
+    public Transform[] fireStartPos;
 
     // 격발 순서
     private int _fireSeq = 0;
