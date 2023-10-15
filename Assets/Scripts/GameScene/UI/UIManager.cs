@@ -28,6 +28,9 @@ public class UIManager : MonoBehaviour
 
     [Header("HitScreen")]
     public HitScreenManager hitScreenManager;
+
+    [Header("Effect")]
+    public WaveEffect waveEffect;
     
     private void Awake() 
     {
@@ -41,6 +44,8 @@ public class UIManager : MonoBehaviour
     {
         buildUI.SetActive(false);
         pointer.SetPointer(PointerIcon.Rifle);
+
+        waveEffect.WaveStartEffect();
     }
 
     public void OnWaveEnd()

@@ -30,6 +30,7 @@ public class AchievementManager
         //업적 체크 클래스에 체크할 업적 할당
         foreach(Achievement achievement in achievements)
         {
+            achievement.image = Resources.Load<Sprite>($"AchievementSprite/{achievement.imagePath}");
             checkers[achievement.eventType].Add(achievement);
         }
     }

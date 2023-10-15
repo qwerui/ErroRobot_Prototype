@@ -102,10 +102,15 @@ public class PhaseManager : MonoBehaviour
     public void UpdateRemainEnemy()
     {
         remainEnemy--;
+        playerStatus.KillCount++;
+
         if(remainEnemy <= 0)
         {
+            playerStatus.WaveCount++;
+
             if(wave > 5)
             {
+                playerStatus.ClearCount++;
                 OnGameEnd.Invoke();
             }
             else if(!isGameEnd)

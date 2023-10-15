@@ -54,6 +54,11 @@ namespace StartMenu
         {
             options[menuIndex].Execute();
         }
+
+        public void ReturnMenu()
+        {
+            options[options.Count - 1].Execute();
+        }
     }
 
 }

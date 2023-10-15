@@ -11,6 +11,7 @@ public class TutorialManager : MonoBehaviour
     string[] dialogues; //튜토리얼 대사
     public delegate void OnTutorialEndDelegate();
     public OnTutorialEndDelegate onTutorialEnd; //onEndWave 호출
+    public AudioClip clip;
 
     int index;
 
@@ -34,12 +35,15 @@ public class TutorialManager : MonoBehaviour
     
     public void Skip()
     {
+        SoundQueue.instance.PlaySFX(clip);
         onTutorialEnd.Invoke();
         gameObject.SetActive(false);
     }
 
     public void Next()
     {
+        SoundQueue.instance.PlaySFX(clip);
+
         if(index >= dialogues.Length)
         {
             Skip();

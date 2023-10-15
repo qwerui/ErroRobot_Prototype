@@ -14,6 +14,7 @@ using UnityEngine.AI;
 public class Tower : MonoBehaviour, IRaycastInteractable
 {
     BoxCollider boxCollider;
+    public GameObject explosion;
 
     readonly Color halfTransparent = new Color(1.0f, 1.0f, 1.0f, 0.5f);
     readonly Color opaque = Color.white;
@@ -117,6 +118,7 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         
         if(CurrentHp <= 0)
         {
+            Destroy(Instantiate(explosion, transform.position, Quaternion.identity), 2.0f);
             Destroy(gameObject);
         }
     }

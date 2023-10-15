@@ -49,12 +49,11 @@ public class DefenceController : MonoBehaviour, IControllerBase, IDialControl
         }
     }
 
-    public void OnDial(Vector2 direction)
+    public void OnDial(InputEvent inputEvent)
     {
-        if(Mathf.Abs(direction.x) < Mathf.Epsilon)
+        if(inputEvent == InputEvent.Pressed)
         {
-            return;
+            weaponManager.ChangeWeapon();
         }
-        weaponManager.ChangeWeapon(direction);
     }
 }

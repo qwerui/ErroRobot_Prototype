@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2aaa467dbb24854b9178d0a9f79f1c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 1121192042590650, guid: 7e6eea9e3dc3d4f4f8e90f6be7d58139, type: 3}
   icon: {fileID: 21300000, guid: 4e424f4b39c7f494faefd764418e86a3, type: 3}
   upgradeEffect: {fileID: 170823297492857151}
   projectile: {fileID: 494746902580220553, guid: 8c5ba9bdd519da340ae68f843e795eaa, type: 3}
