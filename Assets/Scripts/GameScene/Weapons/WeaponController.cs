@@ -11,23 +11,25 @@ public class WeaponController : MonoBehaviour
     private BaseWeapon currentWeapon;
     public BaseWeapon CurrentWeapon
     {
-        set {currentWeapon = value;}
+        set { currentWeapon = value; }
     }
 
     // 카메라
     [SerializeField]
     private Camera cam;
 
-    // 격발 위치
-    [SerializeField]
-    private Transform firePos;
+    // 격발 위치 오브젝트 transform
+    public Transform[] fireStartPos;
+
+    // 격발 순서
+    private int _fireSeq = 0;
 
     // 현재 격발 카운트. 0이 되면 격발 가능
     private float currentFireDelay;
 
     // 장전 상태, true면 현재 장전 중
     private bool isReloading = false;
-    
+
     // 현재 격발 진행 여부.(True = 버튼이 눌림)
     private bool ButtonPressed = false;
 
@@ -36,7 +38,7 @@ public class WeaponController : MonoBehaviour
     // 총알 충돌 정보
     private RaycastHit hitInfo;
 
-    
+
 
 
     // 오디오
@@ -53,7 +55,11 @@ public class WeaponController : MonoBehaviour
         {
             CalculateFireDelay();
             if (ButtonPressed)
+            {
                 CheckFire();
+
+            }
+
             checkReload();
         }
     }
@@ -64,13 +70,13 @@ public class WeaponController : MonoBehaviour
         if (currentFireDelay > 0)
             currentFireDelay -= Time.deltaTime;
     }
-    
+
     // 격발 버튼 누르는 상태로 전환
     public void PressButton()
     {
         ButtonPressed = true;
     }
-    
+
     // 격발 버튼 뗀 상태로 전환
     public void ReleaseButton()
     {
@@ -88,31 +94,37 @@ public class WeaponController : MonoBehaviour
             }
             else if (currentFireDelay <= 0)
             {
-                Fire();
+                Fire(_fireSeq);
             }
         }
     }
 
 
     // 격발 실시!
-    private void Fire()
+    private void Fire(int fireSeq)
     {
-        
-        
         currentFireDelay = currentWeapon.fireDelay;
         currentWeapon.nowBulletCount -= 1;
 
 
-        Vector3 firePos = cam.transform.position;
-        Vector3 temp = new Vector3(0, 0.5f, 0);
+        Vector3[] firePos = new Vector3[2];
+        firePos[0] = fireStartPos[0].position;
+        firePos[1] = fireStartPos[1].position;
+        //Vector3 firePos = cam.transform.position;
+        //Vector3 temp = new Vector3(0, 0.5f, 0);
 
         //Debug.Log("위치 : " + cam.transform.position);
         //Debug.Log("수정 : " + (cam.transform.position - temp));
 
         // TODO : 총알 발사 (파티클, 사운드)
         // currentWeapon.Shoot(firePos - temp, cam.transform.forward.normalized - temp);
-        currentWeapon.Shoot(firePos - temp, cam.transform.forward.normalized);
+        //currentWeapon.Shoot(firePos - temp, cam.transform.forward.normalized);
+        currentWeapon.Shoot(firePos[fireSeq], cam.transform.forward.normalized);
 
+        if (_fireSeq == 0)
+            _fireSeq = 1;
+        else
+            _fireSeq = 0;
 
         // 총기 반동 코루틴
         /*StopAllCoroutines();
@@ -124,7 +136,7 @@ public class WeaponController : MonoBehaviour
     private void checkReload()
     {
         // R키를 누르고, 장전 중이 아닐 것이며, 현재 총알 수가 최대 장탄 수보다 적을 때
-        if(Input.GetKeyDown(KeyCode.R) && !isReloading && currentWeapon.nowBulletCount < currentWeapon.maxBulletCount)
+        if (Input.GetKeyDown(KeyCode.R) && !isReloading && currentWeapon.nowBulletCount < currentWeapon.maxBulletCount)
         {
             StartCoroutine(ReloadCoroutine());
         }

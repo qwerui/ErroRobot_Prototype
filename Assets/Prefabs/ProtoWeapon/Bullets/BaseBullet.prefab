@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 959578476781712289}
   - component: {fileID: 3825467166292581959}
   - component: {fileID: 2288615719378338237}
-  - component: {fileID: 553587632536069008}
+  - component: {fileID: 5296435816235045962}
   - component: {fileID: 4956516880718611162}
   - component: {fileID: 7800527633580127414}
   - component: {fileID: 4355143093139821216}
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 9220297191468130762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -53,8 +53,8 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9220297191468130762}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ba9d7cca5f4ed694eb0915fdf20e4bb2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -87,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &553587632536069008
+--- !u!135 &5296435816235045962
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,7 +218,7 @@ TrailRenderer:
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 22552
+      ctime0: 44333
       ctime1: 65535
       ctime2: 0
       ctime3: 0
@@ -226,7 +226,7 @@ TrailRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 0
+      atime0: 14649
       atime1: 65535
       atime2: 0
       atime3: 0

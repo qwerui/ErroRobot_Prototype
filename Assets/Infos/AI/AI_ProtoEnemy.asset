@@ -15,9 +15,10 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 0228ee7f728e1da4f8d1472fe128ba11
-  postion: {x: 467, y: 411}
+  postion: {x: 494, y: 416}
   blackboard: {fileID: 0}
   self: {fileID: 0}
+  canAbort: 0
   description: 
 --- !u!114 &-6307471828368813369
 MonoBehaviour:
@@ -34,9 +35,10 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: eeb755914a300be4281de61f01db4ca4
-  postion: {x: 367, y: 195}
+  postion: {x: 372, y: 230.31998}
   blackboard: {fileID: 0}
   self: {fileID: 0}
+  canAbort: 0
   description: 
   children:
   - {fileID: 586377325103684548}
@@ -59,6 +61,7 @@ MonoBehaviour:
   postion: {x: 364, y: 83.8}
   blackboard: {fileID: 11400000, guid: e7fa3f9546d943f48ab04d4a9fa1a52e, type: 2}
   self: {fileID: 0}
+  canAbort: 0
   description: 
   child: {fileID: -6307471828368813369}
 --- !u!114 &11400000
@@ -81,6 +84,7 @@ MonoBehaviour:
   - {fileID: 586377325103684548}
   - {fileID: -6307471828368813369}
   - {fileID: -6965177845379303954}
+  abortNodes: []
   blackboard: {fileID: 11400000, guid: e7fa3f9546d943f48ab04d4a9fa1a52e, type: 2}
   self: {fileID: 0}
 --- !u!114 &586377325103684548
@@ -98,8 +102,9 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 6affad7cc26b1964ab14a688293f04b9
-  postion: {x: 249, y: 418.99997}
+  postion: {x: 258, y: 424}
   blackboard: {fileID: 11400000, guid: e7fa3f9546d943f48ab04d4a9fa1a52e, type: 2}
   self: {fileID: 0}
+  canAbort: 0
   description: 
-  acceptanceRadius: 10
+  acceptanceRadius: 70
