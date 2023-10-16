@@ -19,6 +19,7 @@ public class BuildController : MonoBehaviour, IControllerBase
     private void OnDisable() 
     {
         PlayerController.instance?.DeleteController(this);
+        cameraController.DisableRotation();
     }
 
     public void OnNavigate(Vector2 direction, InputEvent inputEvent)

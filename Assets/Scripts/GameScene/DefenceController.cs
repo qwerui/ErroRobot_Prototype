@@ -20,6 +20,8 @@ public class DefenceController : MonoBehaviour, IControllerBase, IDialControl
     private void OnDisable() 
     {
         PlayerController.instance?.DeleteController(this);
+        cameraController.DisableRotation();
+        weaponController.ReleaseButton();
     }
 
     public void OnNavigate(Vector2 direction, InputEvent inputEvent)
