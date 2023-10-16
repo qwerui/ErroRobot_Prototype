@@ -1,0 +1,188 @@
+{
+    "dialogues": 
+    [
+        {   
+            "speaker": "self",
+            "text": "(시끄러운 경고음이 방 안을 채운다.)"
+        },
+        {
+            "speaker": "self",
+            "text": "(잠에서 깬 나는 경고음이 들리는 화면 앞에 앉았다.)"
+        },
+        {
+            "speaker": "self",
+            "text": "(내가 자리에 앉자 경고음은 잦아들었다. 그리고, 처음 듣는 목소리가 들려왔다.)"
+        },
+        {
+            "speaker": "eve",
+            "text": "일어나셨군요, 관리자님."
+        },
+        {
+            "speaker": "eve",
+            "text": "저는 F-01 학습 공장을 담당하고 있는 인공지능, EVE라고 합니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "현재 공장에 오작동이 발생했습니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "상황은 아직 완전히 파악되지 않았으나, 상황이 심각하다는 것만큼은 확실합니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "화면의 관제탑 감시카메라를 확인해주십시오."
+        },
+        {
+            "condition": "control_keyboard",
+            "speaker": "eve",
+            "text": "계기판의 W, A, S, D를 눌러 주변 상황을 파악할 수 있습니다."
+        },
+        {
+            "condition": "control_controller",
+            "speaker": "eve",
+            "text": "계기판의 스틱을 상, 하, 좌, 우로 돌려 주변 상황을 파악할 수 있습니다."
+        },
+        {
+            "condition": "control_keyboard",
+            "speaker": "text_panel",
+            "text": "W, A, S, D를 눌러 화면을 돌릴 수 있습니다.",
+            "wait_until": "MoveCamera"
+        },
+        {
+            "condition": "control_controller",
+            "speaker": "text_panel",
+            "text": "W, A, S, D를 눌러 화면을 돌릴 수 있습니다.",
+            "wait_until": "MoveCamera"
+        },
+        {
+            "speaker": "eve",
+            "text": "저 로봇이 보이십니까? 저 로봇은 원래 가정용으로 개발되었습니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "원인은 파악되지 않았지만, 이번에 생산된 로봇들이 전부 군사용으로 개조되었습니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "아마 이번에 새로 적용된 AI가 오작동을 일으킨 것이라고 추측됩니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "그 로봇들은 이 곳 관제탑으로 몰려들고 있습니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "아마 이 곳이 외부와 소통 가능한 유일한 시설이라 그런 듯 합니다."
+        },
+        {
+            "condition": "control_keyboard",
+            "speaker": "eve",
+            "text": "다행히 비상 제압용으로 무기가 장착되어 있습니다. 로봇을 격추시키십시오."
+        },
+        {
+            "condition": "control_keyboard",
+            "speaker": "text_panel",
+            "text": "화면을 돌려 로봇을 향한 후 스페이스 바를 눌러 적을 격추시킬 수 있습니다.",
+            "wait_until": "MoveCamera"
+        },
+        {
+            "condition": "control_controller",
+            "speaker": "text_panel",
+            "text": "화면을 돌려 로봇을 향한 후 버튼을 눌러 적을 격추시킬 수 있습니다.",
+            "wait_until": "MoveCamera"
+        },
+        {
+            "speaker": "eve",
+            "text": "다행히 개조가 덜 되었는지 그렇게 내구성이 뛰어나진 않군요."
+        },
+        {
+            "speaker": "eve",
+            "text": "하지만 안심하긴 이릅니다. 아직 얼마나 심각한 상황인지 모르는 상태입니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "인공지능은 끊임없이 학습하고 끊임없이 강해집니다. 앞으로 몰려올 로봇도 그렇겠죠."
+        },
+        {
+            "speaker": "eve",
+            "text": "하지만 저 역시 인공지능입니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "물론 이 시설이 무언가를 막는 데에 특화되어 있는 건 아니지만, 빠른 시간 내로 이 공간을 개조하겠습니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "방금 파괴한 로봇으로 포탑을 만들어봤습니다. 한 번 설치해보십시오."
+        },
+        {
+            "condition": "control_controller",
+            "speaker": "text_panel",
+            "text": "원하는 땅에 화면을 두고 버튼을 눌러 포탑을 설치합니다.",
+            "wait_until": "PlaceTurret"
+        },
+        {
+            "condition": "control_keyboard",
+            "speaker": "text_panel",
+            "text": "원하는 땅에 화면을 두고 스페이스 바를 눌러 포탑을 설치합니다.",
+            "wait_until": "PlaceTurret"
+        },
+        {
+            "speaker": "eve",
+            "text": "좋습니다. 포탑은 근처의 적을 자동으로 격추시킵니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "로봇을 처치하면 코어를 획득하고, 포탑을 클릭하면 코어를 소모해 포탑을 업그레이드할 수 있습니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "다음으로 제작한 건 새로운 무기입니다. 무기를 장착시켜드렸으니, 무기를 교체해보십시오."
+        },
+        {
+            "condition": "control_controller",
+            "speaker": "text_panel",
+            "text": "버튼을 눌러 무기를 교체할 수 있습니다.",
+            "wait_until": "ChangeWeapon"
+        },
+        {
+            "condition": "control_keyboard",
+            "speaker": "text_panel",
+            "text": "방향키를 눌러 무기를 교체할 수 있습니다.",
+            "wait_until": "ChangeWeapon"
+        },
+        {
+            "speaker": "eve",
+            "text": "로봇들은 한 번에 몰아서 생산되고, 모두 파괴되면 잠깐의 지연 시간이 있는 듯 합니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "그 시간동안 제가 파괴된 부품들로 관제탑을 강화시키겠습니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "시간은 많지 않을테니, 여러 선택지 중 단 한 가지만 가능할 것 같습니다."
+        },
+        {
+            "condition": "control_keyboard",
+            "speaker": "eve",
+            "text": "모든 준비가 끝나면 땅을 보고 스페이스바를 눌러주세요.",
+            "wait_until": "GroundClick"
+        },
+        {
+            "condition": "control_controller",
+            "speaker": "eve",
+            "text": "모든 준비가 끝나면 땅을 보고 A버튼을 눌러주세요.",
+            "wait_until": "GroundClick"
+        },
+        {
+            "speaker": "eve",
+            "text": "언제까지 로봇들이 몰려올 지는 모르겠습니다만, 자원 공급을 끊었으니 분명 끝은 있습니다."
+        },
+        {
+            "speaker": "eve",
+            "text": "그럼 무운을 빕니다."
+        }
+    ]
+}
