@@ -19,6 +19,8 @@ namespace Enemy
         protected float core;
         [SerializeField]
         protected GameObject explosion;
+        [SerializeField]
+        protected AudioClip explosionClip;
 
         public float Speed
         {
@@ -34,6 +36,7 @@ namespace Enemy
             }
         }
 
+        [HideInInspector]
         public PhaseManager phaseManager;
         [HideInInspector]
         public EnemyDot dot;
@@ -42,6 +45,7 @@ namespace Enemy
 
         NavMeshAgent agent;
         protected BehaviorTreeRunner treeRunner;
+        [HideInInspector]
         public GameObject target;
 
         public List<CrowdControl> crowdControls = new List<CrowdControl>();
@@ -99,6 +103,7 @@ namespace Enemy
             phaseManager.UpdateRemainEnemy();
             dot.DestroyDot();
             status.GainCore(core);
+            SoundQueue.instance.PlaySFX(explosionClip);
             Destroy(Instantiate(explosion, transform.position, Quaternion.identity), 2.0f);
             Destroy(gameObject);
         }

@@ -12,6 +12,7 @@ public class TowerUI : MonoBehaviour, IGameUI
     public PlayerStatus playerStatus;
     public TMP_Text upgradeText;
     public TowerManager towerManager;
+    public AudioClip upgradeClip;
     TowerDetailContent[] towerDetailContents;
     Outline[] outlines;
     int index = 0;
@@ -138,6 +139,7 @@ public class TowerUI : MonoBehaviour, IGameUI
                 if(playerStatus.Core >= tower.UpgradeCore && !tower.IsMaxLevel())
                 {
                     playerStatus.Core -= tower.UpgradeCore;
+                    SoundQueue.instance.PlaySFX(upgradeClip);
                     tower.Upgrade();
                     UpdateTowerDetail();
                 }
