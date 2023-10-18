@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.24570706, g: 0.25842392, b: 0.3436023, a: 1}
+  m_IndirectSpecularColor: {r: 0.27368027, g: 0.28290713, b: 0.37562406, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4333,6 +4333,7 @@ MonoBehaviour:
   playerStatus: {fileID: 827913350}
   upgradeText: {fileID: 338694495}
   towerManager: {fileID: 757667819}
+  upgradeClip: {fileID: 8300000, guid: 5ab91a2740f8b4476a8946f20def321f, type: 3}
 --- !u!114 &834246458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9382,14 +9383,16 @@ MonoBehaviour:
   isDefense: 0
   remainEnemy: 0
   go_defenseUI: {fileID: 1898280375}
+  playerStatus: {fileID: 827913350}
   buildController: {fileID: 1508985113}
   defenceController: {fileID: 379154924}
   gameoverController: {fileID: 1235452584}
   UI: {fileID: 250127422}
-  playerStatus: {fileID: 827913350}
   saveManager: {fileID: 1196440660}
   towerManager: {fileID: 757667819}
   weaponManager: {fileID: 1628904242}
+  buildClip: {fileID: 8300000, guid: fd5b600046cabcd44afcde38a3a5aaaf, type: 3}
+  battleClip: {fileID: 8300000, guid: cbcff4ab684a89343a147a88a9a3b886, type: 3}
 --- !u!4 &1523325108
 Transform:
   m_ObjectHideFlags: 0

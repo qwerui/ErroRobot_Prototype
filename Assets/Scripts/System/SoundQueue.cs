@@ -23,7 +23,6 @@ public class SoundQueue : MonoBehaviour
 
     Queue<AudioClip> playQueue = new();
     HashSet<string> alreadyEnqueueSet = new();
-    Dictionary<int, AudioClip> soundList = new Dictionary<int, AudioClip>();
     
     [SerializeField] AudioSource bgm;
     [SerializeField] AudioSource sfx;
@@ -43,12 +42,6 @@ public class SoundQueue : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
-
-            SoundInfo[] sounds = Resources.LoadAll<SoundInfo>("Audio");
-            foreach(SoundInfo soundInfo in sounds)
-            {
-                soundList[soundInfo.id] = soundInfo.clip;
-            }
         }
         else
         {
@@ -56,17 +49,15 @@ public class SoundQueue : MonoBehaviour
         }
     }
 
-    public void PlayBGM(int id)
+    public void PlayBGM(AudioClip bgmClip)
     {
         if (bgm != null)
         {
             bgm.Stop();
-            AudioClip bgmClip = soundList[id];
-            if(bgmClip != null)
-            {
-                bgm.clip = bgmClip;
-                bgm.Play();
-            }
+
+            bgm.clip = bgmClip;
+            bgm.Play();
+            
         }
 
     }

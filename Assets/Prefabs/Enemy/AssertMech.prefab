@@ -402,6 +402,7 @@ MonoBehaviour:
   armor: 0
   core: 50
   explosion: {fileID: 1121192042590650, guid: 998c60195a3e77842b5bca419aaddc6e, type: 3}
+  explosionClip: {fileID: 8300000, guid: 1fd31868d68903d4f9e2c4a3b7ef98f3, type: 3}
   phaseManager: {fileID: 0}
   dot: {fileID: 0}
   status: {fileID: 0}
@@ -412,6 +413,7 @@ MonoBehaviour:
   - {fileID: 3943609268365858627}
   - {fileID: 5417246025306758764}
   damage: 60
+  shootClip: {fileID: 8300000, guid: 5ff823f546b52574a931e1d9b44290a6, type: 3}
 --- !u!1 &2180227288094137363
 GameObject:
   m_ObjectHideFlags: 0

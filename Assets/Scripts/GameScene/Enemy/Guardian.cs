@@ -11,6 +11,7 @@ public class Guardian : EnemyBase
     public float delay;
     public float damage;
     public float towerDetectRadius;
+    public AudioClip shootClip;
 
     protected override void Start()
     {
@@ -19,6 +20,7 @@ public class Guardian : EnemyBase
         treeRunner.tree.blackboard.Set<float>("delay", delay);
         treeRunner.tree.blackboard.Set<float>("damage", damage/2.0f);
         treeRunner.tree.blackboard.Set<float>("radius", towerDetectRadius);
+        treeRunner.tree.blackboard.Set<AudioClip>("shootClip", shootClip);
         base.Start();
     }
 }

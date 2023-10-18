@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AI.BehaviorTree;
+using UnityEditor.Timeline.Actions;
 
 public class EnemyShoot : ActionNode
 {
@@ -10,6 +11,7 @@ public class EnemyShoot : ActionNode
     float remainDelay;
     GameObject target;
     Animator animator;
+    AudioClip shootClip;
     float damage;
 
     List<Transform> shotPositionList;
@@ -21,6 +23,7 @@ public class EnemyShoot : ActionNode
         shotPositionList = blackboard.Get<List<Transform>>("shotPosition");
         target = blackboard.Get<GameObject>("target");
         damage = blackboard.Get<float>("damage");
+        shootClip = blackboard.Get<AudioClip>("shootClip");
         self.TryGetComponent<Animator>(out animator);
     }
 
@@ -44,6 +47,12 @@ public class EnemyShoot : ActionNode
         
         self.transform.LookAt(target.transform);
         animator?.SetTrigger("isAttacking");
+
+        if(shootClip != null)
+        {
+            SoundQueue.instance.PlaySFX(shootClip);
+        }
+
         foreach(Transform shotPosition in shotPositionList)
         {
             var createdProjectile = Instantiate<EnemyProjectile>(projectile, shotPosition.position, Quaternion.identity);

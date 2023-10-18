@@ -10,6 +10,7 @@ public class AssertMech : EnemyBase
     public float delay;
     public List<Transform> shotPositionList;
     public float damage;
+    public AudioClip shootClip;
 
     protected override void Start()
     {
@@ -17,6 +18,7 @@ public class AssertMech : EnemyBase
         treeRunner.tree.blackboard.Set<float>("delay", delay);
         treeRunner.tree.blackboard.Set<List<Transform>>("shotPosition", shotPositionList);
         treeRunner.tree.blackboard.Set<float>("damage", damage/2.0f);
+        treeRunner.tree.blackboard.Set<AudioClip>("shootClip", shootClip);
         base.Start();
     }
 
