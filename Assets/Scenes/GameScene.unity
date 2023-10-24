@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.27368027, g: 0.28290713, b: 0.37562406, a: 1}
+  m_IndirectSpecularColor: {r: 0.24529932, g: 0.25831264, b: 0.34328213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1705,6 +1705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameEndTitle: {fileID: 1486940674}
+  gameOverClip: {fileID: 8300000, guid: 39c363e05a5eede45aa03a763dfc31b4, type: 3}
 --- !u!1 &374312582
 GameObject:
   m_ObjectHideFlags: 0

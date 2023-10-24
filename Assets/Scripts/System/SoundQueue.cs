@@ -49,6 +49,14 @@ public class SoundQueue : MonoBehaviour
         }
     }
 
+    public void StopBGM()
+    {
+        if (bgm != null)
+        {
+            bgm.Stop();
+        }
+    }
+
     public void PlayBGM(AudioClip bgmClip)
     {
         if (bgm != null)

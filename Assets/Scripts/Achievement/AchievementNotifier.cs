@@ -8,6 +8,7 @@ public class AchievementNotifier : MonoBehaviour
 {
     [SerializeField] TMP_Text title;
     [SerializeField] Image image;
+    [SerializeField] AudioClip clip;
     Animator anim;
 
     Queue<Achievement> achievementQueue; 
@@ -43,6 +44,7 @@ public class AchievementNotifier : MonoBehaviour
             var achievement = achievementQueue.Dequeue();
             title.SetText(achievement.title);
             image.sprite = achievement.image;
+            SoundQueue.instance.PlaySFX(clip);
             anim.SetTrigger("Succeed");
         }
     }
