@@ -15,7 +15,8 @@ public class Tower : MonoBehaviour, IRaycastInteractable
 {
     BoxCollider boxCollider;
     public GameObject explosion;
-
+    public string towerName;
+    
     readonly Color halfTransparent = new Color(1.0f, 1.0f, 1.0f, 0.5f);
     readonly Color opaque = Color.white;
     readonly Color notAvailable = new Color(1.0f, 0.0f, 0.0f, 0.5f);
