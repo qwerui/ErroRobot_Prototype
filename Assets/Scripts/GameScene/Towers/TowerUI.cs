@@ -10,6 +10,7 @@ public class TowerUI : MonoBehaviour, IGameUI
     Tower tower;
     GameUIController gameUIController;
     public PlayerStatus playerStatus;
+    public TMP_Text towerName;
     public TMP_Text upgradeText;
     public TowerManager towerManager;
     public AudioClip upgradeClip;
@@ -58,6 +59,8 @@ public class TowerUI : MonoBehaviour, IGameUI
 
     void UpdateTowerDetail()
     {
+        towerName.SetText(tower.towerName);
+
         if (tower.IsMaxLevel()) //최대 레벨
         {
             upgradeText.color = Color.black;
@@ -99,7 +102,7 @@ public class TowerUI : MonoBehaviour, IGameUI
                 foreach (KeyValuePair<string, string> detail in towerDetails)
                 {   
                     float towerValue = float.Parse(nextLevelDetail[detail.Key]) - float.Parse(detail.Value);
-                    string valueString = $"{detail.Value} ({(towerValue > 0 ? "+" : "-")}{Mathf.Abs(towerValue)})";
+                    string valueString = $"{detail.Value} ({(towerValue >= 0 ? "+" : "-")}{Mathf.Abs(towerValue)})";
                     towerDetailContents[detailIndex].SetText(detail.Key, valueString);
                     towerDetailContents[detailIndex].gameObject.SetActive(true);
                     detailIndex++;

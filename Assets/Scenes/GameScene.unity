@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.24529932, g: 0.25831264, b: 0.34328213, a: 1}
+  m_IndirectSpecularColor: {r: 0.12755407, g: 0.13727434, b: 0.18317291, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4332,6 +4332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 827913350}
+  towerName: {fileID: 1003003415}
   upgradeText: {fileID: 338694495}
   towerManager: {fileID: 757667819}
   upgradeClip: {fileID: 8300000, guid: 5ab91a2740f8b4476a8946f20def321f, type: 3}
