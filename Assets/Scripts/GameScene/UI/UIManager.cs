@@ -66,11 +66,13 @@ public class UIManager : MonoBehaviour
 
     public void OnGameover()
     {
+        gameoverPanel.SetResult(playerStatus);
         gameoverPanel.Gameover();
     }
 
     public void OnGameClear()
     {
+        gameoverPanel.SetResult(playerStatus);
         gameoverPanel.GameClear();
     }
 }

@@ -53,6 +53,8 @@ public class PhaseManager : MonoBehaviour
         playerStatus.OnDead += defenceController.cameraController.DisableRotation;
         OnGameEnd += GameClear;
         OnGameEnd += defenceController.cameraController.DisableRotation;
+
+        OnWaveEnd += playerStatus.RecoverAllShield;
     }
 
     void Start()
@@ -86,7 +88,6 @@ public class PhaseManager : MonoBehaviour
         }
 
         playerStatus.PlayCount++;
-        GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.PlayCount, playerStatus.PlayCount);
 
         // 시작은 건설 모드
         isDefense = false;
@@ -116,6 +117,7 @@ public class PhaseManager : MonoBehaviour
         if(remainEnemy <= 0)
         {
             playerStatus.WaveCount++;
+            wave++;
 
             if(wave > 5)
             {
@@ -124,7 +126,6 @@ public class PhaseManager : MonoBehaviour
             }
             else if(!isGameEnd)
             {
-                wave++;
                 OnWaveEnd.Invoke();
             }
         }

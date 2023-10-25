@@ -6,6 +6,8 @@ using TMPro;
 public class GameoverPanel : MonoBehaviour
 {
     public TMP_Text GameEndTitle;
+    public TMP_Text killedText;
+    public TMP_Text gainedText;
     [SerializeField] AudioClip gameOverClip;
 
     public void Gameover()
@@ -25,5 +27,11 @@ public class GameoverPanel : MonoBehaviour
         SoundQueue.instance.StopBGM();
         GameEndTitle.color = new Color(0.0f, 0.7f, 1.0f, 1.0f);
         gameObject.SetActive(true);
+    }
+
+    public void SetResult(PlayerStatus playerStatus)
+    {
+        killedText.SetText($"Killed Enemy : {playerStatus.KillCount}");
+        gainedText.SetText($"Gained Core : {playerStatus.GainedAllCore}");
     }
 }

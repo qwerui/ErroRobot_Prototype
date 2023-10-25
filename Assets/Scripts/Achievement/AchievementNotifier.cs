@@ -15,20 +15,8 @@ public class AchievementNotifier : MonoBehaviour
 
     private void Awake() 
     {
-        if(GameManager.instance.achievementManager.notifier != null)
-        {
-            Destroy(gameObject);
-        }
-        DontDestroyOnLoad(gameObject);
         TryGetComponent<Animator>(out anim);
-        GameManager.instance.achievementManager.notifier = this;
         achievementQueue = new Queue<Achievement>();
-    }
-
-    public static void Init()
-    {
-        var notifierPrefab = Resources.Load<AchievementNotifier>("System/AchievementNotifier");
-        Instantiate(notifierPrefab);
     }
 
     public void ShowNotifier(Achievement achievement)
