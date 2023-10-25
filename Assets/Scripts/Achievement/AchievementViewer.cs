@@ -7,7 +7,7 @@ public class AchievementViewer : MonoBehaviour
 {
     List<AchievementContent> achievementContents = new List<AchievementContent>();
 
-    public GameObject contentsParent;
+    public RectTransform contentsParent;
     public AchievementContent achievementContent;
 
     [Header("Achievement Texts")]
@@ -54,6 +54,7 @@ public class AchievementViewer : MonoBehaviour
         index = Mathf.Clamp(index, 0, achievementContents.Count - 1);
 
         achievementContents[index].Activate();
+        contentsParent.anchoredPosition = new Vector2(0, index * 150);
         ShowAchievementInfo(achievementContents[index].achievement);
     }
 

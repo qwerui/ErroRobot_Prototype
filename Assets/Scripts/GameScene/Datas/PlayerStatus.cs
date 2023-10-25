@@ -23,17 +23,12 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField, HideInInspector]
     int core;
     [SerializeField, HideInInspector]
-    int playCount;
-    [SerializeField, HideInInspector]
     int killCount;
     [SerializeField, HideInInspector]
-    int roundCount;
-    [SerializeField, HideInInspector]
-    int clearCount;
-    [SerializeField, HideInInspector]
-    int waveCount;
-    [SerializeField, HideInInspector]
     int gainedAllCore;
+    [SerializeField]
+    GameRecord gameRecord;
+    int beforeKillCount;
 #endregion
 
     float recoverDelay = 0;
@@ -79,7 +74,9 @@ public class PlayerStatus : MonoBehaviour
         set
         {
             killCount = value;
-            OnChange_KillCount?.Invoke(killCount);
+            gameRecord.killCount = killCount + beforeKillCount;
+            OnChange_KillCount?.Invoke(gameRecord.killCount);
+            SaveGameRecord();
         }
         get{return killCount;}
     }
@@ -87,28 +84,31 @@ public class PlayerStatus : MonoBehaviour
     {
         set
         {
-            playCount = value;
-            OnChange_PlayCount?.Invoke(playCount);
+            gameRecord.playCount = value;
+            OnChange_PlayCount?.Invoke(gameRecord.playCount);
+            SaveGameRecord();
         }
-        get{return playCount;}
+        get{return gameRecord.playCount;}
     }
     public int ClearCount
     {
         set
         {
-            clearCount = value;
-            OnChange_ClearCount?.Invoke(clearCount);
+            gameRecord.clearCount = value;
+            OnChange_ClearCount?.Invoke(gameRecord.clearCount);
+            SaveGameRecord();
         }
-        get{return clearCount;}
+        get{return gameRecord.clearCount;}
     }
     public int WaveCount
     {
         set
         {
-            waveCount = value;
-            OnChange_WaveCount?.Invoke(waveCount);
+            gameRecord.waveCount = value;
+            OnChange_WaveCount?.Invoke(gameRecord.waveCount);
+            SaveGameRecord();
         }
-        get {return waveCount;}
+        get {return gameRecord.waveCount;}
     }
     public int GainedAllCore
     {
@@ -126,12 +126,15 @@ public class PlayerStatus : MonoBehaviour
 
 #region ValueChangeEvent
 
-    public System.Action<int> OnChange_KillCount;
-    public System.Action<int> OnChange_PlayCount;
-    public System.Action<int> OnChange_WaveCount;
-    public System.Action<int> OnChange_ClearCount;
+    public event System.Action<int> OnChange_KillCount;
+    public event System.Action<int> OnChange_PlayCount;
+    public event System.Action<int> OnChange_WaveCount;
+    public event System.Action<int> OnChange_ClearCount;
     
 #endregion
+
+    void SaveGameRecord() => JSONParser.SaveJSON<GameRecord>($"{Application.streamingAssetsPath}/GameRecord.json", gameRecord);
+
     private void Update() 
     {
         if(recoverDelay > 0.5f)
@@ -147,7 +150,9 @@ public class PlayerStatus : MonoBehaviour
     }
 
     public void Init(StartStatus startStatus)
-    {  
+    {
+        gameRecord = JSONParser.ReadJSON<GameRecord>($"{Application.streamingAssetsPath}/GameRecord.json") ?? new GameRecord();
+
         maxHp = startStatus.maxHp;
         maxShield = startStatus.maxShield;
         currentShield = maxShield;
@@ -157,6 +162,7 @@ public class PlayerStatus : MonoBehaviour
         coreGainPercent = startStatus.coreGainPercent;
         gainedAllCore = 0;
         
+        beforeKillCount = gameRecord.killCount;
         killCount = 0;
         
         OnValueChanged.Invoke(this);
