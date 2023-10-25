@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AchievementManager
+public class AchievementManager : MonoBehaviour
 {
     AchievementList achievementList;
     Dictionary<AchievementEvent, AchievementChecker> checkers = new Dictionary<AchievementEvent, AchievementChecker>();
 
-    public AchievementNotifier notifier;
+    AchievementNotifier notifier;
 
     public List<Achievement> GetAchievement() => achievementList.achievements;
 
-    public AchievementManager()
+    private void Awake()
     {
+        var notifierPrefab = Resources.Load<AchievementNotifier>("System/AchievementNotifier");
+        notifier = Instantiate(notifierPrefab);
+
         achievementList = JSONParser.ReadJSON<AchievementList>($"{Application.streamingAssetsPath}/Achievement.json");
         var achievements = achievementList.achievements;
         if(achievements.Count > 0)
@@ -33,6 +36,15 @@ public class AchievementManager
             achievement.image = Resources.Load<Sprite>($"AchievementSprite/{achievement.imagePath}");
             checkers[achievement.eventType].Add(achievement);
         }
+    }
+
+    void Start()
+    {
+        var status = FindFirstObjectByType<PlayerStatus>();
+        status.OnChange_ClearCount += (value) => CheckAchievement(AchievementEvent.ClearCount, value);
+        status.OnChange_KillCount += (value) => CheckAchievement(AchievementEvent.KillCount, value);
+        status.OnChange_PlayCount += (value) => CheckAchievement(AchievementEvent.PlayCount, value);
+        status.OnChange_WaveCount += (value) => CheckAchievement(AchievementEvent.WaveCount, value);
     }
 
     public void CheckAchievement(AchievementEvent occuredEvent, float value = 1)

@@ -21,10 +21,12 @@ public class AchievementViewer : MonoBehaviour
 
     private void Start() 
     {
-        var achievements = GameManager.instance.achievementManager.GetAchievement();
+        var achievementList = JSONParser.ReadJSON<AchievementList>($"{Application.streamingAssetsPath}/Achievement.json");
+        var achievements = achievementList.achievements;
 
         foreach(Achievement achievement in achievements)
         {
+            achievement.image = Resources.Load<Sprite>($"AchievementSprite/{achievement.imagePath}");
             var createdContent = Instantiate<AchievementContent>(achievementContent, contentsParent.transform);
             createdContent.Init(achievement);
             achievementContents.Add(createdContent);

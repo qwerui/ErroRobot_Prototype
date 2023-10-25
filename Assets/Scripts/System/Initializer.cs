@@ -11,7 +11,6 @@ public static class Initializer
     {
         PlayerController.Init();
         SoundQueue.Init();
-        AchievementNotifier.Init();
         DOTween.KillAll();
     }
 }

@@ -32,6 +32,8 @@ public class PlayerStatus : MonoBehaviour
     int clearCount;
     [SerializeField, HideInInspector]
     int waveCount;
+    [SerializeField, HideInInspector]
+    int gainedAllCore;
 #endregion
 
     float recoverDelay = 0;
@@ -77,7 +79,7 @@ public class PlayerStatus : MonoBehaviour
         set
         {
             killCount = value;
-            GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.KillCount, killCount);
+            OnChange_KillCount?.Invoke(killCount);
         }
         get{return killCount;}
     }
@@ -86,7 +88,7 @@ public class PlayerStatus : MonoBehaviour
         set
         {
             playCount = value;
-            GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.PlayCount, playCount);
+            OnChange_PlayCount?.Invoke(playCount);
         }
         get{return playCount;}
     }
@@ -95,7 +97,7 @@ public class PlayerStatus : MonoBehaviour
         set
         {
             clearCount = value;
-            GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.ClearCount);
+            OnChange_ClearCount?.Invoke(clearCount);
         }
         get{return clearCount;}
     }
@@ -104,9 +106,13 @@ public class PlayerStatus : MonoBehaviour
         set
         {
             waveCount = value;
-            GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.WaveCount);
+            OnChange_WaveCount?.Invoke(waveCount);
         }
         get {return waveCount;}
+    }
+    public int GainedAllCore
+    {
+        get{return gainedAllCore;}
     }
 #endregion
 
@@ -118,6 +124,14 @@ public class PlayerStatus : MonoBehaviour
     public event OnValueChangedDelegate OnValueChanged;
     public event OnDamagedDelegate OnDamaged;
 
+#region ValueChangeEvent
+
+    public System.Action<int> OnChange_KillCount;
+    public System.Action<int> OnChange_PlayCount;
+    public System.Action<int> OnChange_WaveCount;
+    public System.Action<int> OnChange_ClearCount;
+    
+#endregion
     private void Update() 
     {
         if(recoverDelay > 0.5f)
@@ -141,6 +155,7 @@ public class PlayerStatus : MonoBehaviour
         shieldRecovery = startStatus.shieldRecovery;
         core = startStatus.startCore;
         coreGainPercent = startStatus.coreGainPercent;
+        gainedAllCore = 0;
         
         killCount = 0;
         
@@ -170,9 +185,17 @@ public class PlayerStatus : MonoBehaviour
         OnValueChanged.Invoke(this);
     }
 
+    public void RecoverAllShield()
+    {
+        currentShield = maxShield;
+        OnValueChanged.Invoke(this);
+    }
+
     public void GainCore(float value)
     {
-        Core += (int)(value * (1+CoreGainPercent));
+        int gainedCore = (int)(value * (1+CoreGainPercent));
+        Core += gainedCore;
+        gainedAllCore += gainedCore;
     }
 
     public void Damaged(float damage, GameObject source)
