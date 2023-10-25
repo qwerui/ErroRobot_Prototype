@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1567527, g: 0.16797832, b: 0.22437292, a: 1}
+  m_IndirectSpecularColor: {r: 0.26456964, g: 0.27485803, b: 0.36505383, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4256,12 +4256,14 @@ MonoBehaviour:
   shieldRecovery: 0
   coreGainPercent: 0
   core: 0
-  playCount: 0
   killCount: 0
-  roundCount: 0
-  clearCount: 0
-  waveCount: 0
   gainedAllCore: 0
+  gameRecord:
+    roundCount: 0
+    clearCount: 0
+    waveCount: 0
+    playCount: 0
+    killCount: 0
 --- !u!4 &827913351
 Transform:
   m_ObjectHideFlags: 0
