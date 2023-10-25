@@ -24,7 +24,8 @@ public class Tower : MonoBehaviour, IRaycastInteractable
     bool isMaterialInstanced;
     bool isBuildPhase;
     bool isMoving;
-    bool isCanPut;
+
+    int enteredTower;
 
 #region TowerInfo
 
@@ -142,7 +143,7 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         {
             if(isMoving)
             {
-                if(isCanPut)
+                if(enteredTower == 0)
                 {
                     Put();
                 }
@@ -167,7 +168,6 @@ public class Tower : MonoBehaviour, IRaycastInteractable
         boxCollider.isTrigger = true;
         isMoving = true;
         beforeMovePostion = transform.position;
-        isCanPut = true;
 
         //반투명화
         foreach(var mesh in GetComponentsInChildren<MeshRenderer>())
@@ -210,19 +210,27 @@ public class Tower : MonoBehaviour, IRaycastInteractable
     /// <summary>
     /// 타워 설치
     /// </summary>
-    public void Put()
+    public bool Put()
     {
-        boxCollider.isTrigger = false;
-        isMoving = false;
-
-        //불투명화
-        foreach(var mesh in GetComponentsInChildren<MeshRenderer>())
+        if (enteredTower == 0)
         {
-            var material = mesh.material;
-            material.SetColor("_Color", opaque);
-        }
+            boxCollider.isTrigger = false;
+            isMoving = false;
 
-        OnPut?.Invoke();
+            //불투명화
+            foreach (var mesh in GetComponentsInChildren<MeshRenderer>())
+            {
+                var material = mesh.material;
+                material.SetColor("_Color", opaque);
+            }
+
+            OnPut?.Invoke();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /*
@@ -239,7 +247,7 @@ public class Tower : MonoBehaviour, IRaycastInteractable
                 var material = mesh.material;
                 material.SetColor("_Color", notAvailable);
             }
-            isCanPut = false;
+            enteredTower++;
         }
     }
 
@@ -247,13 +255,17 @@ public class Tower : MonoBehaviour, IRaycastInteractable
     {
         if(other.GetComponent<Tower>() != null)
         {
-            //타워가 겹치지 않으면 원상복귀
-            foreach (var mesh in GetComponentsInChildren<MeshRenderer>())
+            enteredTower--;
+
+            if (enteredTower == 0)
             {
-                var material = mesh.material;
-                material.SetColor("_Color", halfTransparent);
+                //타워가 겹치지 않으면 원상복귀
+                foreach (var mesh in GetComponentsInChildren<MeshRenderer>())
+                {
+                    var material = mesh.material;
+                    material.SetColor("_Color", halfTransparent);
+                }
             }
-            isCanPut = true;
         }
     }
 #endregion
