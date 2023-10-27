@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IControllerPlatform controllerPlatform;
+    List<IControllerPlatform> controllerPlatforms = new List<IControllerPlatform>();
     Stack<IControllerBase> controllerStack = new Stack<IControllerBase>();
 
     public static void Init()
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         if(_instance == null)
         {
             _instance = this;
-            controllerPlatform = new KeyboardController();
+            controllerPlatforms.Add(new KeyboardController());
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -46,13 +46,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(!(controllerPlatform is KeyboardController) && Input.anyKeyDown)
-        {
-            controllerPlatform = new KeyboardController();
-        }
         if(controllerStack.Count > 0)
         {
-            controllerPlatform?.Execute(controllerStack.Peek());
+            foreach(var controllerPlatform in controllerPlatforms)
+            {
+                controllerPlatform.Execute(controllerStack.Peek());
+            }
         }
     }
 
@@ -77,13 +76,11 @@ public class PlayerController : MonoBehaviour
         controllerStack.Clear();
     }
 
-    public bool CheckKeyboardMode()
-    {
-        return controllerPlatform is KeyboardController;
-    }
-
     public void ResetPlatform()
     {
-        controllerPlatform?.Reset();
+        foreach(var controllerPlatform in controllerPlatforms)
+        {
+            controllerPlatform.Reset();
+        }
     }
 }
