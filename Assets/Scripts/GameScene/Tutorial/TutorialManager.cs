@@ -17,14 +17,7 @@ public class TutorialManager : MonoBehaviour
 
     private void Awake() 
     {
-        if(PlayerController.instance.CheckKeyboardMode())
-        {
-            dialogues = JSONParser.ReadJSON<DialogueContainer>($"{Application.streamingAssetsPath}/KeyboardTutorial.json")?.dialogues;
-        }
-        else
-        {
-            dialogues = JSONParser.ReadJSON<DialogueContainer>($"{Application.streamingAssetsPath}/ControllerTutorial.json")?.dialogues;
-        }
+        dialogues = JSONParser.ReadJSON<DialogueContainer>($"{Application.streamingAssetsPath}/KeyboardTutorial.json")?.dialogues;
     }
 
     private void Start() 
