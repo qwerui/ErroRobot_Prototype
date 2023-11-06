@@ -9,7 +9,7 @@ public class SkyboxController : MonoBehaviour
 
     void Update()
     {
-        if(rotSpeed > 360)
+        if (rotSpeed > 360)
         {
             rotSpeed = 0.0f;
         }
@@ -19,5 +19,10 @@ public class SkyboxController : MonoBehaviour
         }
 
         RenderSettings.skybox.SetFloat("_Rotation", rotSpeed);
+    }
+
+    void OnApplicationQuit()
+    {
+        RenderSettings.skybox.SetFloat("_Rotation", 0.0f);
     }
 }

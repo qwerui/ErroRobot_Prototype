@@ -5,6 +5,7 @@ using System.IO.Ports;
 
 public class SerialPortManager : MonoBehaviour
 {
+    private static SerialPortManager _instance = null;
 
     public enum PortNumber
     {
@@ -26,6 +27,35 @@ public class SerialPortManager : MonoBehaviour
     public bool aIsPush = false;
     public bool bIsPush = false;
 
+    string key_str;
+
+    void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    public static SerialPortManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                return null;
+            }
+
+            return _instance;
+
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,70 +68,16 @@ public class SerialPortManager : MonoBehaviour
             sp.Open();
         }
 
-        sp.ReadTimeout = 500;
+        sp.ReadTimeout = 0;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         Debug.Log(sp.IsOpen + " " + sp.BaudRate.ToString());
-        if (!sp.IsOpen)
-        {
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                axisX += -1;
-            }
-            else if (Input.GetKeyUp(KeyCode.LeftArrow))
-            {
-                axisX = axisX;
-            }
-
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                axisX += 1;
-            }
-            else if (Input.GetKeyUp(KeyCode.RightArrow))
-            {
-                axisX = axisX;
-            }
-
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                axisY += -1;
-            }
-            else if (Input.GetKeyUp(KeyCode.UpArrow))
-            {
-                axisY = axisY;
-            }
-
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                axisY += 1;
-            }
-            else if (Input.GetKeyUp(KeyCode.DownArrow))
-            {
-                axisY = axisY;
-            }
-
-            if (Input.GetKey(KeyCode.A))
-            {
-                aIsPush = true;
-            }
-            else if (Input.GetKeyUp(KeyCode.A))
-            {
-                aIsPush = false;
-            }
-
-            if (Input.GetKey(KeyCode.B))
-            {
-                bIsPush = true;
-            }
-            else if (Input.GetKeyUp(KeyCode.B))
-            {
-                bIsPush = false;
-            }
-        }
-        else
+        if (sp.IsOpen)
         {
             switch (sp.ReadByte())
             {
@@ -136,25 +112,27 @@ public class SerialPortManager : MonoBehaviour
                     aIsPush = false;
                     break;
             }
-
-            Debug.Log("Axis X : " + axisX + ", Axis Y : " + axisY + ", a is push : " + aIsPush + ", b is push : " + bIsPush + "\n");
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Debug.Log(sp.IsOpen);
-        }
+        Debug.Log("Axis X : " + axisX + ", Axis Y : " + axisY + ", a is push : " + aIsPush + ", b is push : " + bIsPush + "\n");
 
-
-
-
-
-        transform.eulerAngles = new Vector3(axisY * 1, axisX * 1, 0);
+        //transform.eulerAngles = new Vector3(axisY * 1, axisX * 1, 0);
 
 
         //axisX += Input.GetAxis("Mouse X") * 10;
         //axisY += Input.GetAxis("Mouse Y") * -10;
         //transform.eulerAngles = new Vector3(axisY, axisX, 0);
+        */
+        try
+        {
+            Debug.Log((char)sp.ReadByte());
+            key_str = sp.ReadByte().ToString();
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("Timeout");
+        }
+
     }
 
     private void OnApplicationQuit()
