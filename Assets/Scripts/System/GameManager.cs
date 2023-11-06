@@ -16,12 +16,5 @@ public class GameManager
             return _instance;
         }
     }
-
-    public AchievementManager achievementManager;
     public bool isLoadedGame;
-
-    private GameManager()
-    {
-        achievementManager = new AchievementManager();
-    }
 }

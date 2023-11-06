@@ -8,26 +8,15 @@ public class AchievementNotifier : MonoBehaviour
 {
     [SerializeField] TMP_Text title;
     [SerializeField] Image image;
+    [SerializeField] AudioClip clip;
     Animator anim;
 
     Queue<Achievement> achievementQueue; 
 
     private void Awake() 
     {
-        if(GameManager.instance.achievementManager.notifier != null)
-        {
-            Destroy(gameObject);
-        }
-        DontDestroyOnLoad(gameObject);
         TryGetComponent<Animator>(out anim);
-        GameManager.instance.achievementManager.notifier = this;
         achievementQueue = new Queue<Achievement>();
-    }
-
-    public static void Init()
-    {
-        var notifierPrefab = Resources.Load<AchievementNotifier>("System/AchievementNotifier");
-        Instantiate(notifierPrefab);
     }
 
     public void ShowNotifier(Achievement achievement)
@@ -43,6 +32,7 @@ public class AchievementNotifier : MonoBehaviour
             var achievement = achievementQueue.Dequeue();
             title.SetText(achievement.title);
             image.sprite = achievement.image;
+            SoundQueue.instance.PlaySFX(clip);
             anim.SetTrigger("Succeed");
         }
     }

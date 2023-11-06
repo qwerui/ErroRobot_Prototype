@@ -25,14 +25,6 @@ public class WaveEffect : MonoBehaviour
         waveClearSeq.SetAutoKill(false);
 
         waveStartSeq
-        .OnStart(()=>{
-            text.SetText("WAVE START");
-            text.color = new Color(1, 0, 0.2f, 0);
-            upper.color = new Color(1, 0, 0.2f, 1);
-            lower.color = new Color(1, 0, 0.2f, 1);
-            upper.rectTransform.anchoredPosition = Vector2.zero;
-            lower.rectTransform.anchoredPosition = Vector2.zero;
-        })
         .Append(upper.rectTransform.DOAnchorPosY(50, 1.0f))
         .Join(lower.rectTransform.DOAnchorPosY(-50, 1.0f))
         .Join(DOTween.To(()=>background.rectTransform.sizeDelta.y, x => background.rectTransform.sizeDelta= new Vector2(background.rectTransform.sizeDelta.x, x),100, 1.0f))
@@ -70,7 +62,13 @@ public class WaveEffect : MonoBehaviour
 
     public void WaveStartEffect()
     {
-        waveStartSeq.Play();
+        text.SetText("WAVE START");
+        text.color = new Color(1, 0, 0.2f, 0);
+        upper.color = new Color(1, 0, 0.2f, 1);
+        lower.color = new Color(1, 0, 0.2f, 1);
+        upper.rectTransform.anchoredPosition = Vector2.zero;
+        lower.rectTransform.anchoredPosition = Vector2.zero;
+        waveStartSeq.Restart();
         SoundQueue.instance.PlaySFX(clip);
     }
     // public void WaveClearEffect() => waveClearSeq.Play();

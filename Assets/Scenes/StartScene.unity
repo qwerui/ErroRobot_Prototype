@@ -2931,6 +2931,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1137951708}
   - component: {fileID: 1137951707}
+  - component: {fileID: 1137951709}
   m_Layer: 0
   m_Name: StartMenuManager
   m_TagString: Untagged
@@ -2965,6 +2966,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1137951709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137951706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20fabef90a4ab3b4ca336e0c171174f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmClip: {fileID: 8300000, guid: 08b35a0c2779b0844b56a2468301aebd, type: 3}
 --- !u!1 &1161117434
 GameObject:
   m_ObjectHideFlags: 0

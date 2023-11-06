@@ -20,16 +20,22 @@ public class PhaseManager : MonoBehaviour
     public event GameEndDelegate OnGameEnd;
 
     [SerializeField] private GameObject go_defenseUI;
+    public PlayerStatus playerStatus;
+
     [Header("Controller")]
     public BuildController buildController;
     public DefenceController defenceController;
     public GameoverController gameoverController;
 
+    [Header("Manager")]
     public UIManager UI;
-    public PlayerStatus playerStatus;
     public SaveManager saveManager;
     public TowerManager towerManager;
     public WeaponManager weaponManager;
+
+    [Header("BGM")]
+    public AudioClip buildClip;
+    public AudioClip battleClip;
 
     private void Awake() 
     {
@@ -39,11 +45,16 @@ public class PhaseManager : MonoBehaviour
         OnWaveEnd += () => buildController.gameObject.SetActive(true);
         OnWaveEnd += () => defenceController.gameObject.SetActive(false);
 
+        OnWaveEnd += () => SoundQueue.instance.PlayBGM(buildClip);
+        OnWaveStart += () => SoundQueue.instance.PlayBGM(battleClip);
+
         //게임 종료 이벤트 초기화
         playerStatus.OnDead += Gameover;
         playerStatus.OnDead += defenceController.cameraController.DisableRotation;
         OnGameEnd += GameClear;
         OnGameEnd += defenceController.cameraController.DisableRotation;
+
+        OnWaveEnd += playerStatus.RecoverAllShield;
     }
 
     void Start()
@@ -77,7 +88,6 @@ public class PhaseManager : MonoBehaviour
         }
 
         playerStatus.PlayCount++;
-        GameManager.instance.achievementManager.CheckAchievement(AchievementEvent.PlayCount, playerStatus.PlayCount);
 
         // 시작은 건설 모드
         isDefense = false;
@@ -107,6 +117,7 @@ public class PhaseManager : MonoBehaviour
         if(remainEnemy <= 0)
         {
             playerStatus.WaveCount++;
+            wave++;
 
             if(wave > 5)
             {
@@ -115,7 +126,6 @@ public class PhaseManager : MonoBehaviour
             }
             else if(!isGameEnd)
             {
-                wave++;
                 OnWaveEnd.Invoke();
             }
         }

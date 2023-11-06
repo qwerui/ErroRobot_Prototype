@@ -4,7 +4,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEngine.Tilemaps;
 
 public class RewardOption : MonoBehaviour
 {
@@ -21,29 +20,6 @@ public class RewardOption : MonoBehaviour
     public void Activate() => outline.enabled = true;
     public void Deactivate() => outline.enabled = false;
 
-    private void Awake() 
-    {
-        sequence = DOTween.Sequence();
-        sequence.OnStart(()=>{
-            title.rectTransform.anchoredPosition = Vector2.zero;
-        })
-        .AppendInterval(1.0f)
-        .Append(title.rectTransform.DOAnchorPosX(150 - titleLength, 2).SetEase(Ease.Linear))
-        .AppendInterval(1.0f)
-        .SetLoops(-1);
-
-        //최초 실행 시 의도되지 않은 움직임 방지
-        if(titleLength > 150)
-        {
-            sequence.Play();
-        }
-        else
-        {
-            sequence.Pause();
-            title.rectTransform.anchoredPosition = Vector2.zero;
-        }
-    }
-
     private void OnEnable() 
     {
         if(outline == null)
@@ -59,16 +35,23 @@ public class RewardOption : MonoBehaviour
         description.SetText(reward.description);
         image.sprite = reward.image;
 
+        title.rectTransform.anchoredPosition = Vector2.zero;
         titleLength = title.GetPreferredValues(reward.title).x;
 
         if(titleLength > 150)
         {
+            sequence.Kill();
+            sequence = DOTween.Sequence();
+            sequence
+            .AppendInterval(1.0f)
+            .Append(title.rectTransform.DOAnchorPosX(150 - titleLength, 2).SetEase(Ease.Linear))
+            .AppendInterval(1.0f)
+            .SetLoops(-1);
             sequence.Play();
         }
         else
         {
-            sequence.Pause();
-            title.rectTransform.anchoredPosition = Vector2.zero;
+            sequence.Kill();
         }
     }
 

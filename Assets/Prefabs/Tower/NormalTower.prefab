@@ -61,7 +61,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.5, z: 0}
   m_TimeToStationary: 0.5
@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 1121192042590650, guid: 7e6eea9e3dc3d4f4f8e90f6be7d58139, type: 3}
+  towerName: "\uAE30\uBCF8 \uD0C0\uC6CC"
   icon: {fileID: 21300000, guid: 9a363b86d8dc1f9469388fb98608bb7b, type: 3}
   upgradeEffect: {fileID: 1692201426703300895}
   projectile: {fileID: 494746902580220553, guid: 8c5ba9bdd519da340ae68f843e795eaa, type: 3}

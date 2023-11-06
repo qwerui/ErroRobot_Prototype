@@ -67,8 +67,8 @@ public class TowerMoveController : MonoBehaviour, IControllerBase
     {
         if(inputEvent == InputEvent.Pressed)
         {
-            targetTower.Put();
-            gameObject.SetActive(false);
+            bool isSuccess = targetTower.Put();
+            gameObject.SetActive(!isSuccess);
         }
     }
 }

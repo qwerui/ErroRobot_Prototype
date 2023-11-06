@@ -7,7 +7,7 @@ public class AchievementViewer : MonoBehaviour
 {
     List<AchievementContent> achievementContents = new List<AchievementContent>();
 
-    public GameObject contentsParent;
+    public RectTransform contentsParent;
     public AchievementContent achievementContent;
 
     [Header("Achievement Texts")]
@@ -21,10 +21,12 @@ public class AchievementViewer : MonoBehaviour
 
     private void Start() 
     {
-        var achievements = GameManager.instance.achievementManager.GetAchievement();
+        var achievementList = JSONParser.ReadJSON<AchievementList>($"{Application.streamingAssetsPath}/Achievement.json");
+        var achievements = achievementList.achievements;
 
         foreach(Achievement achievement in achievements)
         {
+            achievement.image = Resources.Load<Sprite>($"AchievementSprite/{achievement.imagePath}");
             var createdContent = Instantiate<AchievementContent>(achievementContent, contentsParent.transform);
             createdContent.Init(achievement);
             achievementContents.Add(createdContent);
@@ -52,6 +54,7 @@ public class AchievementViewer : MonoBehaviour
         index = Mathf.Clamp(index, 0, achievementContents.Count - 1);
 
         achievementContents[index].Activate();
+        contentsParent.anchoredPosition = new Vector2(0, index * 150);
         ShowAchievementInfo(achievementContents[index].achievement);
     }
 
