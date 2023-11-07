@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TutorialEnemy
   m_EditorClassIdentifier: 
   id: 999
-  prefab: {fileID: 1650463087692150, guid: beb24022f1709b04e81298f9a1fbeca6, type: 3}
+  prefab: {fileID: 1650463087692150, guid: 7dffae7f2633cec489f804009f09a14d, type: 3}

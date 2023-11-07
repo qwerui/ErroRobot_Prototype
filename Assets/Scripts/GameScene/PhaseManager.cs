@@ -99,7 +99,7 @@ public class PhaseManager : MonoBehaviour
             tutorial = Instantiate<TutorialManager>(tutorial);
             tutorial.onTutorialEnd = () => OnWaveEnd.Invoke();
             // TODO : 튜토리얼 완성 시 주석 해제
-            // PlayerPrefs.SetInt("IsFirst", 1);
+            PlayerPrefs.SetInt("IsFirst", 1);
         }
         else
         {
