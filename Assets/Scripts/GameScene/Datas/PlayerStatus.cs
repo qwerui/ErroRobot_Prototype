@@ -114,6 +114,7 @@ public class PlayerStatus : MonoBehaviour
     {
         get{return gainedAllCore;}
     }
+    
 #endregion
 
     public delegate void OnDeadDelegate();

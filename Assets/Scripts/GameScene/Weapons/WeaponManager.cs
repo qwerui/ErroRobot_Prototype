@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WeaponManager : MonoBehaviour, IGameUI
 {
@@ -12,6 +13,8 @@ public class WeaponManager : MonoBehaviour, IGameUI
     WeaponMapper tempForAlter;
     public RewardManager rewardManager;
     public TextNotifier textNotifier;
+
+    public UnityEvent OnWeaponChange;
 
     int index = 0;
 
@@ -69,6 +72,7 @@ public class WeaponManager : MonoBehaviour, IGameUI
             OnNavigate(Vector2.right);
         }
         weaponController.CurrentWeapon = slotList[index].GetWeapon();
+        OnWeaponChange?.Invoke();
     }
 
     public void LoadWeapon(List<SerializedWeapon> weapons)

@@ -5,6 +5,7 @@ using UnityEngine;
 public class TutorialController : MonoBehaviour, IControllerBase
 {
     public TutorialManager tutorialManager;
+    public CameraController cameraController;
 
     private void OnEnable() 
     {
@@ -33,6 +34,9 @@ public class TutorialController : MonoBehaviour, IControllerBase
     {
         if(inputEvent == InputEvent.Pressed)
         {
+            if (tutorialManager.dialogueBlocked)
+                return;
+            
             tutorialManager.Next();
         }       
     }

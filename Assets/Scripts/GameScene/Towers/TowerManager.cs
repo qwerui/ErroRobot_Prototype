@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class TowerManager : MonoBehaviour
 {
+    public static TowerManager _instance;
+    
     public TowerSlotList towerSlotList;
     public TowerMoveController towerMoveController;
     public SaveManager saveManager;
     public TextNotifier textNotifier;
+
+    public void Awake()
+    {
+        _instance = this;
+    }
 
     public List<SerializedTower> GetSerializedTowerList()
     {
@@ -28,7 +35,7 @@ public class TowerManager : MonoBehaviour
         towerSlotList.CreateSlot(amount);
     }
 
-    public void CreateTower(Tower newTower)
+    public Tower CreateTower(Tower newTower)
     {
         Tower created = Instantiate(newTower);
         bool isHaveBlankSlot = towerSlotList.SetSlot(created);
@@ -45,6 +52,8 @@ public class TowerManager : MonoBehaviour
             towerSlotList.alterTowerCallback += () => MoveTower(created);
             towerSlotList.AlterTower(newTower);
         }
+
+        return created;
     }
 
     public void LoadTower(List<SerializedTower> towers)
