@@ -79,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosion: {fileID: 1121192042590650, guid: 7e6eea9e3dc3d4f4f8e90f6be7d58139, type: 3}
   towerName: "\uAE30\uBCF8 \uD0C0\uC6CC"
-  icon: {fileID: 21300000, guid: 9a363b86d8dc1f9469388fb98608bb7b, type: 3}
+  icon: {fileID: 21300000, guid: 2b5822d0a4333f94595225a73111b61a, type: 3}
   upgradeEffect: {fileID: 1692201426703300895}
   projectile: {fileID: 494746902580220553, guid: 8c5ba9bdd519da340ae68f843e795eaa, type: 3}
   head: {fileID: 50232639682279420}

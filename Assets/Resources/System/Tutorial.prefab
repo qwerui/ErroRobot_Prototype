@@ -1004,6 +1004,9 @@ MonoBehaviour:
   imageObject: {fileID: 4324698998231171046}
   tutorialController: {fileID: 0}
   clip: {fileID: 8300000, guid: 05d0d2dac5e7a044281c18d5290c6b95, type: 3}
+  dialogueBlocked: 0
+  allowNextPhase: 0
+  tutorialEnemy: {fileID: -3997164820181932109, guid: 7dffae7f2633cec489f804009f09a14d, type: 3}
 --- !u!114 &6578060543421724734
 MonoBehaviour:
   m_ObjectHideFlags: 0

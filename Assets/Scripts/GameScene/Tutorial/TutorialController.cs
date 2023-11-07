@@ -34,6 +34,7 @@ public class TutorialController : MonoBehaviour, IControllerBase
     {
         if(inputEvent == InputEvent.Pressed)
         {
+            tutorialManager.CheckEnd();
             if (tutorialManager.dialogueBlocked)
                 return;
             

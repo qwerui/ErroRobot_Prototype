@@ -182,7 +182,7 @@
         {
             "condition": "control_controller",
             "speaker": "eve",
-            "text": "모든 준비가 끝나면 땅을 보고 A버튼을 눌러주세요.",
+            "text": "모든 준비가 끝나면 땅을 보고 A버튼을 눌러주세요."
         }
     ]
 }
