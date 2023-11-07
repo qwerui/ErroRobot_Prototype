@@ -5,6 +5,20 @@ using UnityEngine;
 
 public class PhaseManager : MonoBehaviour
 {
+    
+    private static PhaseManager _instance = null;
+    public static PhaseManager instance
+    {
+        get
+        {
+            if(_instance == null)
+            {
+                return null;
+            }
+            return _instance;
+        }
+    }
+    
     public int wave = 1;
 
     bool isGameEnd = false;
@@ -37,8 +51,11 @@ public class PhaseManager : MonoBehaviour
     public AudioClip buildClip;
     public AudioClip battleClip;
 
-    private void Awake() 
+    private void Awake()
     {
+
+        _instance = this;
+        
         //컨트롤러 이벤트 초기화
         OnWaveStart += () => buildController.gameObject.SetActive(false);
         OnWaveStart += () => defenceController.gameObject.SetActive(true);
@@ -59,6 +76,7 @@ public class PhaseManager : MonoBehaviour
 
     void Start()
     {
+        
         //게임 로드 체크
         if(GameManager.instance.isLoadedGame)
         {
@@ -73,14 +91,15 @@ public class PhaseManager : MonoBehaviour
             weaponManager.CreateSlot(startStatus.weaponSlot);
             weaponManager.SetWeapon(Resources.Load<WeaponMapper>("Reward/Weapon/0"));
         }
-
+        
         //튜토리얼 체크
         if(PlayerPrefs.GetInt("IsFirst", 0) == 0) //0 : 첫 시작, 1 : 두 번째 게임 이후
         {
             var tutorial = Resources.Load<TutorialManager>("System/Tutorial");
             tutorial = Instantiate<TutorialManager>(tutorial);
             tutorial.onTutorialEnd = () => OnWaveEnd.Invoke();
-            PlayerPrefs.SetInt("IsFirst", 1);
+            // TODO : 튜토리얼 완성 시 주석 해제
+            // PlayerPrefs.SetInt("IsFirst", 1);
         }
         else
         {

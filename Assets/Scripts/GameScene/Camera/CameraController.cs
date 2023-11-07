@@ -1,10 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.AccessControl;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CameraController : MonoBehaviour
 {
+
+    public UnityEvent<Vector2> OnCameraMoved;
 
     // 마우스 카메라 움직이는 속도
     public float mouseSpeed = 4.0f;
@@ -88,6 +92,9 @@ public class CameraController : MonoBehaviour
         // 값 초기화
         xRotateSize = 0f;
         yRotateSize = 0f;
+        
+        // 카메라 움직이는 이벤트
+        OnCameraMoved?.Invoke(moveDirection);
     }
 
     public void DisableRotation()
