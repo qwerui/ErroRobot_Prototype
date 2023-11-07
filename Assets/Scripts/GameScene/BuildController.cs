@@ -30,7 +30,7 @@ public class BuildController : MonoBehaviour, IControllerBase
 
     public void OnSubmit(InputEvent inputEvent)
     {
-        if(inputEvent == InputEvent.Pressed)
+            if(inputEvent == InputEvent.Pressed)
         {
             RaycastHit hit = cameraController.RaycastCheck();
 
@@ -38,6 +38,9 @@ public class BuildController : MonoBehaviour, IControllerBase
             {
                 if(hit.transform.CompareTag("Ground"))
                 {
+                    // 튜토리얼 진행 중일 때는 다음 페이즈 비활성화
+                    if (!TutorialManager.instance.allowNextPhase)
+                        return;
                     //next wave
                     nextWavePanel.SetActive(true);
                     cameraController.DisableRotation();

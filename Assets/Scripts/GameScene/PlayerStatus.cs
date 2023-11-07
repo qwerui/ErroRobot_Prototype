@@ -108,6 +108,7 @@ public class PlayerStatus : MonoBehaviour
         }
         get {return waveCount;}
     }
+    
 #endregion
 
     public delegate void OnDeadDelegate();

@@ -46,7 +46,7 @@ namespace Enemy
 
         public List<CrowdControl> crowdControls = new List<CrowdControl>();
 
-        bool isDead;
+        public bool isDead;
 
         protected virtual void Awake() 
         {
@@ -93,7 +93,7 @@ namespace Enemy
             }
         }
 
-        public void OnDead()
+        public virtual void OnDead()
         {
             isDead = true;
             phaseManager.UpdateRemainEnemy();
