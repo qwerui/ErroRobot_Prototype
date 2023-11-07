@@ -62,21 +62,28 @@ public class TutorialManager : MonoBehaviour
     
     public void Skip()
     {
+        allowNextPhase = true;
         SoundQueue.instance.PlaySFX(clip);
         onTutorialEnd.Invoke();
         gameObject.SetActive(false);
     }
 
+    public void CheckEnd()
+    {
+        if(index >= dialogueContainers.Length-1)
+        {
+            Skip();
+        }
+    }
+
     public void Next()
     {
-
         dialogueBlocked = false;
         
         SoundQueue.instance.PlaySFX(clip);
 
-        if(index >= dialogueContainers.Length)
+        if(index >= dialogueContainers.Length-1)
         {
-            allowNextPhase = true;
             Skip();
         }
         else
@@ -192,7 +199,6 @@ public class TutorialManager : MonoBehaviour
                 EnemyInfo[] enemyInfoList = Resources.LoadAll<EnemyInfo>("Enemy");
                 foreach (EnemyInfo ei in enemyInfoList)
                 {
-                    Debug.Log(ei.id);
                     if (ei.id == 999)
                     {
                         var spawned = Instantiate<TutorialEnemy>(ei.prefab.GetComponent<TutorialEnemy>(), new Vector3(334.6f, 27.8f, 339.5f), Quaternion.Euler(30f, -125f, 0f));
@@ -216,7 +222,11 @@ public class TutorialManager : MonoBehaviour
         }
         
         conditionBase?.Init();
-        StartCoroutine(conditionBase?.ConditionCheck());
+        if(conditionBase != null)
+        {
+            StartCoroutine(conditionBase.ConditionCheck());
+        }
+        
         dialogueBlocked = true;
     }
 

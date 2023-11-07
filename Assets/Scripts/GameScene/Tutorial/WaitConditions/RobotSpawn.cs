@@ -17,7 +17,7 @@ public class RobotSpawn : IWaitConditionBase
     
     public void Init()
     {
-        mainCamera = Camera.current;
+        mainCamera = Camera.main;
         turretHead = mainCamera.gameObject.transform.Find("turret_head1").gameObject;
         turretHead.SetActive(false);
 

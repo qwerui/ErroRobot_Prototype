@@ -141,9 +141,9 @@ public class RewardManager : MonoBehaviour
     {
         rewardPanel.gameObject.SetActive(false);
 
-        reward.pickableCount--;
+        reward.currentPickable--;
 
-        if(reward.pickableCount <= 0)
+        if(reward.currentPickable <= 0)
         {
             rewards[reward.rarity].Remove(reward);
         }
