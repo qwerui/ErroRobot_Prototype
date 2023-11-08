@@ -16,7 +16,7 @@ public class WeaponController : MonoBehaviour
 
     // 카메라
     [SerializeField]
-    private Camera cam;
+    private CameraController cam;
 
     // 격발 위치 오브젝트 transform
     public Transform[] fireStartPos;
@@ -110,6 +110,16 @@ public class WeaponController : MonoBehaviour
         Vector3[] firePos = new Vector3[2];
         firePos[0] = fireStartPos[0].position;
         firePos[1] = fireStartPos[1].position;
+
+        var hit = cam.RaycastCheck();
+
+        Vector3 fireDirection = cam.transform.forward.normalized;
+        
+        if(hit.collider != null)
+        {
+            fireDirection = hit.point - firePos[_fireSeq];
+            fireDirection = fireDirection.normalized;
+        }
         //Vector3 firePos = cam.transform.position;
         //Vector3 temp = new Vector3(0, 0.5f, 0);
 
@@ -119,7 +129,7 @@ public class WeaponController : MonoBehaviour
         // TODO : 총알 발사 (파티클, 사운드)
         // currentWeapon.Shoot(firePos - temp, cam.transform.forward.normalized - temp);
         //currentWeapon.Shoot(firePos - temp, cam.transform.forward.normalized);
-        currentWeapon.Shoot(firePos[fireSeq], cam.transform.forward.normalized);
+        currentWeapon.Shoot(firePos[fireSeq], fireDirection);
 
         if (_fireSeq == 0)
             _fireSeq = 1;

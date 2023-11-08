@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14bb055f8ee2f9d4ea5e244e3f9c763a, type: 3}
-  m_Name: 0
+  m_Name: 3
   m_EditorClassIdentifier: 
-  id: 0
-  icon: {fileID: 21300000, guid: 25e27f3fe6ac29e4d99190693b4c6851, type: 3}
-  weapon: {fileID: 2997554684500041838, guid: 46774a0d4c5d7d94982bb4f3334b159a, type: 3}
+  id: 3
+  icon: {fileID: 21300000, guid: e25521b4556159b4e8fd95bada3f1a6b, type: 3}
+  weapon: {fileID: -1384754086415200858, guid: 2092654be34835b40adf93cb568d49ae, type: 3}

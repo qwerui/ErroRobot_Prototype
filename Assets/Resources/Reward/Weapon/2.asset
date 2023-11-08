@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: 2
   m_EditorClassIdentifier: 
   id: 2
-  icon: {fileID: 21300000, guid: 7fc280520686aee448144011afec04f8, type: 3}
+  icon: {fileID: 21300000, guid: f6601b9134eb5b84aae58b06eb9f0230, type: 3}
   weapon: {fileID: 7379442554004447077, guid: 76897221ffc5ac34f90799523bf86042, type: 3}
