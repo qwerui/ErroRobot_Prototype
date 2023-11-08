@@ -20,14 +20,8 @@ public class SerialPortManager : MonoBehaviour
     [SerializeField]
     private int baudRate = 9600;
 
-    private SerialPort sp;
-
-    public float axisX = 0;
-    public float axisY = 0;
-    public bool aIsPush = false;
-    public bool bIsPush = false;
-
-    string key_str;
+    public SerialPort sp;
+    public char _key;
 
     void Awake()
     {
@@ -60,7 +54,7 @@ public class SerialPortManager : MonoBehaviour
     void Start()
     {
         string[] abc = SerialPort.GetPortNames();
-        Debug.Log(abc[0] + "   " + abc[1]);
+        // Debug.Log(abc[0] + "   " + abc[1]);
         sp = new SerialPort("COM4", baudRate, Parity.None, 8, StopBits.One);
 
         if (!sp.IsOpen)
@@ -75,62 +69,18 @@ public class SerialPortManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        Debug.Log(sp.IsOpen + " " + sp.BaudRate.ToString());
-        if (sp.IsOpen)
+        if (!sp.IsOpen)
         {
-            switch (sp.ReadByte())
-            {
-                case 75: //right
-                    axisX += -1;
-                    break;
-
-                case 77: //left
-                    axisX += 1;
-                    break;
-
-                case 72: //up
-                    axisY += -1;
-                    break;
-
-                case 80: //down
-                    axisY += 1;
-                    break;
-
-                case 97:
-                    aIsPush = true;
-                    break;
-
-                case 98:
-                    bIsPush = true;
-                    break;
-
-                default:
-                    axisX = axisX;
-                    axisY = axisY;
-                    aIsPush = false;
-                    aIsPush = false;
-                    break;
-            }
+            sp.Close();
         }
 
-        Debug.Log("Axis X : " + axisX + ", Axis Y : " + axisY + ", a is push : " + aIsPush + ", b is push : " + bIsPush + "\n");
-
-        //transform.eulerAngles = new Vector3(axisY * 1, axisX * 1, 0);
-
-
-        //axisX += Input.GetAxis("Mouse X") * 10;
-        //axisY += Input.GetAxis("Mouse Y") * -10;
-        //transform.eulerAngles = new Vector3(axisY, axisX, 0);
-        */
         try
         {
-            Debug.Log((char)sp.ReadByte());
-            key_str = sp.ReadByte().ToString();
+            _key = (char)sp.ReadChar();
         }
         catch (System.Exception e)
         {
-            Debug.Log("Timeout");
+            Debug.Log("Timeout " + e);
         }
 
     }
