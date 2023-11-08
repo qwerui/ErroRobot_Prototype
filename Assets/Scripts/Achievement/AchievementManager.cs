@@ -90,6 +90,9 @@ public class AchievementManager : MonoBehaviour
                         case StatusType.ShieldRecover:
                             startStatus.shieldRecovery += succeed.rewardValue;
                         break;
+                        case StatusType.WeaponSlot:
+                            startStatus.weaponSlot += 1;
+                        break;
                     }
 
                     JSONParser.SaveJSON<StartStatus>($"{Application.streamingAssetsPath}/StartStatus.json", startStatus);

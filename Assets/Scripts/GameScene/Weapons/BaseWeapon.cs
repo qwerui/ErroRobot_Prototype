@@ -28,6 +28,7 @@ public class BaseWeapon : MonoBehaviour
     public List<int> enhanceIdList = new(); // 적용된 강화 ID 목록
 
     public System.Action OnFire; // 발사 이벤트, 무기 슬롯 업데이트용
+    public System.Action OnReload; // 장전 이벤트
 
     // TODO : 적용 시 애니매이션은?
 
@@ -42,6 +43,10 @@ public class BaseWeapon : MonoBehaviour
         Vector3 acc_value = new Vector3(Random.Range(-1f, 1f) * accuracy, Random.Range(-1, 1f) * accuracy, 0f);
         bullet.GetComponent<Rigidbody>().AddForce((_direction + acc_value) * bulletSpeed, ForceMode.Impulse);
 
+        if(fireSound != null)
+        {
+            SoundQueue.instance.PlaySFX(fireSound);
+        }
         OnFire?.Invoke();
     }
 

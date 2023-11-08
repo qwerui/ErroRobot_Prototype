@@ -35,6 +35,7 @@ public class WeaponSlot : MonoBehaviour
         this.weapon.nowBulletCount = this.weapon.maxBulletCount;
 
         this.weapon.OnFire += UpdateBullet;
+        this.weapon.OnReload += UpdateReloadFill;
 
         bulletText.enabled = true;
         itemIcon.enabled = true;
@@ -47,5 +48,22 @@ public class WeaponSlot : MonoBehaviour
     {
         bulletText.SetText(weapon.nowBulletCount.ToString());
         bulletPercentage.fillAmount = weapon.nowBulletCount / (float)weapon.maxBulletCount;
+    }
+
+    public void UpdateReloadFill()
+    {
+        StartCoroutine(FillingSlot());
+    }
+
+    IEnumerator FillingSlot()
+    {
+        float reloadingTime = 0;
+        while(reloadingTime < weapon.reloadDelay)
+        {
+            reloadingTime += Time.deltaTime;
+            bulletPercentage.fillAmount = reloadingTime/weapon.reloadDelay;
+            yield return null;
+        }
+        bulletPercentage.fillAmount = 1.0f;
     }
 }
