@@ -89,6 +89,7 @@ public class WeaponManager : MonoBehaviour, IGameUI
                 var reward = JSONParser.ReadJSON<WeaponEnhanceReward>($"{Application.streamingAssetsPath}/Rewards/{enhanceId}.json");
                 instantiated.Enhance(reward.enhanceType, reward.enhanceValue);
             }
+            rewardManager.LoadEnhanceReward(weapon.id);
             loadIndex++;
         }
 

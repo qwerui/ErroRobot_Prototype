@@ -50,7 +50,7 @@ public class TowerManager : MonoBehaviour
             textNotifier.Activate("변경할 타워를 선택해주세요");
             towerSlotList.alterTowerCallback += textNotifier.Deactivate;
             towerSlotList.alterTowerCallback += () => MoveTower(created);
-            towerSlotList.AlterTower(newTower);
+            towerSlotList.AlterTower(created);
         }
 
         return created;

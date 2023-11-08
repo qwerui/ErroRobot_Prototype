@@ -63,13 +63,20 @@ public class RewardManager : MonoBehaviour
                 break;
                 case RewardType.Enhance:
                     WeaponEnhanceReward enhance = JsonUtility.FromJson<WeaponEnhanceReward>(rewardJson);
-                    
-                    //무기 강화 보상은 무기 획득 시 메인에 추가
-                    if(!enhanceCache.ContainsKey(enhance.targetId))
+
+                    if (enhance.targetId == 0) //기본 무기는 처음부터 강화 보상이 열림
                     {
-                        enhanceCache[enhance.targetId] = new List<WeaponEnhanceReward>();
+                        rewards[enhance.rarity].Add(enhance);
                     }
-                    enhanceCache[enhance.targetId].Add(enhance);
+                    else
+                    {
+                        //무기 강화 보상은 무기 획득 시 메인에 추가
+                        if (!enhanceCache.ContainsKey(enhance.targetId))
+                        {
+                            enhanceCache[enhance.targetId] = new List<WeaponEnhanceReward>();
+                        }
+                        enhanceCache[enhance.targetId].Add(enhance);
+                    }
                     reward = enhance; 
                 break;
             }
@@ -166,13 +173,7 @@ public class RewardManager : MonoBehaviour
             case RewardType.Weapon:
                 var weaponReward = reward as WeaponReward;
                 weaponManager.SetWeapon(weaponReward.weapon);
-                if (enhanceCache.ContainsKey(weaponReward.weaponId))
-                {
-                    foreach (WeaponEnhanceReward weaponEnhanceReward in enhanceCache[weaponReward.weaponId])
-                    {
-                        rewards[weaponEnhanceReward.rarity].Add(weaponEnhanceReward);
-                    }
-                }
+                LoadEnhanceReward(weaponReward.weaponId);
                 JSONParser.SaveJSON<WeaponReward>($"{Application.streamingAssetsPath}/Rewards/{weaponReward.id}.json", weaponReward);
             break;
             case RewardType.Tower:
@@ -209,6 +210,18 @@ public class RewardManager : MonoBehaviour
                 }
                 return false;
             });
+        }
+    }
+
+    public void LoadEnhanceReward(int weaponId)
+    {
+        
+        if (enhanceCache.ContainsKey(weaponId))
+        {
+            foreach (WeaponEnhanceReward weaponEnhanceReward in enhanceCache[weaponId])
+            {
+                rewards[weaponEnhanceReward.rarity].Add(weaponEnhanceReward);
+            }
         }
     }
 

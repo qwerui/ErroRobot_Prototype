@@ -76,7 +76,6 @@ public class PlayerStatus : MonoBehaviour
             killCount = value;
             gameRecord.killCount = killCount + beforeKillCount;
             OnChange_KillCount?.Invoke(gameRecord.killCount);
-            SaveGameRecord();
         }
         get{return killCount;}
     }
@@ -86,7 +85,6 @@ public class PlayerStatus : MonoBehaviour
         {
             gameRecord.playCount = value;
             OnChange_PlayCount?.Invoke(gameRecord.playCount);
-            SaveGameRecord();
         }
         get{return gameRecord.playCount;}
     }
@@ -96,7 +94,6 @@ public class PlayerStatus : MonoBehaviour
         {
             gameRecord.clearCount = value;
             OnChange_ClearCount?.Invoke(gameRecord.clearCount);
-            SaveGameRecord();
         }
         get{return gameRecord.clearCount;}
     }
@@ -106,7 +103,6 @@ public class PlayerStatus : MonoBehaviour
         {
             gameRecord.waveCount = value;
             OnChange_WaveCount?.Invoke(gameRecord.waveCount);
-            SaveGameRecord();
         }
         get {return gameRecord.waveCount;}
     }
@@ -134,7 +130,7 @@ public class PlayerStatus : MonoBehaviour
     
 #endregion
 
-    void SaveGameRecord() => JSONParser.SaveJSON<GameRecord>($"{Application.streamingAssetsPath}/GameRecord.json", gameRecord);
+    public void SaveGameRecord() => JSONParser.SaveJSON<GameRecord>($"{Application.streamingAssetsPath}/GameRecord.json", gameRecord);
 
     private void Update() 
     {
