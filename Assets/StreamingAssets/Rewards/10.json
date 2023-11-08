@@ -1,1 +1,1 @@
-{"id":10,"title":"실드 생성기 강화","description":"실드의 초당 회복량이 1 증가한다","type":0,"rarity":0,"imagePath":"ShieldRecover","pickableCount":10,"currentPickable":10,"isUnlocked":true,"statusType":3,"value":1.0}
+﻿{"id":10,"title":"실드 생성기 강화","description":"실드의 초당 회복량이 1 증가한다","type":0,"rarity":0,"imagePath":"ShieldRecover","pickableCount":10,"currentPickable":9,"isUnlocked":true,"statusType":3,"value":1.0}
