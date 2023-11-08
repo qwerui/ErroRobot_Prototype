@@ -150,6 +150,7 @@ public class WeaponController : MonoBehaviour
 
         // TOOD : yield 개념 확실히 잡기
         // 장전 시간 동안 대기
+        currentWeapon.OnReload.Invoke();
         yield return new WaitForSeconds(currentWeapon.reloadDelay);
 
         currentWeapon.nowBulletCount = currentWeapon.maxBulletCount;
