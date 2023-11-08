@@ -1,1 +1,1 @@
-﻿{"id":3001,"title":"수리 타워","description":"웨이브가 종료되었을 경우 관제탑의 체력을 회복한다","type":2,"rarity":2,"imagePath":"HPFix","pickableCount":3,"currentPickable":3,"isUnlocked":false,"towerId":1}
+﻿{"id":3001,"title":"수리 타워","description":"웨이브가 종료되었을 경우 관제탑의 체력을 회복한다","type":2,"rarity":2,"imagePath":"FixTower","pickableCount":3,"currentPickable":3,"isUnlocked":false,"towerId":1}

@@ -83,4 +83,9 @@ public class PlayerController : MonoBehaviour
             controllerPlatform.Reset();
         }
     }
+
+    public bool CheckKeyboardMode()
+    {
+        return true;
+    }
 }
