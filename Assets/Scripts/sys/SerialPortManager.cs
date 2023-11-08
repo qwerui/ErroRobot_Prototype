@@ -23,19 +23,6 @@ public class SerialPortManager : MonoBehaviour
     public SerialPort sp;
     public char _key;
 
-    void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
-
     public static SerialPortManager Instance
     {
         get
@@ -47,6 +34,27 @@ public class SerialPortManager : MonoBehaviour
 
             return _instance;
 
+        }
+    }
+
+    public static void Init()
+    {
+        if (_instance == null)
+        {
+            var controllerPrefab = Resources.Load<SerialPortManager>("System/SerialPortManager");
+            _instance = Instantiate<SerialPortManager>(controllerPrefab);
+        }
+    }
+    void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
     }
 

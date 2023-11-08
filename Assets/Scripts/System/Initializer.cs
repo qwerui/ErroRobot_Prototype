@@ -11,6 +11,7 @@ public static class Initializer
     {
         PlayerController.Init();
         SoundQueue.Init();
+        SerialPortManager.Init();
         DOTween.KillAll();
     }
 }

@@ -7,7 +7,9 @@ public class KeyboardController : IControllerPlatform
     Dictionary<KeyCode, Vector2> navigateDict = new Dictionary<KeyCode, Vector2>();
     Dictionary<char, Vector2> navigateDict_ctrl = new Dictionary<char, Vector2>();
     Vector2 NaviVector = Vector2.zero;
-    
+    int isButtonPush_J = 0;
+    int isButtonPush_K = 0;
+
     public KeyboardController()
     {
         navigateDict.Add(KeyCode.UpArrow, Vector2.up);
@@ -33,169 +35,190 @@ public class KeyboardController : IControllerPlatform
 
     public void Execute(IControllerBase controller)
     {
-        
-#region OnPressed
+
+        #region OnPressed
         bool isNavigate = false;
-        foreach(KeyCode key in navigateDict.Keys)
-        {    
-            if(Input.GetKeyDown(key))
+        foreach (KeyCode key in navigateDict.Keys)
+        {
+            if (Input.GetKeyDown(key))
             {
                 isNavigate = true;
                 NaviVector += navigateDict[key];
             }
         }
 
-        if( SerialPortManager.Instance.sp.IsOpen )
+        if (SerialPortManager.Instance.sp.IsOpen)
         {
-            switch( SerialPortManager.Instance._key )
+            switch (SerialPortManager.Instance._key)
             {
                 case 'W':
-                    if( NaviVector.y <= 0.0 )
+                    if (NaviVector.y <= 0.0)
                     {
                         isNavigate = true;
                         NaviVector += navigateDict_ctrl['w'];
                     }
-                break;
+                    break;
 
                 case 'S':
-                    if( NaviVector.y >= 0.0 )
+                    if (NaviVector.y >= 0.0)
                     {
                         isNavigate = true;
                         NaviVector += navigateDict_ctrl['s'];
                     }
-                break;
+                    break;
 
                 case 'D':
-                    if( NaviVector.x <= 0.0 )
+                    if (NaviVector.x <= 0.0)
                     {
                         isNavigate = true;
                         NaviVector += navigateDict_ctrl['d'];
                     }
-                break;
-            
+                    break;
+
                 case 'A':
-                    if( NaviVector.x >= 0.0 )
+                    if (NaviVector.x >= 0.0)
                     {
                         isNavigate = true;
                         NaviVector += navigateDict_ctrl['a'];
                     }
-                break;
+                    break;
+            }
 
-                case 'J':
+            if (isButtonPush_J == 0)
+            {
+                if (SerialPortManager.Instance._key == 'J')
+                {
+                    isButtonPush_J = 1;
                     controller.OnSubmit(InputEvent.Pressed);
-                break;
+                }
+            }
 
-                case 'K':
+            if (isButtonPush_K == 0)
+            {
+                if (SerialPortManager.Instance._key == 'K')
+                {
+                    isButtonPush_K = 1;
                     controller.OnCancel(InputEvent.Pressed);
-                break;
+                }
             }
         }
 
-        if(isNavigate)
+        if (isNavigate)
         {
             controller.OnNavigate(NaviVector, InputEvent.Pressed);
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             controller.OnSubmit(InputEvent.Pressed);
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             controller.OnCancel(InputEvent.Pressed);
         }
 
-#endregion
-#region OnReleased
+        #endregion
+        #region OnReleased
 
         isNavigate = false;
-        foreach(KeyCode key in navigateDict.Keys)
-        {    
-            if(Input.GetKeyUp(key))
+        foreach (KeyCode key in navigateDict.Keys)
+        {
+            if (Input.GetKeyUp(key))
             {
                 isNavigate = true;
                 NaviVector -= navigateDict[key];
             }
         }
 
-        if( SerialPortManager.Instance.sp.IsOpen )
+        if (SerialPortManager.Instance.sp.IsOpen)
         {
-            switch( SerialPortManager.Instance._key )
+            switch (SerialPortManager.Instance._key)
             {
                 case 'w':
-                    if( NaviVector.y > 0.0 )
+                    if (NaviVector.y > 0.0)
                     {
                         isNavigate = true;
                         NaviVector -= navigateDict_ctrl['w'];
                     }
-                break;
+                    break;
 
                 case 's':
-                    if( NaviVector.y < 0.0 )
+                    if (NaviVector.y < 0.0)
                     {
                         isNavigate = true;
                         NaviVector -= navigateDict_ctrl['s'];
                     }
-                break;
+                    break;
 
                 case 'd':
-                    if( NaviVector.x > 0.0 )
+                    if (NaviVector.x > 0.0)
                     {
                         isNavigate = true;
                         NaviVector -= navigateDict_ctrl['d'];
                     }
-                break;
-            
+                    break;
+
                 case 'a':
-                    if( NaviVector.x < 0.0 )
+                    if (NaviVector.x < 0.0)
                     {
                         isNavigate = true;
                         NaviVector -= navigateDict_ctrl['a'];
                     }
-                break;
+                    break;
+            }
 
-                case 'j':
+            if (isButtonPush_J == 1)
+            {
+                if (SerialPortManager.Instance._key == 'j')
+                {
+                    isButtonPush_J = 0;
                     controller.OnSubmit(InputEvent.Released);
-                break;
+                }
+            }
 
-                case 'k':
+            if (isButtonPush_K == 1)
+            {
+                if (SerialPortManager.Instance._key == 'j')
+                {
+                    isButtonPush_K = 0;
                     controller.OnCancel(InputEvent.Released);
-                break;
+                }
             }
         }
+        Debug.Log(isButtonPush_J);
 
-        if(isNavigate)
+        if (isNavigate)
         {
             controller.OnNavigate(NaviVector, InputEvent.Released);
         }
 
-        if(Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             controller.OnSubmit(InputEvent.Released);
         }
 
-        if(Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape))
         {
             controller.OnCancel(InputEvent.Released);
         }
-#endregion
-#region Dial
-        if(controller is IDialControl)
+        #endregion
+        #region Dial
+        if (controller is IDialControl)
         {
             IDialControl tempController = controller as IDialControl;
 
-            if(Input.GetKeyDown(KeyCode.LeftControl))
+            if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 tempController.OnDial(InputEvent.Pressed);
             }
 
-            if(Input.GetKeyUp(KeyCode.LeftControl))
+            if (Input.GetKeyUp(KeyCode.LeftControl))
             {
                 tempController.OnDial(InputEvent.Released);
             }
         }
-#endregion
+        #endregion
 
     }
 }

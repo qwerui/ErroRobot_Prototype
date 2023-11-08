@@ -784,56 +784,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &147511291
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 147511293}
-  - component: {fileID: 147511292}
-  m_Layer: 0
-  m_Name: test
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &147511292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 147511291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 352a155717b42db4fabcd4fc4a64849e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  portNumber: 3
-  baudRate: 9600
-  axisX: 0
-  axisY: 0
-  aIsPush: 0
-  bIsPush: 0
---- !u!4 &147511293
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 147511291}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 233.7281, y: 129.05502, z: 246.5083}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 23
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &183805020
 GameObject:
   m_ObjectHideFlags: 0
@@ -1755,6 +1705,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameEndTitle: {fileID: 1486940674}
+  killedText: {fileID: 0}
+  gainedText: {fileID: 0}
+  gameOverClip: {fileID: 0}
 --- !u!1 &374312582
 GameObject:
   m_ObjectHideFlags: 0
@@ -3154,6 +3107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8440c413ec3d56a48a8f658aa30551da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnCameraMoved:
+    m_PersistentCalls:
+      m_Calls: []
   mouseSpeed: 4
   keyboardSpeed: 0.1
 --- !u!1 &670030173
@@ -4257,11 +4213,14 @@ MonoBehaviour:
   shieldRecovery: 0
   coreGainPercent: 0
   core: 0
-  playCount: 0
   killCount: 0
-  roundCount: 0
-  clearCount: 0
-  waveCount: 0
+  gainedAllCore: 0
+  gameRecord:
+    roundCount: 0
+    clearCount: 0
+    waveCount: 0
+    playCount: 0
+    killCount: 0
 --- !u!4 &827913351
 Transform:
   m_ObjectHideFlags: 0
@@ -4381,8 +4340,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 827913350}
+  towerName: {fileID: 0}
   upgradeText: {fileID: 338694495}
   towerManager: {fileID: 757667819}
+  upgradeClip: {fileID: 0}
 --- !u!114 &834246458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9432,14 +9393,16 @@ MonoBehaviour:
   isDefense: 0
   remainEnemy: 0
   go_defenseUI: {fileID: 1898280375}
+  playerStatus: {fileID: 827913350}
   buildController: {fileID: 1508985113}
   defenceController: {fileID: 379154924}
   gameoverController: {fileID: 1235452584}
   UI: {fileID: 250127422}
-  playerStatus: {fileID: 827913350}
   saveManager: {fileID: 1196440660}
   towerManager: {fileID: 757667819}
   weaponManager: {fileID: 1628904242}
+  buildClip: {fileID: 0}
+  battleClip: {fileID: 0}
 --- !u!4 &1523325108
 Transform:
   m_ObjectHideFlags: 0
@@ -10359,6 +10322,9 @@ MonoBehaviour:
   weaponController: {fileID: 739776439}
   rewardManager: {fileID: 1186157670}
   textNotifier: {fileID: 2077342360}
+  OnWeaponChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1628904243
 Transform:
   m_ObjectHideFlags: 0
