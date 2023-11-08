@@ -115,6 +115,7 @@ public class PhaseManager : MonoBehaviour
     public void Gameover()
     {
         isGameEnd = true;
+        saveManager.DeleteSave();
         Time.timeScale = 0.0f;
         gameoverController.gameObject.SetActive(true);
         UI.OnGameover();
@@ -123,6 +124,7 @@ public class PhaseManager : MonoBehaviour
     public void GameClear()
     {
         isGameEnd = true;
+        saveManager.DeleteSave();
         Time.timeScale = 0.0f;
         gameoverController.gameObject.SetActive(true);
         UI.OnGameClear();
@@ -137,6 +139,7 @@ public class PhaseManager : MonoBehaviour
         {
             playerStatus.WaveCount++;
             wave++;
+            playerStatus.SaveGameRecord();
 
             if(wave > 5)
             {
@@ -154,6 +157,13 @@ public class PhaseManager : MonoBehaviour
     {
         OnWaveStart.Invoke();
     }
+
+#if UNITY_EDITOR
+    public void InvokeEnd()
+    {
+        OnWaveEnd.Invoke();
+    }
+#endif
 
     // void Update()
     // {

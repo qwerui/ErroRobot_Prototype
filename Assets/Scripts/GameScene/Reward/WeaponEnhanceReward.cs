@@ -13,6 +13,7 @@ public class WeaponEnhanceReward : Reward
 public enum EnhanceType
 {
     Damage,
-    MaxHP,
-    Delay
+    MaxBullet,
+    Delay,
+    ReloadDelay
 }

@@ -65,9 +65,16 @@ public class SerialPortManager : MonoBehaviour
         // Debug.Log(abc[0] + "   " + abc[1]);
         sp = new SerialPort("COM4", baudRate, Parity.None, 8, StopBits.One);
 
-        if (!sp.IsOpen)
+        try
         {
-            sp.Open();
+            if (!sp.IsOpen)
+            {
+                sp.Open();
+            }
+        }
+        catch(System.Exception)
+        {
+            //컨트롤러가 없을 경우
         }
 
         sp.ReadTimeout = 0;

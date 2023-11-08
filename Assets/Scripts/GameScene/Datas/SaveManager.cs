@@ -41,6 +41,7 @@ public class SaveManager : MonoBehaviour
         if(saveData != null)
         {
             saveData.isLoadable = false;
+            JSONParser.SaveJSON<SaveData>($"{Application.persistentDataPath}/SaveData.json", saveData);
         }
     }
 }
