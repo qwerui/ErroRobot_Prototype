@@ -1,1 +1,1 @@
-﻿{"id":7001,"title":"재장전 강화","description":"기본 무기의 재장전 속도가 증가한다","type":3,"rarity":1,"imagePath":"MaxHp","pickableCount":2,"currentPickable":2,"isUnlocked":true,"targetId":0,"enhanceType":3,"enhanceValue":0.10000000149011612}
+﻿{"id":7001,"title":"재장전 강화","description":"기본 무기의 재장전 속도가 증가한다","type":3,"rarity":1,"imagePath":"FirstWeaponReload","pickableCount":2,"currentPickable":2,"isUnlocked":true,"targetId":0,"enhanceType":3,"enhanceValue":0.10000000149011612}

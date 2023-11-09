@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\uAE30\uAD00\uCD1D"
-  accuracy: 0.02
+  accuracy: 0.03
   bulletSpeed: 1000
   fireDelay: 0.1
   reloadDelay: 1
