@@ -7,8 +7,9 @@ public class KeyboardController : IControllerPlatform
     Dictionary<KeyCode, Vector2> navigateDict = new Dictionary<KeyCode, Vector2>();
     Dictionary<char, Vector2> navigateDict_ctrl = new Dictionary<char, Vector2>();
     Vector2 NaviVector = Vector2.zero;
-    int isButtonPush_J = 0;
-    int isButtonPush_K = 0;
+    int isButtonPush_A = 0;
+    int isButtonPush_B = 0;
+    int isButtonPush_C = 0;
 
     public KeyboardController()
     {
@@ -84,20 +85,20 @@ public class KeyboardController : IControllerPlatform
                     break;
             }
 
-            if (isButtonPush_J == 0)
+            if (isButtonPush_A == 0)
             {
                 if (SerialPortManager.Instance._key == 'J')
                 {
-                    isButtonPush_J = 1;
+                    isButtonPush_A = 1;
                     controller.OnSubmit(InputEvent.Pressed);
                 }
             }
 
-            if (isButtonPush_K == 0)
+            if (isButtonPush_B == 0)
             {
                 if (SerialPortManager.Instance._key == 'K')
                 {
-                    isButtonPush_K = 1;
+                    isButtonPush_B = 1;
                     controller.OnCancel(InputEvent.Pressed);
                 }
             }
@@ -168,25 +169,24 @@ public class KeyboardController : IControllerPlatform
                     break;
             }
 
-            if (isButtonPush_J == 1)
+            if (isButtonPush_A == 1)
             {
                 if (SerialPortManager.Instance._key == 'j')
                 {
-                    isButtonPush_J = 0;
+                    isButtonPush_A = 0;
                     controller.OnSubmit(InputEvent.Released);
                 }
             }
 
-            if (isButtonPush_K == 1)
+            if (isButtonPush_B == 1)
             {
                 if (SerialPortManager.Instance._key == 'j')
                 {
-                    isButtonPush_K = 0;
+                    isButtonPush_B = 0;
                     controller.OnCancel(InputEvent.Released);
                 }
             }
         }
-        Debug.Log(isButtonPush_J);
 
         if (isNavigate)
         {
@@ -216,6 +216,24 @@ public class KeyboardController : IControllerPlatform
             if (Input.GetKeyUp(KeyCode.LeftControl))
             {
                 tempController.OnDial(InputEvent.Released);
+            }
+
+            if (isButtonPush_C == 0)
+            {
+                if (SerialPortManager.Instance._key == 'L')
+                {
+                    isButtonPush_C = 1;
+                    controller.OnSubmit(InputEvent.Pressed);
+                }
+            }
+
+            if (isButtonPush_C == 1)
+            {
+                if (SerialPortManager.Instance._key == 'l')
+                {
+                    isButtonPush_C = 0;
+                    controller.OnSubmit(InputEvent.Released);
+                }
             }
         }
         #endregion
