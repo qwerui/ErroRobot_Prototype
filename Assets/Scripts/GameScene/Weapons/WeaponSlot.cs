@@ -65,5 +65,6 @@ public class WeaponSlot : MonoBehaviour
             yield return null;
         }
         bulletPercentage.fillAmount = 1.0f;
+        bulletText.SetText(weapon.maxBulletCount.ToString());
     }
 }

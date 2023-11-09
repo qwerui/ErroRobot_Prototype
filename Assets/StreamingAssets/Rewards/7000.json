@@ -1,1 +1,1 @@
-﻿{"id":7000,"title":"공격 강화","description":"기본 무기의 데미지가 상승한다","type":3,"rarity":0,"imagePath":"MaxHp","pickableCount":3,"currentPickable":2,"isUnlocked":true,"targetId":0,"enhanceType":0,"enhanceValue":10.0}
+﻿{"id":7000,"title":"공격 강화","description":"기본 무기의 데미지가 상승한다","type":3,"rarity":0,"imagePath":"FirstWeaponAttack","pickableCount":3,"currentPickable":3,"isUnlocked":true,"targetId":0,"enhanceType":0,"enhanceValue":10.0}

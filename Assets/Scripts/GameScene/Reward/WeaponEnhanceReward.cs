@@ -15,5 +15,7 @@ public enum EnhanceType
     Damage,
     MaxBullet,
     Delay,
-    ReloadDelay
+    ReloadDelay,
+    AddtionalBullet,
+    Accuracy
 }
